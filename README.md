@@ -4,7 +4,7 @@ This project hosts a series of HowTos (cookbook) style GitHub repos, where each 
 
 Instructions about how to host Angular apps to GitHub Pages were taken from [Bits and Pieces](https://blog.bitsrc.io/deploy-your-angular-project-to-github-pages-7cbacb96f35b). 
 
-Use `ng deploy` to push to GitHub. Access the landing page [here](https://jfspps.github.io/howtos).
+Add `"baseHref": "/howtos/"` to `angular.json` and then (after pushing commits to the main branch) use `ng deploy` to deploy to GitHub Pages. Access the landing page [here](https://jfspps.github.io/howtos).
 
 # Angular generated 
 
