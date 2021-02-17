@@ -1,5 +1,11 @@
 # Howtos
 
+This project hosts a series of HowTos (cookbook) style GitHub repos, where each commit represents each step required to implement the core functionality. These repos can be used as starting points for new projects. Also included are my notes from various online courses.
+
+Instructions about how to host Angular apps to GitHub Pages were taken from [Bits and Pieces](https://blog.bitsrc.io/deploy-your-angular-project-to-github-pages-7cbacb96f35b).
+
+# Angular generated 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
 
 ## Development server
