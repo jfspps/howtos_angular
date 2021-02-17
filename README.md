@@ -2,7 +2,9 @@
 
 This project hosts a series of HowTos (cookbook) style GitHub repos, where each commit represents each step required to implement the core functionality. These repos can be used as starting points for new projects. Also included are my notes from various online courses.
 
-Instructions about how to host Angular apps to GitHub Pages were taken from [Bits and Pieces](https://blog.bitsrc.io/deploy-your-angular-project-to-github-pages-7cbacb96f35b).
+Instructions about how to host Angular apps to GitHub Pages were taken from [Bits and Pieces](https://blog.bitsrc.io/deploy-your-angular-project-to-github-pages-7cbacb96f35b). 
+
+Use `ng deploy` to push to GitHub. Access the landing page [here](https://jfspps.github.io/howtos).
 
 # Angular generated 
 
