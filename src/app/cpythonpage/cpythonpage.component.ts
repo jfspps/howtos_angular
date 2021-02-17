@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './cpythonpage.component.html',
   styleUrls: ['./cpythonpage.component.css']
 })
-export class CpythonPageComponent implements OnInit {
+export class CpythonpageComponent implements OnInit {
 
   constructor() { }
 
