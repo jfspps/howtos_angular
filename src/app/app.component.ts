@@ -7,4 +7,21 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'HowTos';
+  // default page
+  loadedPage = 'javaSpring';
+
+  onClickJava() {
+    console.log("Java"); 
+    this.loadedPage = 'javaSpring';
+  }
+
+  onClickAngular() {
+    console.log("Angular"); 
+    this.loadedPage = 'angularDatabases'
+  }
+
+  onClickCPython() {
+    console.log("CPython"); 
+    this.loadedPage = 'CPython';
+  }
 }
