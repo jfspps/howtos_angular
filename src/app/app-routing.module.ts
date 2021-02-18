@@ -9,10 +9,13 @@ import { AngularservicesComponent } from './angulardbpage/angularservices/angula
 import { HowtospageComponent } from './angulardbpage/howtospage/howtospage.component';
 import { SqlnotesComponent } from './angulardbpage/sqlnotes/sqlnotes.component';
 import { CpythonpageComponent } from './cpythonpage/cpythonpage.component';
+import { HomeComponent } from './home/home.component';
 import { JavapageComponent } from './javapage/javapage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+
   { path: 'javaSpring', component: JavapageComponent },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [

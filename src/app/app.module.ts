@@ -15,6 +15,7 @@ import { AngularbindingComponent } from './angulardbpage/angularbinding/angularb
 import { AngularservicesComponent } from './angulardbpage/angularservices/angularservices.component';
 import { AngularroutingComponent } from './angulardbpage/angularrouting/angularrouting.component';
 import { SqlnotesComponent } from './angulardbpage/sqlnotes/sqlnotes.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SqlnotesComponent } from './angulardbpage/sqlnotes/sqlnotes.component';
     AngularbindingComponent,
     AngularservicesComponent,
     AngularroutingComponent,
-    SqlnotesComponent
+    SqlnotesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
