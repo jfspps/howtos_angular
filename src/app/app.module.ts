@@ -9,6 +9,12 @@ import { AngulardbpageComponent } from './angulardbpage/angulardbpage.component'
 import { CpythonpageComponent } from './cpythonpage/cpythonpage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HowtospageComponent } from './angulardbpage/howtospage/howtospage.component';
+import { AngulardemoComponent } from './angulardbpage/angulardemo/angulardemo.component';
+import { AngulardirectivesComponent } from './angulardbpage/angulardirectives/angulardirectives.component';
+import { AngularbindingComponent } from './angulardbpage/angularbinding/angularbinding.component';
+import { AngularservicesComponent } from './angulardbpage/angularservices/angularservices.component';
+import { AngularroutingComponent } from './angulardbpage/angularrouting/angularrouting.component';
+import { SqlnotesComponent } from './angulardbpage/sqlnotes/sqlnotes.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,13 @@ import { HowtospageComponent } from './angulardbpage/howtospage/howtospage.compo
     AngulardbpageComponent,
     CpythonpageComponent,
     PageNotFoundComponent,
-    HowtospageComponent
+    HowtospageComponent,
+    AngulardemoComponent,
+    AngulardirectivesComponent,
+    AngularbindingComponent,
+    AngularservicesComponent,
+    AngularroutingComponent,
+    SqlnotesComponent
   ],
   imports: [
     BrowserModule,
