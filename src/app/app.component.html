@@ -7,17 +7,15 @@
       <p class="lead">New project startup templates and programming notes</p>
       <hr class="my-4">
 
-      <button class="btn btn-primary btn-lg" type="button" (click)="onClickJava()">Java and Spring</button>
-      <button class="btn btn-secondary btn-lg" type="button" (click)="onClickAngular()">Angular and databases</button>
-      <button class="btn btn-primary btn-lg" type="button" (click)="onClickCPython()">C++ and Python</button>
+      <button class="btn btn-outline-primary btn-lg" type="button" routerLink="/javaSpring">Java and Spring</button>
+      <button class="btn btn-outline-secondary btn-lg" type="button" routerLink="/AngularDB">Angular and databases</button>
+      <button class="btn btn-outline-primary btn-lg" type="button" routerLink="cPython">C++ and Python</button>
 
     </div>
 
     <div class="row">
       <div class="col">
-        <app-angulardbpage *ngIf="loadedPage === 'angularDatabases'"></app-angulardbpage>
-        <app-javapage *ngIf="loadedPage === 'javaSpring'"></app-javapage>
-        <app-cpythonpage *ngIf="loadedPage === 'CPython'"></app-cpythonpage>
+        <router-outlet></router-outlet>
       </div>
     </div>
   </body>
