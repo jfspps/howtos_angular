@@ -7,27 +7,23 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JavapageComponent } from './javapage/javapage.component';
 import { AngulardbpageComponent } from './angulardbpage/angulardbpage.component';
 import { CpythonpageComponent } from './cpythonpage/cpythonpage.component';
-import { RouterModule, Routes } from '@angular/router';
-
-const appRoutes: Routes = [
-  { path: 'javaSpring', component: JavapageComponent },
-  { path: 'AngularDB', component: AngulardbpageComponent },
-  { path: 'cPython', component: CpythonpageComponent }
-]
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HowtospageComponent } from './angulardbpage/howtospage/howtospage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     JavapageComponent,
     AngulardbpageComponent,
-    CpythonpageComponent
+    CpythonpageComponent,
+    PageNotFoundComponent,
+    HowtospageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
-    RouterModule.forRoot(appRoutes)
-  ],
+    NgbModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
