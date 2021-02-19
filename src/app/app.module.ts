@@ -16,6 +16,9 @@ import { AngularservicesComponent } from './angulardbpage/angularservices/angula
 import { AngularroutingComponent } from './angulardbpage/angularrouting/angularrouting.component';
 import { SqlnotesComponent } from './angulardbpage/sqlnotes/sqlnotes.component';
 import { HomeComponent } from './home/home.component';
+import { AdtalgorithmspageComponent } from './cpythonpage/adtalgorithmspage/adtalgorithmspage.component';
+import { BashslideComponent } from './cpythonpage/bashslide/bashslide.component';
+import { ComputationspageComponent } from './cpythonpage/computationspage/computationspage.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { HomeComponent } from './home/home.component';
     AngularservicesComponent,
     AngularroutingComponent,
     SqlnotesComponent,
-    HomeComponent
+    HomeComponent,
+    AdtalgorithmspageComponent,
+    BashslideComponent,
+    ComputationspageComponent
   ],
   imports: [
     BrowserModule,

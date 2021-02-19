@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { combineLatest } from 'rxjs';
+import { pathToFileURL } from 'url';
 import { AngularbindingComponent } from './angulardbpage/angularbinding/angularbinding.component';
 import { AngulardbpageComponent } from './angulardbpage/angulardbpage.component';
 import { AngulardemoComponent } from './angulardbpage/angulardemo/angulardemo.component';
@@ -8,6 +10,9 @@ import { AngularroutingComponent } from './angulardbpage/angularrouting/angularr
 import { AngularservicesComponent } from './angulardbpage/angularservices/angularservices.component';
 import { HowtospageComponent } from './angulardbpage/howtospage/howtospage.component';
 import { SqlnotesComponent } from './angulardbpage/sqlnotes/sqlnotes.component';
+import { AdtalgorithmspageComponent } from './cpythonpage/adtalgorithmspage/adtalgorithmspage.component';
+import { BashslideComponent } from './cpythonpage/bashslide/bashslide.component';
+import { ComputationspageComponent } from './cpythonpage/computationspage/computationspage.component';
 import { CpythonpageComponent } from './cpythonpage/cpythonpage.component';
 import { HomeComponent } from './home/home.component';
 import { JavapageComponent } from './javapage/javapage.component';
@@ -28,7 +33,11 @@ const appRoutes: Routes = [
     { path: 'SQL', component: SqlnotesComponent}
   ] },
 
-  { path: 'cPython', component: CpythonpageComponent },
+  { path: 'cPython', component: CpythonpageComponent, children: [
+    {path: 'algorithmsInC', component: AdtalgorithmspageComponent},
+    {path: 'bashSlide', component: BashslideComponent},
+    {path: 'computations', component: ComputationspageComponent}
+  ] },
   
   { path: '**', component: PageNotFoundComponent}
 ]
