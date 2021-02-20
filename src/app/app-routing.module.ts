@@ -15,34 +15,38 @@ import { BashslideComponent } from './cpythonpage/bashslide/bashslide.component'
 import { ComputationspageComponent } from './cpythonpage/computationspage/computationspage.component';
 import { CpythonpageComponent } from './cpythonpage/cpythonpage.component';
 import { HomeComponent } from './home/home.component';
-import { AndroidbuttonpageComponent } from './javapage/androidbuttonpage/androidbuttonpage.component';
-import { AndroidcalculatorpageComponent } from './javapage/androidcalculatorpage/androidcalculatorpage.component';
-import { AndroidcontentproviderspageComponent } from './javapage/androidcontentproviderspage/androidcontentproviderspage.component';
-import { AndroidflickrpageComponent } from './javapage/androidflickrpage/androidflickrpage.component';
-import { AndroidrssreaderpageComponent } from './javapage/androidrssreaderpage/androidrssreaderpage.component';
-import { AndroidtasktimerpageComponent } from './javapage/androidtasktimerpage/androidtasktimerpage.component';
-import { AndroidyoutubepageComponent } from './javapage/androidyoutubepage/androidyoutubepage.component';
+import { AndroidbuttonpageComponent } from './androidspring/androidbuttonpage/androidbuttonpage.component';
+import { AndroidcalculatorpageComponent } from './androidspring/androidcalculatorpage/androidcalculatorpage.component';
+import { AndroidcontentproviderspageComponent } from './androidspring/androidcontentproviderspage/androidcontentproviderspage.component';
+import { AndroidflickrpageComponent } from './androidspring/androidflickrpage/androidflickrpage.component';
+import { AndroidrssreaderpageComponent } from './androidspring/androidrssreaderpage/androidrssreaderpage.component';
+import { AndroidtasktimerpageComponent } from './androidspring/androidtasktimerpage/androidtasktimerpage.component';
+import { AndroidyoutubepageComponent } from './androidspring/androidyoutubepage/androidyoutubepage.component';
 import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaalgorithmspage.component';
 import { JavaclientserverpageComponent } from './javapage/javaclientserverpage/javaclientserverpage.component';
 import { JavadesignpatternspageComponent } from './javapage/javadesignpatternspage/javadesignpatternspage.component';
 import { JavafxgradleComponent } from './javapage/javafxgradle/javafxgradle.component';
 import { JavapageComponent } from './javapage/javapage.component';
 import { JavathreadspageComponent } from './javapage/javathreadspage/javathreadspage.component';
-import { SpringmvcpageComponent } from './javapage/springmvcpage/springmvcpage.component';
-import { SpringreactivepageComponent } from './javapage/springreactivepage/springreactivepage.component';
-import { SpringrestapipageComponent } from './javapage/springrestapipage/springrestapipage.component';
-import { SpringsecuritypageComponent } from './javapage/springsecuritypage/springsecuritypage.component';
+import { SpringmvcpageComponent } from './androidspring/springmvcpage/springmvcpage.component';
+import { SpringreactivepageComponent } from './androidspring/springreactivepage/springreactivepage.component';
+import { SpringrestapipageComponent } from './androidspring/springrestapipage/springrestapipage.component';
+import { SpringsecuritypageComponent } from './androidspring/springsecuritypage/springsecuritypage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AndroidspringComponent } from './androidspring/androidspring.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
-  { path: 'javaSpring', component: JavapageComponent, children: [
+  { path: 'java', component: JavapageComponent, children: [
     { path: 'javaThreads', component: JavathreadspageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaAlgorithms', component: JavaalgorithmspageComponent},
-    { path: 'javafxGradle', component: JavafxgradleComponent},
+    { path: 'javafxGradle', component: JavafxgradleComponent}
+  ] },
+
+  { path: 'androidSpring', component: AndroidspringComponent, children: [
     { path: 'springMVC', component: SpringmvcpageComponent},
     { path: 'springSecurity', component: SpringsecuritypageComponent},
     { path: 'springREST', component: SpringrestapipageComponent},

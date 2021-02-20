@@ -23,18 +23,19 @@ import { JavathreadspageComponent } from './javapage/javathreadspage/javathreads
 import { JavaclientserverpageComponent } from './javapage/javaclientserverpage/javaclientserverpage.component';
 import { JavadesignpatternspageComponent } from './javapage/javadesignpatternspage/javadesignpatternspage.component';
 import { JavafxgradleComponent } from './javapage/javafxgradle/javafxgradle.component';
-import { SpringmvcpageComponent } from './javapage/springmvcpage/springmvcpage.component';
-import { SpringsecuritypageComponent } from './javapage/springsecuritypage/springsecuritypage.component';
-import { SpringreactivepageComponent } from './javapage/springreactivepage/springreactivepage.component';
-import { SpringrestapipageComponent } from './javapage/springrestapipage/springrestapipage.component';
-import { AndroidbuttonpageComponent } from './javapage/androidbuttonpage/androidbuttonpage.component';
-import { AndroidcalculatorpageComponent } from './javapage/androidcalculatorpage/androidcalculatorpage.component';
-import { AndroidrssreaderpageComponent } from './javapage/androidrssreaderpage/androidrssreaderpage.component';
-import { AndroidyoutubepageComponent } from './javapage/androidyoutubepage/androidyoutubepage.component';
-import { AndroidflickrpageComponent } from './javapage/androidflickrpage/androidflickrpage.component';
-import { AndroidcontentproviderspageComponent } from './javapage/androidcontentproviderspage/androidcontentproviderspage.component';
-import { AndroidtasktimerpageComponent } from './javapage/androidtasktimerpage/androidtasktimerpage.component';
+import { SpringmvcpageComponent } from './androidspring/springmvcpage/springmvcpage.component';
+import { SpringsecuritypageComponent } from './androidspring/springsecuritypage/springsecuritypage.component';
+import { SpringreactivepageComponent } from './androidspring/springreactivepage/springreactivepage.component';
+import { SpringrestapipageComponent } from './androidspring/springrestapipage/springrestapipage.component';
+import { AndroidbuttonpageComponent } from './androidspring/androidbuttonpage/androidbuttonpage.component';
+import { AndroidcalculatorpageComponent } from './androidspring/androidcalculatorpage/androidcalculatorpage.component';
+import { AndroidrssreaderpageComponent } from './androidspring/androidrssreaderpage/androidrssreaderpage.component';
+import { AndroidyoutubepageComponent } from './androidspring/androidyoutubepage/androidyoutubepage.component';
+import { AndroidflickrpageComponent } from './androidspring/androidflickrpage/androidflickrpage.component';
+import { AndroidcontentproviderspageComponent } from './androidspring/androidcontentproviderspage/androidcontentproviderspage.component';
+import { AndroidtasktimerpageComponent } from './androidspring/androidtasktimerpage/androidtasktimerpage.component';
 import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaalgorithmspage.component';
+import { AndroidspringComponent } from './androidspring/androidspring.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaa
     AndroidflickrpageComponent,
     AndroidcontentproviderspageComponent,
     AndroidtasktimerpageComponent,
-    JavaalgorithmspageComponent
+    JavaalgorithmspageComponent,
+    AndroidspringComponent
   ],
   imports: [
     BrowserModule,
