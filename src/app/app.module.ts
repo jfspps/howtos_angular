@@ -8,7 +8,6 @@ import { JavapageComponent } from './javapage/javapage.component';
 import { AngulardbpageComponent } from './angulardbpage/angulardbpage.component';
 import { CpythonpageComponent } from './cpythonpage/cpythonpage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HowtospageComponent } from './angulardbpage/howtospage/howtospage.component';
 import { AngulardemoComponent } from './angulardbpage/angulardemo/angulardemo.component';
 import { AngulardirectivesComponent } from './angulardbpage/angulardirectives/angulardirectives.component';
 import { AngularbindingComponent } from './angulardbpage/angularbinding/angularbinding.component';
@@ -45,7 +44,6 @@ import { AppHeaderComponent } from './header/header.component';
     AngulardbpageComponent,
     CpythonpageComponent,
     PageNotFoundComponent,
-    HowtospageComponent,
     AngulardemoComponent,
     AngulardirectivesComponent,
     AngularbindingComponent,
