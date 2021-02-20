@@ -36,6 +36,7 @@ import { AndroidcontentproviderspageComponent } from './androidspring/androidcon
 import { AndroidtasktimerpageComponent } from './androidspring/androidtasktimerpage/androidtasktimerpage.component';
 import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaalgorithmspage.component';
 import { AndroidspringComponent } from './androidspring/androidspring.component';
+import { AppHeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { AndroidspringComponent } from './androidspring/androidspring.component'
     AndroidcontentproviderspageComponent,
     AndroidtasktimerpageComponent,
     JavaalgorithmspageComponent,
-    AndroidspringComponent
+    AndroidspringComponent,
+    AppHeaderComponent
   ],
   imports: [
     BrowserModule,
