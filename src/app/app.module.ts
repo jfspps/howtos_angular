@@ -19,6 +19,22 @@ import { HomeComponent } from './home/home.component';
 import { AdtalgorithmspageComponent } from './cpythonpage/adtalgorithmspage/adtalgorithmspage.component';
 import { BashslideComponent } from './cpythonpage/bashslide/bashslide.component';
 import { ComputationspageComponent } from './cpythonpage/computationspage/computationspage.component';
+import { JavathreadspageComponent } from './javapage/javathreadspage/javathreadspage.component';
+import { JavaclientserverpageComponent } from './javapage/javaclientserverpage/javaclientserverpage.component';
+import { JavadesignpatternspageComponent } from './javapage/javadesignpatternspage/javadesignpatternspage.component';
+import { JavafxgradleComponent } from './javapage/javafxgradle/javafxgradle.component';
+import { SpringmvcpageComponent } from './javapage/springmvcpage/springmvcpage.component';
+import { SpringsecuritypageComponent } from './javapage/springsecuritypage/springsecuritypage.component';
+import { SpringreactivepageComponent } from './javapage/springreactivepage/springreactivepage.component';
+import { SpringrestapipageComponent } from './javapage/springrestapipage/springrestapipage.component';
+import { AndroidbuttonpageComponent } from './javapage/androidbuttonpage/androidbuttonpage.component';
+import { AndroidcalculatorpageComponent } from './javapage/androidcalculatorpage/androidcalculatorpage.component';
+import { AndroidrssreaderpageComponent } from './javapage/androidrssreaderpage/androidrssreaderpage.component';
+import { AndroidyoutubepageComponent } from './javapage/androidyoutubepage/androidyoutubepage.component';
+import { AndroidflickrpageComponent } from './javapage/androidflickrpage/androidflickrpage.component';
+import { AndroidcontentproviderspageComponent } from './javapage/androidcontentproviderspage/androidcontentproviderspage.component';
+import { AndroidtasktimerpageComponent } from './javapage/androidtasktimerpage/androidtasktimerpage.component';
+import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaalgorithmspage.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +53,23 @@ import { ComputationspageComponent } from './cpythonpage/computationspage/comput
     HomeComponent,
     AdtalgorithmspageComponent,
     BashslideComponent,
-    ComputationspageComponent
+    ComputationspageComponent,
+    JavathreadspageComponent,
+    JavaclientserverpageComponent,
+    JavadesignpatternspageComponent,
+    JavafxgradleComponent,
+    SpringmvcpageComponent,
+    SpringsecuritypageComponent,
+    SpringreactivepageComponent,
+    SpringrestapipageComponent,
+    AndroidbuttonpageComponent,
+    AndroidcalculatorpageComponent,
+    AndroidrssreaderpageComponent,
+    AndroidyoutubepageComponent,
+    AndroidflickrpageComponent,
+    AndroidcontentproviderspageComponent,
+    AndroidtasktimerpageComponent,
+    JavaalgorithmspageComponent
   ],
   imports: [
     BrowserModule,

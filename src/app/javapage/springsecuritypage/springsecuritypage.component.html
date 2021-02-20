@@ -1,0 +1,23 @@
+<h5>Spring Security demo</h5>
+
+<p>
+    This demo highlights the stages required to build in authentication and authorisation with Spring. A class, TestRecord, was applied as a test class for authenticated CRUD operations. The key features include:
+</p>
+
+<ul>
+    <li>Building a @Configuration bean by extending WebSecurityConfigurerAdapter to implement usernames and passwords</li>
+    <li>Configuring controller routes and Thymeleaf templates, with and without authentication requirements</li>
+    <li>Building custom Login pages, with 500 (wrong credentials given) response, rememberMe and HTTPS</li>
+    <li>Authority entity (a list of Users with the given authority) and Roles (ADMIN, USER, etc.)</li>
+    <li>User entity, with a list of Authority's (a user may belong to more than one Authority)</li>
+    <li>Role entity, with a list of Users (maps a role name ADMIN or USER etc., to a group of users)</li>
+    <li>Password encryption technologies e.g. BCrypt and Cross-Site Request Forgery (CSRF) protection</li>
+    <li>Custom Spring annotations, with @interface, that handle routing authentication</li>
+    <li>Gradual refactor from WebSecurityConfigurerAdapter extension to UserDetailsService</li>
+    <li>Introduction of Java's Optional's (non-null objects with nullable values)</li>
+    <li>User login/logout timestamps and 403 (forbidden) responses and other properties (lockout, expired, modified)</li>
+</ul>
+
+<p>
+    The GitHub repo is <a href="https://github.com/jfspps/Spring_weblogin" target="_blank">here</a>.
+</p>
