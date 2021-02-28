@@ -1,0 +1,37 @@
+
+<h4>Docker and MongoDB</h4>
+
+<p>
+    Port 27017 in the container is mapped to port 27016 on the Docker host with the -p parameter. Setting Spring to
+    access port 27016 (through application.properties) then establishes a connection to the container’s port 27017, the
+    default Mongo port. The docker command is:
+</p>
+
+<pre><code [highlight]="mapPorts" (highlighted)="onHighlight($event)"></code></pre>
+
+<p>
+    DB data does not persist by default, since the top layer of the image which stores data is lost when the container
+    is restarted. Note for earlier versions of Docker, the files which represent the “lost layer” persist on the hosts
+    disk storage and can accumulate over time. As of version 2.4.0, Docker provides a garbage collection method which
+    clears up unreferenced data. See the official docs.
+</p>
+
+<p>
+    Assigning local disk space to persist data/mapping a volume (normally stored in <span
+        class="commands">/data/db</span> in the container) is achieved with the -v parameter:
+</p>
+
+<pre>
+    <code [highlight]="mapPortsAndVolumes" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    One can clear MongoDB databases by running <span class="commands">db.getCollectionNames()</span> to list all
+    collections (equiv. to relational tables) on the database. Use <span
+        class="commands">db.collection_name.drop()</span>, to drop a given collection with the name "collection_name".
+</p>
+
+<p>
+    This might prove helpful when removing the collections from the host’s database if Mongod is already running in the
+    background and data was unintentionally saved to the host’s database.
+</p>

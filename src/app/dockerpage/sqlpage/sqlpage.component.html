@@ -1,0 +1,46 @@
+
+<h4>Docker and MySQL</h4>
+
+<p>
+    For MySQL, with MySQL community already installed locally, map the container’s 3306 to the host's 3307 (check with <span class="commands">sudo netstat -nlpt |grep 3306</span>).
+</p>
+
+<p>
+    Both shared volume -v and port -p parameters follow the sequence: localVolume:containerVolume or localPort:containerPort.
+</p>
+
+<p>
+    Run MySQL container with a null password (-e) as follows:
+</p>
+
+<pre>
+    <code [highlight]="setupMySQL" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Setting up MySQL on the container requires more preparation. Get into the bash shell of the container with:
+</p>
+
+<pre>
+    <code [highlight]="openBash" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    From the shell command, enter <span class="commands">mysql -u root -p mysql</span>. This should open up the mysql console. At this point enter:
+</p>
+
+<pre>
+    <code [highlight]="mySQLPrivilege" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Enter Ctrl+D and restart mysql with: <span class="commands">mysqld restart</span>
+</p>
+
+<p>
+    One can then access MySQL through MySQL Workbench, port 3307 to access the container’s (in future, clients) MySQL daemon, independent of any local copy of MySQL.
+</p>
+
+<p>
+    After preparation, open a bash shell in the container as shown above and run MySQL with <span class="commands">mysql -u root</span>.
+</p>

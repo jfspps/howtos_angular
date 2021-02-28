@@ -37,6 +37,12 @@ import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaa
 import { AndroidspringComponent } from './androidspring/androidspring.component';
 import { AppHeaderComponent } from './header/header.component';
 import { SpringjmspageComponent } from './androidspring/springjmspage/springjmspage.component';
+import { DockerpageComponent } from './dockerpage/dockerpage.component';
+import { MongopageComponent } from './dockerpage/mongopage/mongopage.component';
+import { SqlpageComponent } from './dockerpage/sqlpage/sqlpage.component';
+import { CentospageComponent } from './dockerpage/centospage/centospage.component';
+import { CommandspageComponent } from './dockerpage/commandspage/commandspage.component';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [
@@ -73,14 +79,28 @@ import { SpringjmspageComponent } from './androidspring/springjmspage/springjmsp
     JavaalgorithmspageComponent,
     AndroidspringComponent,
     AppHeaderComponent,
-    SpringjmspageComponent
+    SpringjmspageComponent,
+    DockerpageComponent,
+    MongopageComponent,
+    SqlpageComponent,
+    CentospageComponent,
+    CommandspageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    HighlightModule
     ],
-  providers: [],
+  providers: [
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        fullLibraryLoader: () => import('highlight.js'),
+        lineNumbers: false
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

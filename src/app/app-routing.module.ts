@@ -32,6 +32,11 @@ import { SpringsecuritypageComponent } from './androidspring/springsecuritypage/
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AndroidspringComponent } from './androidspring/androidspring.component';
 import { SpringjmspageComponent } from './androidspring/springjmspage/springjmspage.component';
+import { DockerpageComponent } from './dockerpage/dockerpage.component';
+import { CentospageComponent } from './dockerpage/centospage/centospage.component';
+import { CommandspageComponent } from './dockerpage/commandspage/commandspage.component';
+import { SqlpageComponent } from './dockerpage/sqlpage/sqlpage.component';
+import { MongopageComponent } from './dockerpage/mongopage/mongopage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -72,6 +77,13 @@ const appRoutes: Routes = [
     {path: 'algorithmsInC', component: AdtalgorithmspageComponent},
     {path: 'bashSlide', component: BashslideComponent},
     {path: 'computations', component: ComputationspageComponent}
+  ] },
+
+  { path: 'dockerPage', component: DockerpageComponent, children: [
+    {path: 'dockerCentOS', component: CentospageComponent},
+    {path: 'dockerCommands', component: CommandspageComponent},
+    {path: 'dockerSQL', component: SqlpageComponent},
+    {path: 'dockerMongo', component: MongopageComponent} 
   ] },
   
   { path: '**', component: PageNotFoundComponent}

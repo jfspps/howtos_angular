@@ -1,0 +1,26 @@
+<h4>
+    Docker commands
+</h4>
+
+<ul>
+    <li>List all (-a) Docker Images: <span class="commands">docker images -a</span></li> 
+    <li>List All Running Docker Containers: <span class="commands">docker ps</span></li> 
+    <li>List All Docker Containers: <span class="commands">docker ps -a</span></li> 
+    <li>Start a Docker Container: <span class="commands">docker start container_name</span></li> 
+    <li>Stop a Docker Container: <span class="commands">docker stop container_name</span></li> 
+    <li>Kill All Running Containers: <span class="commands">docker kill $(docker ps -q)</span></li> 
+    <li>Open a BASH shell in a container: <span class="commands">sudo docker exec -it container_name bash</span></li> 
+</ul>
+
+<p>
+    Other commands pertaining to container and image management:
+</p>
+
+<ul>
+    <li>View the logs of a Running Docker Container: <span class="commands">docker logs container_name</span></li> 
+    <li>Remove a Docker Image: <span class="commands">docker rmi image_name</span></li> 
+    <li>Delete All Docker Images: <span class="commands">docker rmi $(docker images -q)</span></li> 
+    <li>Delete All Untagged (dangling) Docker Images: <span class="commands">docker rmi $(docker images -q -f dangling=true)</span></li> 
+    <li>Delete All Images: <span class="commands">docker rmi $(docker images -q)</span></li> 
+    <li>Remove Dangling Volumes: <span class="commands">docker volume rm -f $(docker volume ls -f dangling=true -q)</span></li> 
+</ul>

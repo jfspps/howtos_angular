@@ -1,0 +1,33 @@
+<h4>Spring Boot app on CentOS image</h4>
+
+<p>
+    Pull CentOS from Docker hub and then boot up with <span class="commands">docker run -it --rm centos</span>. Then install Java 11 (openjdk in this case) with <span class="commands">yum install java-11-openjdk-devel</span>.
+</p>
+
+<p>
+    To build a new Docker image layer (on top of CentOS and then Java) with the CentOS image (non-persistent at present), use Dockerfile (not camel case) and a fat (full-size) JAR from <span class="commands">/target</span> in the Spring build, run:
+</p>
+
+<pre>
+    <code [highlight]="buildCentOS" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    The -t parameter tags the image with the name spring-boot-docker. The Docker file is reproduced here:
+</p>
+
+<pre>
+    <code [highlight]="dockerFile" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Then after completion, the new image is spring-boot-docker. Then run the new image:
+</p>
+
+<pre>
+    <code [highlight]="runSpringBoot" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Run <span class="commands">docker logs imageID</span> to see the Tomcat output you would normally see in the console of IntelliJ.
+</p>

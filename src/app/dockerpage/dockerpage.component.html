@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-3">
+        <h4><img src="assets/images/icons8-docker.svg"> Docker containers</h4>
+        <div class="list-group">
+            <button type="button" class="list-group-item py-1 pl-1 list-group-item-action list-group-item-info"
+                routerLink="dockerCommands">Commands</button>
+            <button type="button" class="list-group-item py-1 pl-1 list-group-item-action list-group-item-info"
+                routerLink="dockerMongo">MongoDB</button>
+                <button type="button" class="list-group-item py-1 pl-1 list-group-item-action list-group-item-info"
+                routerLink="dockerSQL">MySQL</button>
+            <button type="button" class="list-group-item py-1 pl-1 list-group-item-action list-group-item-info"
+                routerLink="dockerCentOS">CentOS</button>
+        </div>
+    </div>
+    <div class="col-9">
+        <router-outlet></router-outlet>
+    </div>
+</div>
