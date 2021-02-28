@@ -1,0 +1,20 @@
+<h5>Messaging in Spring with Java Messaging Service JMS</h5>
+
+<p>
+    This app demonstrates how messages can be sent between a applications, not all of which need to be Java applications. JMS is the specification (interface) setting the contract for various implementations of JMS, much like how JPA sets the specification and Hibernate sets the implementation. There are numerous implementations of JMS available, including Apache ActiveMQ and RabbitMQ for example.
+</p>
+
+<p>
+    One can implement messaging (which is asynchronous) as point-to-point, with sender -> queue -> consumer or with a more interconnected publish-subscribe approach. The former is demonstrated here. This project also shows:
+</p>
+
+<ul>
+    <li>Embedded ActiveMQ server (to respond to sent messages)</li>
+    <li>Handling of ActiveMQ server with JmsTemplate</li>
+    <li>Conversion between JSON (with Jackson library) and a JMS Message object</li>
+    <li>Send and receive listeners, along with combined send-and-receive methods</li>
+</ul>
+
+<p>
+    The GitHub repo is <a href="https://github.com/jfspps/SpringJMSDemo" target="_blank">here</a>.
+</p>

@@ -31,6 +31,7 @@ import { SpringrestapipageComponent } from './androidspring/springrestapipage/sp
 import { SpringsecuritypageComponent } from './androidspring/springsecuritypage/springsecuritypage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AndroidspringComponent } from './androidspring/androidspring.component';
+import { SpringjmspageComponent } from './androidspring/springjmspage/springjmspage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     { path: 'springSecurity', component: SpringsecuritypageComponent},
     { path: 'springREST', component: SpringrestapipageComponent},
     { path: 'springReactive', component: SpringreactivepageComponent},
+    { path: 'springAndJMS', component: SpringjmspageComponent},
     { path: 'androidButton', component: AndroidbuttonpageComponent},
     { path: 'androidCalc', component: AndroidcalculatorpageComponent},
     { path: 'androidRSS', component: AndroidrssreaderpageComponent},
