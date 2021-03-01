@@ -5,7 +5,7 @@
 </p>
 
 <p>
-    To build a new Docker image layer (on top of CentOS and then Java) with the CentOS image (non-persistent at present), use Dockerfile (not camel case) and a fat (full-size) JAR from <span class="commands">/target</span> in the Spring build, run:
+    To build a new Docker image layer (on top of CentOS and then Java) with the CentOS image (non-persistent at present), place the Dockerfile (note the character case) and the fat, full-size JAR from <span class="commands">/target</span> in the Spring build, into the same directory and run:
 </p>
 
 <pre>
@@ -29,5 +29,5 @@
 </pre>
 
 <p>
-    Run <span class="commands">docker logs imageID</span> to see the Tomcat output you would normally see in the console of IntelliJ.
+    The VOLUME command, above, allocates scratch space for Tomcat. The ENTRYPOINT command helps Tomcat run efficiently (go <a href="https://spring.io/guides/topicals/spring-boot-docker">here</a> for more info). Overall, a new layer is built on top of the JVM. Run <span class="commands">docker ps</span> to get the image ID and then <span class="commands">docker logs imageID</span> to see the Tomcat output you would normally see in the console of IntelliJ.
 </p>
