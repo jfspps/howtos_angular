@@ -37,6 +37,7 @@ import { CentospageComponent } from './dockerpage/centospage/centospage.componen
 import { CommandspageComponent } from './dockerpage/commandspage/commandspage.component';
 import { SqlpageComponent } from './dockerpage/sqlpage/sqlpage.component';
 import { MongopageComponent } from './dockerpage/mongopage/mongopage.component';
+import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imagepage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -83,7 +84,8 @@ const appRoutes: Routes = [
     {path: 'dockerCentOS', component: CentospageComponent},
     {path: 'dockerCommands', component: CommandspageComponent},
     {path: 'dockerSQL', component: SqlpageComponent},
-    {path: 'dockerMongo', component: MongopageComponent} 
+    {path: 'dockerMongo', component: MongopageComponent},
+    {path: 'dockerMavenBuild', component: BuildImagepageComponent}
   ] },
   
   { path: '**', component: PageNotFoundComponent}

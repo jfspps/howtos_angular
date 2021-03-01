@@ -1,0 +1,33 @@
+<h4>Building a Spring Boot-Docker image with Maven</h4>
+
+<p>
+    One can build a Docker image directly from Maven with the Fabric8 plugin (recently discontinued although still functional). To do so, first create a Dockerfile as follows:
+</p>
+
+<pre>
+    <code [highlight]="dockerFile" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    This is conventionally placed <span class="commands">/src/main/docker</span> alongside the usual <span class="commands">/src/main/java</span> directory. In the above case, we are using the openjdk image which is built on top of an OS (see <a href="https://github.com/docker-library/docs/blob/master/openjdk/README.md#supported-tags-and-respective-dockerfile-links" target="_blank">tag list</a> to choose a specific platform), with the JDK already installed.
+</p>
+
+<p>
+    We then import the Maven plugin, Fabric8, and set the tags with version info as follows (note how the project's artifactId and version are carried across to the Dockerfile):
+</p>
+
+<pre>
+    <code [highlight]="pomxml" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    With administrator privileges, run Maven from the command line in the order:
+</p>
+
+<pre>
+    <code [highlight]="mavenBuild" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    The image is then recognised by docker and can be executed (get the imageID with <span class="commands">docker ps</span> and then run with <span class="commands">docker -d run imageID</span> not forgetting to add any volume or port variables are required. 
+</p>

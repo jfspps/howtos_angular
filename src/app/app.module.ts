@@ -43,6 +43,7 @@ import { SqlpageComponent } from './dockerpage/sqlpage/sqlpage.component';
 import { CentospageComponent } from './dockerpage/centospage/centospage.component';
 import { CommandspageComponent } from './dockerpage/commandspage/commandspage.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imagepage.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     MongopageComponent,
     SqlpageComponent,
     CentospageComponent,
-    CommandspageComponent
+    CommandspageComponent,
+    BuildImagepageComponent
   ],
   imports: [
     BrowserModule,
