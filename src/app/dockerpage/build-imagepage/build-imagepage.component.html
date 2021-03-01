@@ -67,3 +67,17 @@
 <p>
     One can then push to Docker Hub in the usual way.
 </p>
+
+<h4>Running images in Maven</h4>
+
+<p>
+    One can also run a built image (a continuation of the above build) while mapping ports between the container (the latter parameter) and the host (the first parameter):
+</p>
+
+<pre>
+    <code [highlight]="mavenRunPomxml" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    With the above ports mapped, we can run the container interactively with <span class="commands">mvn docker:run</span>. The console represents the container and the usual Spring Boot output is produced. Entering CTRL-C terminates the app and stops the container. To run the container in the background, enter <span class="commands">mvn docker:start</span>. To stop the background container, enter <span class="commands">mvn docker:stop</span>. Either functionality is conveniently applicable to integration testing with docker containers running alongside.
+</p>

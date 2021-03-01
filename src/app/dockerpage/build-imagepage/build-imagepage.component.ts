@@ -104,6 +104,19 @@ export class BuildImagepageComponent implements OnInit {
   </project>
   `;
 
+    mavenRunPomxml = `
+                    <image>
+                        <name>\${docker.image.prefix}/\${docker.image.name}</name>
+                            <build>
+                            ...
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>8080:8080</port>
+                                </ports>
+                            </run>
+                        </image>`
+
     dockerFile = `FROM openjdk\n VOLUME /tmp \n ADD maven/springDocker-0.0.1-SNAPSHOT.jar myapp.jar \n RUN sh -c 'touch /myapp.jar' \n ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]`;
     releaseDockerFile = `FROM openjdk \n VOLUME /tmp \n ARG RELEASE_VERSION \n ADD maven/springDocker-\${RELEASE_VERSION}.jar myapp.jar \n RUN sh -c 'touch /myapp.jar' \n ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]`
 
