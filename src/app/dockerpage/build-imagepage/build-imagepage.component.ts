@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { HighlightResult } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'app-build-imagepage',
-  templateUrl: './build-imagepage.component.html',
-  styleUrls: ['./build-imagepage.component.css']
+    selector: 'app-build-imagepage',
+    templateUrl: './build-imagepage.component.html',
+    styleUrls: ['./build-imagepage.component.css']
 })
 export class BuildImagepageComponent implements OnInit {
 
-  response: HighlightResult;
+    response: HighlightResult;
 
-  pomxml = `<?xml version="1.0" encoding="UTF-8"?>
+    pomxml = `<?xml version="1.0" encoding="UTF-8"?>
         ...  
       <artifactId>springDocker</artifactId>
       <version>0.0.1-SNAPSHOT</version>
@@ -21,8 +21,8 @@ export class BuildImagepageComponent implements OnInit {
           <!--set this to your docker account name-->
           <docker.image.prefix>jfspps</docker.image.prefix>
   
-          <!--Set to name of project-->
-          <docker.image.name>springbootdocker</docker.image.name>
+          <!--Set to name of the image-->
+        <docker.image.name>testrepo_1_image</docker.image.name>
       </properties>
   
       <dependencies>
@@ -71,22 +71,64 @@ export class BuildImagepageComponent implements OnInit {
   </project>
   `;
 
-  dockerFile = `FROM openjdk\n VOLUME /tmp \n ADD maven/springDocker-0.0.1-SNAPSHOT.jar myapp.jar \n RUN sh -c 'touch /myapp.jar' \n ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]`;
-
-  mavenBuild = `sudo mvn clean package docker:build`;
+    releasePomxml = `
+        ...
+        <artifactId>springDocker</artifactId>
+        <version>1.0.0-RELEASE</version>
+        ...
   
-  constructor() { }
+      <build>
+          <plugins>
+              <plugin>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-maven-plugin</artifactId>
+              </plugin>
+              <plugin>
+                  <groupId>io.fabric8</groupId>
+                  <artifactId>docker-maven-plugin</artifactId>
+                  <version>0.34.1</version>
+                  <configuration>
 
-  ngOnInit(): void {
-  }
+                    <!--Set the release version to the project version -->
+                    <buildArgs>
+                        <RELEASE_VERSION>\${project.version}</RELEASE_VERSION>
+                    </buildArgs>
 
-  onHighlight(e) {
-    this.response = {
-      language: e.language,
-      relevance: e.relevance,
-      second_best: '{...}',
-      top: '{...}',
-      value: '{...}'
+                    ...
+                  </configuration>
+              </plugin>
+          </plugins>
+      </build>
+  
+  
+  </project>
+  `;
+
+    dockerFile = `FROM openjdk\n VOLUME /tmp \n ADD maven/springDocker-0.0.1-SNAPSHOT.jar myapp.jar \n RUN sh -c 'touch /myapp.jar' \n ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]`;
+    releaseDockerFile = `FROM openjdk \n VOLUME /tmp \n ARG RELEASE_VERSION \n ADD maven/springDocker-\${RELEASE_VERSION}.jar myapp.jar \n RUN sh -c 'touch /myapp.jar' \n ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]`
+
+    mavenBuild = `sudo mvn clean package docker:build`;
+
+    dockerPush = `<servers>
+  <server>
+      <id>docker.io</id>
+      <username>jfspps</username>
+      <password></password>
+  </server>
+</servers>`
+
+    constructor() { }
+
+    ngOnInit(): void {
     }
-  }
+
+    onHighlight(e) {
+        this.response = {
+            language: e.language,
+            relevance: e.relevance,
+            second_best: '{...}',
+            top: '{...}',
+            value: '{...}'
+        }
+    }
 }

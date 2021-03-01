@@ -18,7 +18,7 @@
 
 <ul>
     <li>View the logs of a Running Docker Container: <span class="commands">docker logs container_name</span></li> 
-    <li>Remove a Docker Image: <span class="commands">docker rmi image_name</span></li> 
+    <li>Remove (forced with -f) a Docker Image: <span class="commands">docker rmi -f image_name</span></li> 
     <li>Delete All Docker Images: <span class="commands">docker rmi $(docker images -q)</span></li> 
     <li>Delete All Untagged (dangling) Docker Images: <span class="commands">docker rmi $(docker images -q -f dangling=true)</span></li> 
     <li>Delete All Images: <span class="commands">docker rmi $(docker images -q)</span></li> 

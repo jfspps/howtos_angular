@@ -29,5 +29,41 @@
 </pre>
 
 <p>
-    The image is then recognised by docker and can be executed (get the imageID with <span class="commands">docker ps</span> and then run with <span class="commands">docker -d run imageID</span> not forgetting to add any volume or port variables are required. 
+    The image is then recognised by docker and can be executed (get the imageID with <span class="commands">docker images</span> and then run with <span class="commands">docker -d run imageID</span> not forgetting to add any volume or port variables are required. 
+</p>
+
+<h4>Pushing to Docker Hub</h4>
+
+<p>
+    One can edit Maven settings by right-clicking the pom.xml file in IntelliJ and then under Maven create or edit settings.xml, and then add the server details (at your own risk):
+</p>
+
+<pre>
+    <code [highlight]="dockerPush" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Alternatively, the official docs also shows how to <a href="https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html" target="_blank">push images</a> without rebuilding from the IDE. Log into Docker at the command line with <span class="commands">docker login</span>. Then push the built image (again, list with <span class="commands">docker images</span>) with <span class="commands">docker push jfspps/testrepo_1_image</span>
+</p>
+
+<h4>Building and pushing release versions</h4>
+
+<p>
+    Docker images are tied to the version name and will not build if the version of the Dockerfile and pom.xml do not match. Some modification to the pom.xml and Dockerfile files is needed:
+</p>
+
+<pre>
+    <code [highlight]="releaseDockerFile" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Then add buildArgs in the Fabric8 configuration:
+</p>
+
+<pre>
+    <code [highlight]="releasePomxml" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    One can then push to Docker Hub in the usual way.
 </p>
