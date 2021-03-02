@@ -42,7 +42,7 @@ import { MongopageComponent } from './dockerpage/mongopage/mongopage.component';
 import { SqlpageComponent } from './dockerpage/sqlpage/sqlpage.component';
 import { CentospageComponent } from './dockerpage/centospage/centospage.component';
 import { CommandspageComponent } from './dockerpage/commandspage/commandspage.component';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HighlightModule, HIGHLIGHT_OPTIONS, HighlightOptions } from 'ngx-highlightjs';
 import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imagepage.component';
 
 @NgModule({
@@ -97,9 +97,9 @@ import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imag
   providers: [
     {
       provide: HIGHLIGHT_OPTIONS,
-      useValue: {
+      useValue: <HighlightOptions>{
         fullLibraryLoader: () => import('highlight.js'),
-        lineNumbers: false
+        lineNumbers: true
       }
     }
   ],

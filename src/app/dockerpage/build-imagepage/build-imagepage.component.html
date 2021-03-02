@@ -5,12 +5,14 @@
 </p>
 
 <pre>
-    <code [highlight]="dockerFile" (highlighted)="onHighlight($event)"></code>
+    <code [highlight]="dockerFile" (highlighted)="onHighlight($event)" [lineNumbers]="true"></code>
 </pre>
 
 <p>
     This is conventionally placed <span class="commands">/src/main/docker</span> alongside the usual <span class="commands">/src/main/java</span> directory. In the above case, we are using the openjdk image which is built on top of an OS (see <a href="https://github.com/docker-library/docs/blob/master/openjdk/README.md#supported-tags-and-respective-dockerfile-links" target="_blank">tag list</a> to choose a specific platform), with the JDK already installed.
 </p>
+
+
 
 <p>
     We then import the Maven plugin, Fabric8, and set the tags with version info as follows (note how the project's artifactId and version are carried across to the Dockerfile):

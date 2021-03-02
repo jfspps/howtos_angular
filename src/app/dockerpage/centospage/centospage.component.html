@@ -21,7 +21,11 @@
 </pre>
 
 <p>
-    Then after completion, the new image is spring-boot-docker. Then run the new image:
+    The Dockerfile is a text file which acts as a script, instructing Docker how to build an image, the file which represents the container. Typically the Dockerfile (note the case: it is "Dockerfile" not "DockerFile" or some other variant) starts by downloading the first layer from <a href="https://hub.docker.com/" target="_blank">Docker Hub</a>, following the <span class="commands">FROM</span> command, in this case a CentOS distro. The command <span class="commands">RUN</span> is equivalent to a BASH command within the container, which in this case installs the JDK 11 libraries. <span class="commands">VOLUME</span> represents scratch space for non-OS binaries, in this case Tomcat, running on the image (optional). <span class="commands">ADD</span> simply adds the first file, spring-boot-web-0.0.1-SNAPSHOT.jar, to the container, renaming it as myApp.jar. Another RUN command executes more bash commands. <span class="commands">ENTRYPOINT</span> represents the bash command which is executed, with its parameters clearly separated by whitespace as string fragments, when the image is run from the host (optional). In this case, the command would be <span class="commands">java -Djava.security.egd=file:/dev/./urandom -jar /myApp.jar</span>. The ENTRYPOINT command helps Tomcat run efficiently (go <a href="https://spring.io/guides/topicals/spring-boot-docker">here</a> for more info).
+</p>
+
+<p>
+    Overall, a new layer is built on top of the JVM. After build completion, the new image is spring-boot-docker. Then run the new image:
 </p>
 
 <pre>
@@ -29,5 +33,5 @@
 </pre>
 
 <p>
-    The VOLUME command, above, allocates scratch space for Tomcat. The ENTRYPOINT command helps Tomcat run efficiently (go <a href="https://spring.io/guides/topicals/spring-boot-docker">here</a> for more info). Overall, a new layer is built on top of the JVM. Run <span class="commands">docker ps</span> to get the image ID and then <span class="commands">docker logs imageID</span> to see the Tomcat output you would normally see in the console of IntelliJ.
+     Run <span class="commands">docker ps</span> to get the image ID and then <span class="commands">docker logs imageID</span> to see the Tomcat output you would normally see in the console of IntelliJ.
 </p>
