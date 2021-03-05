@@ -39,6 +39,7 @@ import { SqlpageComponent } from './dockerpage/sqlpage/sqlpage.component';
 import { MongopageComponent } from './dockerpage/mongopage/mongopage.component';
 import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imagepage.component';
 import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javathreadsyncpage.component';
+import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
   { path: 'java', component: JavapageComponent, children: [
     { path: 'javaThreads', component: JavathreadspageComponent},
     { path: 'javaThreadsShareSync', component: JavathreadsyncpageComponent},
+    { path: 'javaThreadSafe', component: JavaproducerconsumerpageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaAlgorithms', component: JavaalgorithmspageComponent},

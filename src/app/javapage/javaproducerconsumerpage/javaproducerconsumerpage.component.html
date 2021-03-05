@@ -1,0 +1,21 @@
+<h5>Producers and Consumers</h5>
+
+<p>
+    'Thread-safe' code is that in which thread interference is not possible. Methods which can only be called within synchronised code are wait(), notify() and notifyAll(). The example shows these methods with a producer and a consumer example. Some methods are 'atomic' in that all threads cannot interrupt any part of the operation of an atomic method.
+</p>
+
+<p>
+    This also highlights 'deadlocks' on objects, where a thread has not released a handle on an object. An object lock is released with the notify() or notifyAll() methods.
+</p>
+
+<pre>
+    <code [highlight]="messageExample" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Another example shown below demonstrates how two consumers and one producer work in tandem.
+</p>
+
+<pre>
+    <code [highlight]="twoConsumers" (highlighted)="onHighlight($event)"></code>
+</pre>

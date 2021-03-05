@@ -45,6 +45,7 @@ import { CommandspageComponent } from './dockerpage/commandspage/commandspage.co
 import { HighlightModule, HIGHLIGHT_OPTIONS, HighlightOptions } from 'ngx-highlightjs';
 import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imagepage.component';
 import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javathreadsyncpage.component';
+import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javat
     CentospageComponent,
     CommandspageComponent,
     BuildImagepageComponent,
-    JavathreadsyncpageComponent
+    JavathreadsyncpageComponent,
+    JavaproducerconsumerpageComponent
   ],
   imports: [
     BrowserModule,
