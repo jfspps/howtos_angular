@@ -130,6 +130,47 @@ export class BuildImagepageComponent implements OnInit {
   </server>
 </servers>`
 
+failSafe = `<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-failsafe-plugin</artifactId>
+<version>2.2.2</version>
+<executions>
+  <execution>
+    <goals>
+      <goal>integration-test</goal>
+      <goal>verify</goal>
+    </goals>
+  </execution>
+</executions>
+</plugin>`;
+
+dockerExecutions = `<plugin>
+<groupId>io.fabric8</groupId>
+...
+<configurations>
+...
+</configurations>
+
+<executions>
+<execution>
+    <id>start</id>
+    <phase>pre-integration-test</phase>
+    <goals>
+        <!-- "build" should be used to create the images with the
+             artifact -->
+        <goal>build</goal>
+        <goal>start</goal>
+    </goals>
+</execution>
+<execution>
+    <id>stop</id>
+    <phase>post-integration-test</phase>
+    <goals>
+        <goal>stop</goal>
+    </goals>
+</execution>
+</executions>`;
+
     constructor() { }
 
     ngOnInit(): void {

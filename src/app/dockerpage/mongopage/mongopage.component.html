@@ -10,6 +10,10 @@
 <pre><code [highlight]="mapPorts" (highlighted)="onHighlight($event)"></code></pre>
 
 <p>
+    The -d parameter directs the container to run as a daemon, a background application. To get access to the console of the container at a later point, enter <span class="commands">sudo docker exec -it container_name bash</span>. If the -d parameter is not passed then the current console is populated with the container's normal output.
+</p>
+
+<p>
     DB data does not persist by default, since the top layer of the image which stores data is lost when the container
     is restarted. Note for earlier versions of Docker, the files which represent the “lost layer” persist on the hosts
     disk storage and can accumulate over time. As of version 2.4.0, Docker provides a garbage collection method which

@@ -83,3 +83,25 @@
 <p>
     With the above ports mapped, we can run the container interactively with <span class="commands">mvn docker:run</span>. The console represents the container and the usual Spring Boot output is produced. Entering CTRL-C terminates the app and stops the container. To run the container in the background, enter <span class="commands">mvn docker:start</span>. To stop the background container, enter <span class="commands">mvn docker:stop</span>. Either functionality is conveniently applicable to integration testing with docker containers running alongside.
 </p>
+
+<h4>Integration testing</h4>
+
+<p>
+    Integration testing can be executed first by importing the FailSafe plugin.
+</p>
+
+<pre>
+    <code [highlight]="failSafe" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    Docker can then be directed to build and/or run an image (following from above, for example) by passing the commands to the Fabric8 block.
+</p>
+
+<pre>
+    <code [highlight]="dockerExecutions" (highlighted)="onHighlight($event)"></code>
+</pre>
+
+<p>
+    The 'pre-integration-test' builds and starts the containers listed under the 'images' block, the usual Spring integration tests are then run followed by the 'post-integration-test' block which shuts down the containers. Enter the command <span class="commands">mvn verify</span> to run the three-step process.
+</p>
