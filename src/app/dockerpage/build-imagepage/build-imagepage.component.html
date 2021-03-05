@@ -105,3 +105,17 @@
 <p>
     The 'pre-integration-test' builds and starts the containers listed under the 'images' block, the usual Spring integration tests are then run followed by the 'post-integration-test' block which shuts down the containers. Enter the command <span class="commands">mvn verify</span> to run the three-step process.
 </p>
+
+<p>
+    A good form of practice is to clean the built /target directories with before packaging and testing. The docker:push is optional.
+</p>
+
+<p>
+    <span class="commands">
+        mvn clean package verify docker:push
+    </span>
+</p>
+
+<p>
+    This assumes that the pom.xml has the build command in 'executions'. If not, add <span class="commands">docker:build</span> before <span class="commands">verify</span>.
+</p>
