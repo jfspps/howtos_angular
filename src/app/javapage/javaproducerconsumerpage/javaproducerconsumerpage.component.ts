@@ -24,14 +24,12 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     }
   }
   
-  //*****message class, handles the read() and write() methods*************
-
   class Message{
     
     private String message;
     private boolean empty = true;
     
-    //note here that different threads cannot execute read and write at 
+    //different threads cannot execute read and write at 
     //the same time on the same object (they can on different objects)
     //as soon as one is called, the lock is handed to the calling method 
     //and only allows the other thread execute if it finishes or when the thread runs 
@@ -83,7 +81,6 @@ export class JavaproducerconsumerpageComponent implements OnInit {
   class Writer implements Runnable{
     private Message message;
     
-    //grants Writer objects access to Message methods
     public Writer(Message message) {
       this.message = message;
     }
@@ -101,24 +98,21 @@ export class JavaproducerconsumerpageComponent implements OnInit {
       for(int i = 0; i < messages.length; i++) {
         message.write(messages[i]);
         try {
+          // build an int between 0 and 2000
           Thread.sleep(random.nextInt(2000));
         } catch(InterruptedException e) {
           System.out.println(e);
         }
       }
       
-      //after this write(), Writer terminates (run() returns). This last
-      // command triggers Reader to also terminate 
+      //this last command triggers Reader to also terminate 
       message.write("Finished");
     }
   }
   
-  //Reader reads the Message object's message variable and writes it to the console******
-  //Reader terminates when "Finished" is part of Messages's instance variable 
   class Reader implements Runnable{
     private Message message;
     
-    //grants Reader objects access to Message methods
     public Reader(Message message) {
       this.message = message;
     }

@@ -5,7 +5,7 @@
 </p>
 
 <p>
-    This also highlights 'deadlocks' on objects, where a thread has not released a handle on an object. An object lock is released with the notify() or notifyAll() methods.
+    This also highlights 'deadlocks' on objects, where a thread has not released a handle on an object. An object lock is released with the notify() or notifyAll() methods. A thread waits to be notified of a release, with either notify() or nootifyAll(), with wait().
 </p>
 
 <pre>
@@ -13,9 +13,23 @@
 </pre>
 
 <p>
-    Another example shown below demonstrates how two consumers and one producer work in tandem.
+    Another example shown below demonstrates how two consumers and one producer work in tandem. ArrayLists are not thread-safe, hence the ArrayList "buffer" is protected from thread interference with a dedicated synchronisation block.
 </p>
 
 <pre>
     <code [highlight]="twoConsumers" (highlighted)="onHighlight($event)"></code>
 </pre>
+
+<p>
+    Synchronisation blocks must start and stop in the same method. There are numerous issues with synchronisation, including: 
+</p>
+
+<ul>
+    <li>Blocked threads cannot continue or execute a timeout clause beyond a synchronisation block until they receive the lock; they're stuck indefinitely</li>
+    <li>Fundamental lock status is not accessible at run-time</li>
+    <li>Multiple threads waiting for the same lock are awarded the lock on a somewhat random basis, not according to FIFO. While priorities can be set, they should be considered 'suggestions'.</li>
+</ul>
+
+<p>
+    The Java Util Concurrent package attempts to address some of these issues.
+</p>
