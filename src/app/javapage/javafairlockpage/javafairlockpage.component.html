@@ -21,3 +21,23 @@
 <p>
     When a thread is suspended on reading a condition and acting upon a given condition, this can give rise a <i>slipped condition</i>, a particular type of race condition or thread interference. Two or more threads can interfere with the each other when checking and setting the status. For example, thread 1 is satisfied and suspends temporarily, waiting for thread 2 to also verify before it takes the data. Thread 2 is also satisfied but then finds the end of a file, so thread 2 acts by extracting the data and then setting the condition to end of file. Thread 1 then asks for the data but finds end of file.
 </p>
+
+<h5>Atomic actions and volatile variables</h5>
+
+<p>
+    Some actions and methods cannot be suspended, they complete before all other operations are executed. Some examples:
+</p>
+
+<ul>
+    <li>Assignment operations, variable1 = variable2</li>
+    <li>Reading and writing of primitive data types, except for long and double</li>
+    <li>Volatile variables</li>
+</ul>
+
+<p>
+    CPUs operate on different threads and handle the same objects by taking the object from memory and storing it in the CPU's cache. Most modern day processors have multiple CPUs and therefore multiple caches. This introduces the problem of object synchronisation and consistency. To accommodate this, volatile variables are variables where the CPU cache is immediately offloaded to the system's memory to update all other copies of the object. This can be achieved by using the 'volatile' keyword. Note that race conditions are still possible with volatile variables!
+</p>
+
+<p>
+    The usage of volatile is dependent on the context. It is frequently used for establishing long and double atomic actions. Refer to the Java Util Concurrency Atomic package for more info.
+</p>
