@@ -7,3 +7,18 @@
 <pre>
     <code [highlight]="deadlock" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>Starvation</h5>
+
+<p>
+    Starvation describes a situation where a thread is unable to gain regular access to shared resources and is unable to make progress. This happens when shared resources are made unavailable for long periods by "greedy" threads. The problem is due to how threads are prioritised. As already mentioned, priorities are not binding or contractual as far the OS is concerned.
+</p>
+
+<p>
+    Note that the class Worker cannot access non-static methods of the outer class without first creating an instance of Worker. Static inner classes (only inner classes can be static) associate the inner class to its outer class without defining it in the same package when it does not make sense to handle an object outside the context of the outer class. For example, an inner Gear class nested in outer Gearbox class makes sense, defining a Gear class alongside the Gearbox class in the same package does not because one needs a Gearbox object to program a Gear object.
+</p>
+
+<pre>
+    <code [highlight]="starvation" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+

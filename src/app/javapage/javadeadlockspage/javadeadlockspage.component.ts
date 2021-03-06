@@ -73,6 +73,57 @@ export class JavadeadlockspageComponent implements OnInit {
     }
   }`;
 
+  starvation = `public class Main {
+
+    private static Object lock = new Object();
+        
+    public static void main(String args[]) {
+      Thread t1 = new Thread(new Worker(ThreadColour.ANSI_RED), "Priority 10");
+      Thread t2 = new Thread(new Worker(ThreadColour.ANSI_BLUE), "Priority 8");
+      Thread t3 = new Thread(new Worker(ThreadColour.ANSI_GREEN), "Priority 6");
+      Thread t4 = new Thread(new Worker(ThreadColour.ANSI_CYAN), "Priority 4");
+      Thread t5 = new Thread(new Worker(ThreadColour.ANSI_PURPLE), "Priority 2");
+      
+      // OS suggestion only; not binding
+      t1.setPriority(10);
+      t2.setPriority(8);
+      t3.setPriority(6);
+      t4.setPriority(4);
+      t5.setPriority(2);
+      
+      // note how, on execution, the priority is not fully predetermined here (even by changing the order given here)
+      // but decided by the OS (also, try commenting out the setPriority() functions)
+      t1.start();
+      t2.start();
+      t3.start();
+      t4.start();
+      t5.start();
+    }
+       
+    // static inner classes (as opposed to regular inner classes) do not have reference to their outer class; using an inner class makes 
+    // lock private and hidden
+    public static class Worker implements Runnable {
+
+      private int runCount = 1;
+      private String threadColour;
+      
+      public Worker(String threadColour) {
+        this.threadColour = threadColour;
+      }
+      
+      @Override
+      public void run() {
+        for(int i = 0; i < 100; i++) {
+          //as shown in main(), each thread will share the same lock
+          synchronized (lock) {
+            System.out.format(threadColour + "%s: runCount = %d\\n", Thread.currentThread().getName(), runCount++);
+          }
+        }
+      }
+    }
+
+  }`;
+
   constructor() { }
 
   ngOnInit(): void {
