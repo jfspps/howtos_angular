@@ -40,6 +40,7 @@ import { MongopageComponent } from './dockerpage/mongopage/mongopage.component';
 import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imagepage.component';
 import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javathreadsyncpage.component';
 import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
+import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadeadlockspage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     { path: 'javaThreads', component: JavathreadspageComponent},
     { path: 'javaThreadsShareSync', component: JavathreadsyncpageComponent},
     { path: 'javaThreadSafe', component: JavaproducerconsumerpageComponent},
+    { path: 'javaDeadlock', component: JavadeadlockspageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaAlgorithms', component: JavaalgorithmspageComponent},

@@ -46,6 +46,7 @@ import { HighlightModule, HIGHLIGHT_OPTIONS, HighlightOptions } from 'ngx-highli
 import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imagepage.component';
 import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javathreadsyncpage.component';
 import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
+import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadeadlockspage.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsum
     CommandspageComponent,
     BuildImagepageComponent,
     JavathreadsyncpageComponent,
-    JavaproducerconsumerpageComponent
+    JavaproducerconsumerpageComponent,
+    JavadeadlockspageComponent
   ],
   imports: [
     BrowserModule,

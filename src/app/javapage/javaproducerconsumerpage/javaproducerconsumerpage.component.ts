@@ -10,9 +10,9 @@ export class JavaproducerconsumerpageComponent implements OnInit {
 
   response: HighlightResult;
 
-  messageExample = `import java.util.Random;
+  lang = ["java"];
 
-  public class Main {
+  messageExample = `public class Main {
   
     public static void main(String[] args) {
       Message message = new Message();
