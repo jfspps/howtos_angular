@@ -1,0 +1,23 @@
+<h5>Fair locks</h5>
+
+<p>
+    Fair reentrant locks are alternatives to synchronisation blocks and attempts to make locks on a FIFO basis. The small change comes from the utility of the ReentrantLock(true) method from the <a routerLink="/java/javaDeadlock">deadlocks</a> example.
+</p>
+
+<pre>
+    <code [highlight]="fairlock" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Light locks</h5>
+
+<p>
+    Live locks are thread states which, while not blocked, cannot proceed because they are waiting for other threads to complete their task(s) <b>and</b> release their lock. The other threads are still active.
+</p>
+
+<pre>
+    <code [highlight]="livelocks" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    When a thread is suspended on reading a condition and acting upon a given condition, this can give rise a <i>slipped condition</i>, a particular type of race condition or thread interference. Two or more threads can interfere with the each other when checking and setting the status. For example, thread 1 is satisfied and suspends temporarily, waiting for thread 2 to also verify before it takes the data. Thread 2 is also satisfied but then finds the end of a file, so thread 2 acts by extracting the data and then setting the condition to end of file. Thread 1 then asks for the data but finds end of file.
+</p>

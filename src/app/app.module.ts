@@ -47,6 +47,7 @@ import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imag
 import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javathreadsyncpage.component';
 import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
 import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadeadlockspage.component';
+import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairlockpage.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadea
     BuildImagepageComponent,
     JavathreadsyncpageComponent,
     JavaproducerconsumerpageComponent,
-    JavadeadlockspageComponent
+    JavadeadlockspageComponent,
+    JavafairlockpageComponent
   ],
   imports: [
     BrowserModule,

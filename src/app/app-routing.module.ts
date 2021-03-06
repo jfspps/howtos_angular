@@ -41,6 +41,7 @@ import { BuildImagepageComponent } from './dockerpage/build-imagepage/build-imag
 import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javathreadsyncpage.component';
 import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
 import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadeadlockspage.component';
+import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairlockpage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     { path: 'javaThreadsShareSync', component: JavathreadsyncpageComponent},
     { path: 'javaThreadSafe', component: JavaproducerconsumerpageComponent},
     { path: 'javaDeadlock', component: JavadeadlockspageComponent},
+    { path: 'javaFairlock', component: JavafairlockpageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaAlgorithms', component: JavaalgorithmspageComponent},
