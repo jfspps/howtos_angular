@@ -1,4 +1,4 @@
-<h5>Producers and Consumers</h5>
+<h5>Synchronisation blocks</h5>
 
 <p>
     'Thread-safe' code is that in which thread interference is not possible. Methods which can only be called within synchronised code are wait(), notify() and notifyAll(). The example shows these methods with a producer and a consumer example. Some methods are 'atomic' in that all threads cannot interrupt any part of the operation of an atomic method.
@@ -30,6 +30,12 @@
     <li>Multiple threads waiting for the same lock are awarded the lock on a somewhat random basis, not according to FIFO. While priorities can be set, they should be considered 'suggestions'.</li>
 </ul>
 
+<h5>Introducing Java Util Concurrent</h5>
+
 <p>
-    The Java Util Concurrent package attempts to address some of these issues.
+    The Java Util Concurrent package attempts to address some of these issues. With more manual control of locks and what can occur while threads are blocked, the above is revised as follows:
 </p>
+
+<pre>
+    <code [highlight]="reEntrant" (highlighted)="onHighlight($event)"></code>
+</pre>

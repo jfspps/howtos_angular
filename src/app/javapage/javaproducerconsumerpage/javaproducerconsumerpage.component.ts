@@ -215,6 +215,117 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     }
   }`;
 
+  reEntrant = `public class Main {
+    
+    public static final String EOF = "EOF";
+  
+    public static void main(String[] args) {
+
+      List<String> buffer = new ArrayList<>();
+
+      //bufferlock handles locks of objects and monitors 
+      //the number of locks and therefore unlock required
+      //when locks >> unlocks, or unlocks >> locks, then an exception is thrown
+      ReentrantLock bufferlock = new ReentrantLock();
+      
+      //create a Thread Pool with three threads (this is 
+      //not strictly necessary in this application with few
+      //threads but valuable for projects with large numbers 
+      //of threads which can be managed by the JVM). This
+      //needs shutting down at the end of the program
+      ExecutorService executorService = Executors.newFixedThreadPool(3);
+      
+      //three threads accessing the same object, buffer
+      MyProducer producer = new MyProducer(buffer, ThreadColour.ANSI_YELLOW, bufferlock);
+      MyConsumer consumer1 = new MyConsumer(buffer, ThreadColour.ANSI_PURPLE, bufferlock);
+      MyConsumer consumer2 = new MyConsumer(buffer, ThreadColour.ANSI_CYAN, bufferlock);
+      
+      executorService.execute(producer);
+      executorService.execute(consumer1);
+      executorService.execute(consumer2);
+      
+      //shutdowns when all threads have completed their tasks (use shutdownNow() for immediate shutdown)
+      executorService.shutdown();
+    }
+  
+  }
+  
+  class MyProducer implements Runnable{
+    
+    private List<String> buffer;
+    private String colour;
+    private ReentrantLock bufferlock;
+    
+    public MyProducer(List<String> buffer, String colour, ReentrantLock bufferlock) {
+      this.buffer = buffer;
+      this.colour = colour;
+      this.bufferlock = bufferlock;
+    }
+    
+    public void run() {
+      Random random = new Random();
+      String[] nums = {"1", "2", "3", "4", "5"};
+      
+      for(String num: nums) {
+        try {
+          System.out.println(colour + "Adding..." + num);
+          //alternative to synchronisation (make sure you unlock!!)
+          //the code waits here until the lock is released elsewhere
+          bufferlock.lock();
+          try {
+            buffer.add(num);
+          } finally {
+            bufferlock.unlock();
+          }		
+          
+          Thread.sleep(random.nextInt(1000));
+        } catch(InterruptedException e) {
+          System.out.println("Producer was interrupted");
+        }
+      }
+      
+      System.out.println(colour + "Adding EOF and exiting...");
+      bufferlock.lock();
+      try {
+        buffer.add(Main.EOF);
+      } finally {
+        bufferlock.unlock();
+      }
+    }
+  }
+  
+  class MyConsumer implements Runnable{
+    
+    private List<String> buffer;
+    private String colour;
+    private ReentrantLock bufferlock;
+    
+    public MyConsumer(List<String> buffer, String colour, ReentrantLock bufferlock) {
+      this.buffer = buffer;
+      this.colour = colour;
+      this.bufferlock = bufferlock;
+    }
+    
+    public void run() {
+      while(true) {
+        bufferlock.lock();
+        try {
+          if(buffer.isEmpty()) {
+            continue;
+          }
+          if(buffer.get(0).equals(Main.EOF)) {
+            System.out.println(colour + "Exiting");
+            break;
+          } else {
+            System.out.println(colour + "Removed " + buffer.remove(0));
+          }
+        } finally {
+          bufferlock.unlock();
+        }			
+      }
+    }
+  }`;
+
   constructor() { }
 
   ngOnInit(): void {
