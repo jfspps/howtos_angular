@@ -48,6 +48,8 @@ import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javat
 import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
 import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadeadlockspage.component';
 import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairlockpage.component';
+import { JavafileiopageComponent } from './javapage/javafileiopage/javafileiopage.component';
+import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinaryiopage.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,9 @@ import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairl
     JavathreadsyncpageComponent,
     JavaproducerconsumerpageComponent,
     JavadeadlockspageComponent,
-    JavafairlockpageComponent
+    JavafairlockpageComponent,
+    JavafileiopageComponent,
+    JavabinaryiopageComponent
   ],
   imports: [
     BrowserModule,

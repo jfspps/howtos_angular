@@ -42,6 +42,8 @@ import { JavathreadsyncpageComponent } from './javapage/javathreadsyncpage/javat
 import { JavaproducerconsumerpageComponent } from './javapage/javaproducerconsumerpage/javaproducerconsumerpage.component';
 import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadeadlockspage.component';
 import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairlockpage.component';
+import { JavafileiopageComponent } from './javapage/javafileiopage/javafileiopage.component';
+import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinaryiopage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -52,6 +54,8 @@ const appRoutes: Routes = [
     { path: 'javaThreadSafe', component: JavaproducerconsumerpageComponent},
     { path: 'javaDeadlock', component: JavadeadlockspageComponent},
     { path: 'javaFairlock', component: JavafairlockpageComponent},
+    { path: 'javaIO_1', component: JavafileiopageComponent},
+    { path: 'javaIO_2', component: JavabinaryiopageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaAlgorithms', component: JavaalgorithmspageComponent},
