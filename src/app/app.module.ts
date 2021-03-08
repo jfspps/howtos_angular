@@ -50,6 +50,7 @@ import { JavadeadlockspageComponent } from './javapage/javadeadlockspage/javadea
 import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairlockpage.component';
 import { JavafileiopageComponent } from './javapage/javafileiopage/javafileiopage.component';
 import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinaryiopage.component';
+import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinar
     JavadeadlockspageComponent,
     JavafairlockpageComponent,
     JavafileiopageComponent,
-    JavabinaryiopageComponent
+    JavabinaryiopageComponent,
+    JavaniopageComponent
   ],
   imports: [
     BrowserModule,
