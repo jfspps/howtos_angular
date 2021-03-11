@@ -15,3 +15,19 @@
 <pre>
     <code [highlight]="handlePath" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<p>
+    One can get the working directory and return the absolute path with:
+</p>
+
+<pre>
+    <code [highlight]="workingDir" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can also pass each segment of the path (usually separated by a delimiter \ or / depending on the OS) with:
+</p>
+
+<pre>
+    <code [highlight]="usingRelativeToWorking" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
