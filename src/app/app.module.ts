@@ -51,6 +51,7 @@ import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairl
 import { JavafileiopageComponent } from './javapage/javafileiopage/javafileiopage.component';
 import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinaryiopage.component';
 import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.component';
+import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/javanio-filesyspage.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.compone
     JavafairlockpageComponent,
     JavafileiopageComponent,
     JavabinaryiopageComponent,
-    JavaniopageComponent
+    JavaniopageComponent,
+    JavanioFilesyspageComponent
   ],
   imports: [
     BrowserModule,

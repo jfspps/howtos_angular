@@ -8,7 +8,6 @@ import { HighlightResult } from 'ngx-highlightjs';
 })
 export class JavaniopageComponent implements OnInit {
 
-
   response: HighlightResult;
 
   lang = ["java"];

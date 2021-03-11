@@ -45,6 +45,7 @@ import { JavafairlockpageComponent } from './javapage/javafairlockpage/javafairl
 import { JavafileiopageComponent } from './javapage/javafileiopage/javafileiopage.component';
 import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinaryiopage.component';
 import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.component';
+import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/javanio-filesyspage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
     { path: 'javaIO_1', component: JavafileiopageComponent},
     { path: 'javaIO_2', component: JavabinaryiopageComponent},
     { path: 'javaNIO', component: JavaniopageComponent},
+    { path: 'javaNIO_2', component: JavanioFilesyspageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaAlgorithms', component: JavaalgorithmspageComponent},
