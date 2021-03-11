@@ -94,33 +94,31 @@ export class JavaniopageComponent implements OnInit {
         e.printStackTrace();
     }`;
 
-    soleNIOBinary = `try(
+  soleNIOBinary = `try(
       FileOutputStream binFile = new FileOutputStream("data.dat");
       FileChannel binChannel = binFile.getChannel()) {
 
-        // setup an array of bytes which holds representative string
         byte[] outputBytes = "Hello World!".getBytes();
 
         // couple a Buffer to the array (no relation to data.dat yet)
         ByteBuffer buffer = ByteBuffer.wrap(outputBytes);
 
-        // send buffer's data to, overall, data.dat and confirm
+        // send buffer's data to, eventually, data.dat and confirm
         int numBytes = binChannel.write(buffer);
         System.out.println("numBytes written was: " + numBytes);
-        // note that buffer's pointer is at the end of the buffer ***
-        // see read() snippet below
+        // at this stage buffer's pointer is at the end of the buffer 
+        // see read() snippet below***
 
         // start another buffer, with potentially different capacity
         // this time set by allocate() instead of wrap()
         ByteBuffer intBuffer = ByteBuffer.allocate(Integer.BYTES);
 
-        // putInt() also changes the buffer's position
+        // methods, including putInt() advance the buffer's position
         intBuffer.putInt(245);
 
-        // flip() resets the position to zero (and discards any mark)
         intBuffer.flip();
 
-        // send intBuffer, at the current position, to data.dat
+        // send intBuffer, now at the position zero, to data.dat
         numBytes = binChannel.write(intBuffer);
         System.out.println("numBytes written was: " + numBytes);
 
@@ -137,17 +135,16 @@ export class JavaniopageComponent implements OnInit {
   e.printStackTrace();
 }`;
 
-soleNIOread = `RandomAccessFile ra = new RandomAccessFile("data.dat", "rwd");
+  soleNIOread = `RandomAccessFile ra = new RandomAccessFile("data.dat", "rwd");
 FileChannel channel = ra.getChannel();
 
 // outputBytes is coupled to buffer; however, buffer pointer is at the end
-// of the buffer *** see above write() snippet; the buffer is of fixed length
-// so it does not add more elements; hence the following only affects the local
-// outputBytes array w/o affecting buffer...
+// of the buffer *** see above write() snippet; 
+
+// this only affects outputBytes not buffer (buffer pointer is at the end)
 outputBytes[0] = 'a';
 outputBytes[1] = 'b';
 
-// ...now we return to the beginning; data.dat, via channel, sent to buffer 
 buffer.flip();
 long numBytesRead = channel.read(buffer);
 
@@ -158,7 +155,7 @@ if(buffer.hasArray()) {
   System.out.println("byte buffer = " + new String(buffer.array()));
 }`;
 
-soleNIOAbsoluteRead = `// Absolute read (passed index to getInt())
+  soleNIOAbsoluteRead = `// Absolute read (passed index to getInt())
 intBuffer.flip();
 numBytesRead = channel.read(intBuffer);
 System.out.println(intBuffer.getInt(0));
@@ -169,7 +166,7 @@ System.out.println(intBuffer.getInt(0));
 channel.close();
 ra.close();`
 
-soleNIORelativeRead = `// Relative read (no parameters passed to getInt())
+  soleNIORelativeRead = `// Relative read (no parameters passed to getInt())
 intBuffer.flip();
 numBytesRead = channel.read(intBuffer);
 intBuffer.flip();
