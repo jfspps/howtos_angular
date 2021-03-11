@@ -5,11 +5,11 @@
 </p>
 
 <p>
-    Also included are threadX.interrupt() to interrupt the given threadX and threadY.join(), which enables a one to run right after (and on) the same thread, threadY, after threadY has finished its execution. The join() method is useful when threadY needs to finish something (e.g. completing database transactions). The code which runs after the join() method is executed when threadY has finished.
+    Also included are <span class="commands">threadX.interrupt()</span> to interrupt the given threadX and <span class="commands">threadY.join()</span>, which enables a one to run right after (and on) the same thread, threadY, after threadY has finished its execution. The <span class="commands">join()</span> method is useful when threadY needs to finish something (e.g. completing database transactions). The code which runs after the <span class="commands">join()</span> method is executed when threadY has finished.
 </p>
 
 <p>
-    Entering a parameter to join() sets the timeout for threadY.join() to wait, like threadY.join(2000). This will set a time limit for the threadY to complete. If the time passes, then the statements proceeding join() will run regardless if threadY finished or not.
+    Entering a parameter to <span class="commands">join()</span> sets the timeout for <span class="commands">threadY.join()</span> to wait, like <span class="commands">threadY.join(2000)</span>. This will set a time limit for the threadY to complete. If the time passes, then the statements proceeding <span class="commands">join()</span> will run regardless if threadY finished or not.
 </p>
 
 <p>

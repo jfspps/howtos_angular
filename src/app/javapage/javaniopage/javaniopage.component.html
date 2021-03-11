@@ -63,7 +63,7 @@
 </ul>
 
 <p>
-    Each operation on the buffer advances the buffer's pointer one place forward. Quite often one needs to reset the pointer before reading or writing from/to the buffer. This is achieved with the flip() method. The flip() method also discards any custom mark. The example below writes Hello World followed by two Integers.
+    Each operation on the buffer (getInt() and putInt(), for example) advances the buffer's pointer one place forward. Quite often one needs to reset the pointer before reading or writing from/to the buffer. This is achieved with the flip() method. The flip() method also discards any custom mark. The example below writes Hello World followed by two Integers.
 </p>
 
 <pre>
@@ -121,4 +121,30 @@
 
 <pre>
     <code [highlight]="soleNIORelativeRead" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Copying files between channels and threads</h5>
+
+<p>
+    Files are coupled to Java NIO channels, and as such, one can copy file contents via their channels. The following transferTo() sends data from someOtherChannel to someFileChannel.
+</p>
+
+<pre>
+    <code [highlight]="FileChannel" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that the position parameter is relative to the current position in the channel. One can also send data with respect to the destination channel with transferFrom(). The following is equivalent to the above transferTo().
+</p>
+
+<pre>
+    <code [highlight]="FileChannel2" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can also transfer data between threads, via <b>pipes</b>. Pipes are one-way.
+</p>
+
+<pre>
+    <code [highlight]="pipes" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>

@@ -179,6 +179,97 @@ System.out.println(intBuffer.getInt());
 channel.close();
 ra.close();`
 
+  FileChannel = `RandomAccessFile someFile = 
+new RandomAccessFile("someFileName.dat", "rw");
+FileChannel someFileChannel = someFile.getChannel();
+
+// optional: set the position from which other 
+// channels start in someOtherChannel when transferring data
+// from someOtherChannel
+// someOtherChannel.position(0);
+
+// transfers from someOtherChannel to someFileChannel
+// returns the value transferred and is used here for confirmation
+long someLong = someOtherChannel.transferTo(
+  0, someOtherChannel.size(), someFileChannel);`
+
+  FileChannel2 = `RandomAccessFile someFile = 
+  new RandomAccessFile("someFileName.dat", "rw");
+  FileChannel someFileChannel = someFile.getChannel();
+  
+  // optional
+  // someOtherChannel.position(0);
+  
+  // transfers from someOtherChannel to someFileChannel
+  long someLong = someFileChannel.transferFrom(
+    someOtherChannel, 0, someOtherChannel.size());`;
+
+    pipes = `try {
+      Pipe pipe = Pipe.open();
+
+      Runnable writer = new Runnable() {
+          @Override
+          public void run() {
+              try {
+                  Pipe.SinkChannel sinkChannel = pipe.sink();
+                  ByteBuffer buffer = ByteBuffer.allocate(56);
+
+                  for(int i=0; i<10; i++) {
+                      String currentTime = "The time is: " + System.currentTimeMillis();
+
+                      buffer.put(currentTime.getBytes());
+                      buffer.flip();
+
+                      while(buffer.hasRemaining()) {
+                          sinkChannel.write(buffer);
+                      }
+                      buffer.flip();
+                      // give the reader a chance to read from the pipe's source channel
+                      Thread.sleep(100);
+
+                  }
+
+              } catch(Exception e) {
+                  e.printStackTrace();
+              }
+          }
+      };
+
+
+      Runnable reader = new Runnable() {
+          @Override
+          public void run() {
+
+              try {
+                  Pipe.SourceChannel sourceChannel = pipe.source();
+                  ByteBuffer buffer = ByteBuffer.allocate(56);
+
+                  for(int i=0; i<10; i++) {
+                      int bytesRead = sourceChannel.read(buffer);
+                      byte[] timeString = new byte[bytesRead];
+                      buffer.flip();
+                      buffer.get(timeString);
+                      System.out.println("Reader Thread: " + new String(timeString));
+                      buffer.flip();
+
+                      // wait for the sink channel to have more data written
+                      Thread.sleep(100);
+                  }
+
+              } catch(Exception e) {
+                  e.printStackTrace();
+              }
+
+          }
+      };
+
+      new Thread(writer).start();
+      new Thread(reader).start();
+
+  } catch(IOException e) {
+      e.printStackTrace();
+  }`;
+
   ngOnInit(): void {
   }
 
