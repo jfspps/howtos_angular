@@ -16,7 +16,7 @@ export class JavanioFilesyspageComponent implements OnInit {
   Path path = FileSystems.getDefault().getPath("fileName.txt");
   printFile(path);  // defined below
   `
-  
+
   handlePath = `
   private void printFile(Path path) {
     try(BufferedReader fileReader = Files.newBufferedReader(path)) {
@@ -42,6 +42,34 @@ export class JavanioFilesyspageComponent implements OnInit {
   System.out.println(path2.normalize().toAbsolutePath());
   printFile(path2.normalize());`
 
+  fileExists = `Path filePath = FileSystems.getDefault().getPath("files");
+System.out.println("Exists = " + Files.exists(filePath));`
+
+  copyFile = `try {
+    Path sourceFile = FileSystems.getDefault().getPath("someDir", "file.txt");
+    Path copyFile = FileSystems.getDefault().getPath("someDir", "fileCopy.txt");
+    Files.copy(sourceFile, copyFile);
+} catch(IOException e) {
+    e.printStackTrace();
+}`
+
+moveRenameDeleteFile = `try {
+  Path fileToDelete = FileSystems.getDefault().getPath("parentDir", "Dir1", "fileCopy.txt");
+  Files.deleteIfExists(fileToDelete);
+
+  Path fileToMove = FileSystems.getDefault().getPath("parentDir", "file2.txt");
+  Path destination = FileSystems.getDefault().getPath("parentDir", "childDir", "file2.txt");
+  Files.move(fileToMove, destination);
+
+  // use copy() to replace the given file and effectively rename it
+  // again, note that no exceptions are thrown at this stage
+  sourceFile = FileSystems.getDefault().getPath("parentDir", "fileX");
+  copyFile = FileSystems.getDefault().getPath("parentDir", "fileY");
+  Files.copy(sourceFile, copyFile, StandardCopyOption.REPLACE_EXISTING);
+
+} catch(IOException e) {
+  System.out.println(e.getMessage());
+}`
   constructor() { }
 
   ngOnInit(): void {

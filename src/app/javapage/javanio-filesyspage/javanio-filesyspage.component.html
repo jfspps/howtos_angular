@@ -33,5 +33,41 @@
 </pre>
 
 <p>
-    Note how important the order of each segment is. Java 7's IO Paths class was replaced by Java NIO's Path class to accommodate exception handling and address other limitations, including delete() and rename().
+    Note how important the order of each segment is.
+</p>
+
+<h5>Exists and copy methods</h5>
+
+<p>
+    Java 7's IO Paths class was replaced by Java NIO's Path interface to accommodate exception handling and address other limitations, including delete() and rename(). With Java IO Paths class, no exceptions are thrown until a buffer is coupled to the file. Until then, the Paths objects is assumed to exist.
+</p>
+
+<p>
+    With Java NIO, one can check if a file exists:
+</p>
+
+<pre>
+    <code [highlight]="fileExists" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can also use Java NIO's copy() method to copy across a file (without more parameters, files are not copied if they already exist):
+</p>
+
+<pre>
+    <code [highlight]="copyFile" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Moving, renaming and deleting files</h5>
+
+<p>
+    The methods to move, rename (with copy() shown below, or move()) and delete methods are:
+</p>
+
+<pre>
+    <code [highlight]="moveRenameDeleteFile" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    It is also possible move or copy entire directories by passing directory segments without the file name segment. Note that some operating systems may respond differently to move().
 </p>
