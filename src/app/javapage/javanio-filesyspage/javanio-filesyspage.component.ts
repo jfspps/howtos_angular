@@ -78,7 +78,22 @@ System.out.println("Size =  " + attrs.size());
 System.out.println("Last modified =  " + attrs.lastModifiedTime());
 System.out.println("Created = " + attrs.creationTime());
 System.out.println("Is directory = " + attrs.isDirectory());
-System.out.println("Is regular file = " + attrs.isRegularFile());`
+System.out.println("Is regular file = " + attrs.isRegularFile());`;
+
+readDirectory = `// pass this filter instead of "*.sql" 
+// DirectoryStream.Filter<Path> filter = p -> Files.isRegularFile(p);
+
+Path directory = FileSystems.getDefault().getPath("FileTree/Dir");
+
+try (DirectoryStream<Path> contents = Files.newDirectoryStream(directory, "*.sql")) {
+    for (Path file : contents) {
+        System.out.println(file.getFileName());
+    }
+
+    // catch either exception with a bitwise OR
+} catch (IOException | DirectoryIteratorException e) {
+    System.out.println(e.getMessage());
+}`
   constructor() { }
 
   ngOnInit(): void {

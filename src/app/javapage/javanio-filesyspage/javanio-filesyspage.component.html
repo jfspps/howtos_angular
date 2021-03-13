@@ -85,3 +85,17 @@
 <p>
     There are other subclasses of BasicFileAttributes (OS specific) hence the need to pass the class in readAttributes().
 </p>
+
+<h5>Reading directories</h5>
+
+<p>
+    The files and directories present in a given directory, excluding other files in descendant directories, use:
+</p>
+
+<pre>
+    <code [highlight]="readDirectory" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To apply other matchers or wildcards (instead of *.sql), see <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-" target="_blank">the official docs</a>.
+</p>
