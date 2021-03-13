@@ -69,7 +69,7 @@
 </pre>
 
 <p>
-    It is also possible move or copy entire directories by passing directory segments without the file name segment. Note that some operating systems may respond differently to move().
+    It is also possible move or copy entire directories (see walking the tree, below) by passing directory segments without the file name segment. Note that some operating systems may respond differently to move().
 </p>
 
 <h5>File metadata</h5>
@@ -124,4 +124,38 @@
 
 <pre>
     <code [highlight]="drivesAndRoot" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Walking a file tree</h5>
+
+<p>
+    This tends to be useful when searching for all files from a given parent directory. The approach is given below:
+</p>
+
+<pre>
+    <code [highlight]="walkingTheTree" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Walking the tree is normally supported by an extension of SimpleFileVisitor. This class keeps track of which file was used and can be extended to return info each time a file is visited:
+</p>
+
+<pre>
+    <code [highlight]="printFileNames" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    This approach also provides a way of copying all files found. Again, a class which extends SimpleFileVisitor can implement this functionality.
+</p>
+
+<pre>
+    <code [highlight]="copyFilesFound" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The supporting class is provided below:
+</p>
+
+<pre>
+    <code [highlight]="copyFilesFoundSupport" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>

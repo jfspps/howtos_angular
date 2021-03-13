@@ -53,7 +53,7 @@ System.out.println("Exists = " + Files.exists(filePath));`
     e.printStackTrace();
 }`
 
-moveRenameDeleteFile = `try {
+  moveRenameDeleteFile = `try {
   Path fileToDelete = FileSystems.getDefault().getPath("parentDir", "Dir1", "fileCopy.txt");
   Files.deleteIfExists(fileToDelete);
 
@@ -71,7 +71,7 @@ moveRenameDeleteFile = `try {
   System.out.println(e.getMessage());
 }`
 
-fileAttributes = `Path filePath = FileSystems.getDefault().getPath("exampleDir", "subDir/file.txt");
+  fileAttributes = `Path filePath = FileSystems.getDefault().getPath("exampleDir", "subDir/file.txt");
 BasicFileAttributes attrs = Files.readAttributes(filePath, BasicFileAttributes.class);
 
 System.out.println("Size =  " + attrs.size());
@@ -80,7 +80,7 @@ System.out.println("Created = " + attrs.creationTime());
 System.out.println("Is directory = " + attrs.isDirectory());
 System.out.println("Is regular file = " + attrs.isRegularFile());`;
 
-readDirectory = `// pass this filter instead of "*.sql" 
+  readDirectory = `// pass this filter instead of "*.sql" 
 // DirectoryStream.Filter<Path> filter = p -> Files.isRegularFile(p);
 
 Path directory = FileSystems.getDefault().getPath("FileTree/Dir");
@@ -95,13 +95,13 @@ try (DirectoryStream<Path> contents = Files.newDirectoryStream(directory, "*.sql
     System.out.println(e.getMessage());
 }`;
 
-fileSeparator = `Path directory = FileSystems.getDefault().getPath("dirTree" + File.separator + "descendantDir");
+  fileSeparator = `Path directory = FileSystems.getDefault().getPath("dirTree" + File.separator + "descendantDir");
 
 // print the separator
 String separator = FileSystems.getDefault().getSeparator();
 `;
 
-tempFiles = `try {
+  tempFiles = `try {
   // filePrefix is not normally the final filename
   Path tempFile = Files.createTempFile("filePrefix", ".suffix");
   System.out.println("Temporary file path = " + tempFile.toAbsolutePath());
@@ -110,7 +110,7 @@ tempFiles = `try {
   System.out.println(e.getMessage());
 }`;
 
-drivesAndRoot = `Iterable<FileStore> stores = FileSystems.getDefault().getFileStores();
+  drivesAndRoot = `Iterable<FileStore> stores = FileSystems.getDefault().getFileStores();
 for(FileStore store : stores) {
     // output is OS specific
     System.out.println("Volume name/Drive letter = " + store);
@@ -120,7 +120,117 @@ for(FileStore store : stores) {
 Iterable<Path> rootPaths = FileSystems.getDefault().getRootDirectories();
 for(Path path : rootPaths) {
     System.out.println("Root directory: " + path);
+}`;
+
+  walkingTheTree = `Path dirPath = FileSystems.getDefault().getPath("fileTree" + File.separator + "someDir");
+try {
+  // using the extension, PrintNames, below
+    Files.walkFileTree(dirPath, new PrintNames());
+} catch(IOException e) {
+    System.out.println(e.getMessage());
+}`;
+
+  printFileNames = `public class PrintNames extends SimpleFileVisitor<Path> {
+
+  // handles files
+  @Override
+  public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+   throws IOException {
+      System.out.println(file.toAbsolutePath());
+      return FileVisitResult.CONTINUE;
+  }
+
+  // handles methods run before a directory is processed
+  // there are other methods e.g. postVisitDirectory which can be overridden
+  @Override
+  public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+   throws IOException {
+      System.out.println(dir.toAbsolutePath());
+      return FileVisitResult.CONTINUE;
+  }
+
+  // override the default IOException throwing behaviour if a file is not found
+  @Override
+  public FileVisitResult visitFileFailed(Path file, IOException exc)
+   throws IOException {
+      System.out.println("Error accessing file: " + file.toAbsolutePath() 
+        + " " + exc.getMessage());
+      return FileVisitResult.CONTINUE;
+  }
+}`;
+
+  copyFilesFound = `Path source = FileSystems.getDefault().getPath(
+  "FileTree" + File.separator + "subDir");
+Path destination = FileSystems.getDefault().getPath(
+  "FileTree" + File.separator + "subDir" + File.separator + "anotherSubDir");
+try {
+    Files.walkFileTree(source, new CopyFiles(source, destination));
+
+} catch(IOException e) {
+    System.out.println(e.getMessage());
+}`;
+
+  copyFilesFoundSupport = `public class CopyFiles extends SimpleFileVisitor<Path> {
+
+  private Path sourceRoot;
+  private Path targetRoot;
+
+  public CopyFiles(Path sourceRoot, Path targetRoot) {
+      this.sourceRoot = sourceRoot;
+      this.targetRoot = targetRoot;
+  }
+
+  @Override
+  public FileVisitResult visitFileFailed(Path file, IOException exc)
+   throws IOException {
+      System.out.println("Error accessing file: " + file.toAbsolutePath() 
+      + " " + exc.getMessage());
+      return FileVisitResult.CONTINUE;
+  }
+
+  @Override
+  public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+   throws IOException {
+
+    // get relative path (removes root path info from absolute source path)
+    // of source directory
+    Path relativizedSourcePath = sourceRoot.relativize(dir);
+    System.out.println("relativizedSourcePath = " + relativizedSourcePath);
+
+    // appends the source relative path to destination target absolute path
+    Path destinationPath = targetRoot.resolve(relativizedSourcePath);
+    System.out.println("Resolved path for copy = " + destinationPath);
+
+    try {
+        Files.copy(dir, destinationPath);
+    } catch(IOException e) {
+        System.out.println(e.getMessage());
+        // since this directory has errors, skip its sub-directories too
+        return FileVisitResult.SKIP_SUBTREE;
+    }
+
+    return FileVisitResult.CONTINUE;
+  }
+
+  @Override
+  public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+   throws IOException {
+      Path relativizedSourcePath = sourceRoot.relativize(file);
+      System.out.println("relativizedSourcePath = " + relativizedSourcePath);
+
+      Path destinationPath = targetRoot.resolve(relativizedSourcePath);
+      System.out.println("Resolved path for copy = " + destinationPath);
+
+      try {
+          Files.copy(file, destinationPath);
+      } catch(IOException e) {
+          System.out.println(e.getMessage());
+      }
+
+      return FileVisitResult.CONTINUE;
+  }
 }`
+
   constructor() { }
 
   ngOnInit(): void {
