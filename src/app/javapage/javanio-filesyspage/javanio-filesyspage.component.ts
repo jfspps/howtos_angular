@@ -70,6 +70,15 @@ moveRenameDeleteFile = `try {
 } catch(IOException e) {
   System.out.println(e.getMessage());
 }`
+
+fileAttributes = `Path filePath = FileSystems.getDefault().getPath("exampleDir", "subDir/file.txt");
+BasicFileAttributes attrs = Files.readAttributes(filePath, BasicFileAttributes.class);
+
+System.out.println("Size =  " + attrs.size());
+System.out.println("Last modified =  " + attrs.lastModifiedTime());
+System.out.println("Created = " + attrs.creationTime());
+System.out.println("Is directory = " + attrs.isDirectory());
+System.out.println("Is regular file = " + attrs.isRegularFile());`
   constructor() { }
 
   ngOnInit(): void {

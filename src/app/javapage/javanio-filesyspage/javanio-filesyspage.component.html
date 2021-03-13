@@ -9,7 +9,7 @@
 </pre>
 
 <p>
-    One can use the Path instance to access the file.
+    One can use the Path instance to access the file with BufferedReader or BufferWriter.
 </p>
 
 <pre>
@@ -70,4 +70,18 @@
 
 <p>
     It is also possible move or copy entire directories by passing directory segments without the file name segment. Note that some operating systems may respond differently to move().
+</p>
+
+<h5>File metadata</h5>
+
+<p>
+    To retrieve a file's attributes or metadata, with regard to the operating system, see the <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/BasicFileAttributes.html" target="_blank">BasicFileAttributes interface</a>. To get all the attributes in one go, use:
+</p>
+
+<pre>
+    <code [highlight]="fileAttributes" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    There are other subclasses of BasicFileAttributes (OS specific) hence the need to pass the class in readAttributes().
 </p>
