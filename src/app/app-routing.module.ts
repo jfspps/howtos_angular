@@ -46,11 +46,13 @@ import { JavafileiopageComponent } from './javapage/javafileiopage/javafileiopag
 import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinaryiopage.component';
 import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.component';
 import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/javanio-filesyspage.component';
+import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
   { path: 'java', component: JavapageComponent, children: [
+    { path: 'javaRegExp', component: JavaRegExpComponent},
     { path: 'javaThreads', component: JavathreadspageComponent},
     { path: 'javaThreadsShareSync', component: JavathreadsyncpageComponent},
     { path: 'javaThreadSafe', component: JavaproducerconsumerpageComponent},

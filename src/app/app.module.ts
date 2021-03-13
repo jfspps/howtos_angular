@@ -52,6 +52,7 @@ import { JavafileiopageComponent } from './javapage/javafileiopage/javafileiopag
 import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinaryiopage.component';
 import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.component';
 import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/javanio-filesyspage.component';
+import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/java
     JavafileiopageComponent,
     JavabinaryiopageComponent,
     JavaniopageComponent,
-    JavanioFilesyspageComponent
+    JavanioFilesyspageComponent,
+    JavaRegExpComponent
   ],
   imports: [
     BrowserModule,
