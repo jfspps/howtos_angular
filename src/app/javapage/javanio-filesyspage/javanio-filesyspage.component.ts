@@ -93,6 +93,33 @@ try (DirectoryStream<Path> contents = Files.newDirectoryStream(directory, "*.sql
     // catch either exception with a bitwise OR
 } catch (IOException | DirectoryIteratorException e) {
     System.out.println(e.getMessage());
+}`;
+
+fileSeparator = `Path directory = FileSystems.getDefault().getPath("dirTree" + File.separator + "descendantDir");
+
+// print the separator
+String separator = FileSystems.getDefault().getSeparator();
+`;
+
+tempFiles = `try {
+  // filePrefix is not normally the final filename
+  Path tempFile = Files.createTempFile("filePrefix", ".suffix");
+  System.out.println("Temporary file path = " + tempFile.toAbsolutePath());
+
+} catch(IOException e) {
+  System.out.println(e.getMessage());
+}`;
+
+drivesAndRoot = `Iterable<FileStore> stores = FileSystems.getDefault().getFileStores();
+for(FileStore store : stores) {
+    // output is OS specific
+    System.out.println("Volume name/Drive letter = " + store);
+    System.out.println("file store = " + store.name());
+}
+
+Iterable<Path> rootPaths = FileSystems.getDefault().getRootDirectories();
+for(Path path : rootPaths) {
+    System.out.println("Root directory: " + path);
 }`
   constructor() { }
 

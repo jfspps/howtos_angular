@@ -99,3 +99,29 @@
 <p>
     To apply other matchers or wildcards (instead of *.sql), see <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html#getPathMatcher-java.lang.String-" target="_blank">the official docs</a>.
 </p>
+
+<h5>Other file system related features</h5>
+
+<p>
+    Different operating systems use different directory separators. Linux and Macs use "/" whereas Windows uses "\". To get the current system's separator, use:
+</p>
+
+<pre>
+    <code [highlight]="fileSeparator" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To create temporary files in the OS's temp directory, use:
+</p>
+
+<pre>
+    <code [highlight]="tempFiles" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To get the drives (file stores) representing physical drives or partitions, and root paths use:
+</p>
+
+<pre>
+    <code [highlight]="drivesAndRoot" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
