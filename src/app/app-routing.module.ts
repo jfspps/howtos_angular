@@ -47,11 +47,13 @@ import { JavabinaryiopageComponent } from './javapage/javabinaryiopage/javabinar
 import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.component';
 import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/javanio-filesyspage.component';
 import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.component';
+import { JavasortcollectionspageComponent } from './javapage/javasortcollectionspage/javasortcollectionspage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
   { path: 'java', component: JavapageComponent, children: [
+    { path: 'javaSortCollections', component: JavasortcollectionspageComponent},
     { path: 'javaRegExp', component: JavaRegExpComponent},
     { path: 'javaThreads', component: JavathreadspageComponent},
     { path: 'javaThreadsShareSync', component: JavathreadsyncpageComponent},
