@@ -8,7 +8,7 @@
     The Collection interface is an extension of Iterable, an interface that allows for the foreach loop. Sub-interfaces of Collection include Deque, List, Queue, and Set. These sub-interfaces are implemented by, as relevant, the Collections class (contrast to the Collection interface) along with the Deque, List, Queue, and Set classes. Furthermore, these classes have other other subclasses.
 </p>
 
-<h5>Lists</h5>
+<h5>The List interface</h5>
 
 <p>
     Lists can be copied by reference (a shallow copy) by initialising a new List as <span class="commands">List&lt;ClassID&gt; newList = new ArrayList&lt;&gt;(sourceList)</span>, in preference to Collections.copy(dest, source).  Elements can be reversed and shuffled using reverse() and shuffle(). (Reversing a list requires the implementation of the Comparable interface, below.) The min() and max() methods return the smallest and largest numerical based element. One can also swap elements with swap().
@@ -60,4 +60,42 @@
 
 <p>
     One can replace an already mapped value (a value with a key present) with replace(). The method returns the original value if the key was found (and the original value updated) and null of the key was not found. One can also check the value also exists (in addition to the key) by using passing three parameters as: <span class="commands">someMap.replace(key, originalValue, newValue);</span> before replacing the originalValue. This provides more strict control over how key-values are replaced.
+</p>
+
+<h5>The Set interface</h5>
+
+<p>
+    Sets are unordered collections of unique elements. Sets are generic class based and have size() and isEmpty() methods. Generally, sets should store immutable objects or at the very least remain unique, otherwise the behaviour would be undefined and unpredictable. HashSets use hashes like Maps to provide fast access (O(1)) to each element. The element itself is also stored in an underlying HashMap, as the key with a dummy value added to the backing HashMap. Since HashMap keys are all unique, then the overarching Set elements are unique. Sets also have mathematical union and intersection type methods.
+</p>
+
+<p>
+    Like Lists, shallow copies can be applied with <span class="commands">Set&lt;ClassID&gt; newSet = new HashSet&lt;&gt;(sourceSet)</span>. Elements are added with add() and a union of two sets is achieved with addAll().
+</p>
+
+<p>
+    When storing custom objects as keys in a HashMap or elements of a Set, it is highly recommended to override the equals() and hashCode() methods. To the compiler, objects will have subtle differences which enable objects to be stored in the set. If at least one property of the object is different then the object will be classed as unique. Their references (hashCode) will be different, and teh default equals() method will apply a simple 'referential equality' which is 'object1 == object2'. This is not always apparent regarding the business logic however.
+</p>
+
+<p>
+    Objects which are equal according to equal() have the same hashCode and reside in the same bucket (think of an array of linked lists). Each hashCode indicates which bucket the submitted object will reside in. The return of hashCode() does not depend on equals(), however, equals() does depend on hashCode(). The method equals() checks the hashCodes and assumes they are assigned correctly. If hashCode() was not overridden or set correctly then equals() may use the wrong hashCode and end up looking in the wrong bucket. The method equals() is unaware of this and so it never finds the required object. The submitted object can then be placed into the Set or HashMap, duplicating at least one of the other elements already present.
+</p>
+
+<p>
+    This has subsequent problems, when the Set is iterated over, attempting to find or remove an object. The wrong object would be recalled or deleted.
+</p>
+
+<p>
+    When overriding the methods, one can choose object properties which direct the compiler to establish if objects are the same or not. Take care not to overload the methods, as this just provides a different method signature which could still be called. Overriding means that the current class will use newly-defined method over the parent class method.
+</p>
+
+<pre>
+    <code [highlight]="hashCodeEquals" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The @Override annotation directs the compiler to check the signature is correct.
+</p>
+
+<p>
+    Some thought is required though when overriding equals() for a class and its subclass. In many cases, properties in the subclass are not known by the parent class. When <span class="commands">obj instanceof objClass</span> is used in the equals() method, it returns true. Similarly, it works for subclasses, so the following, <span class="commands">subClassObj instanceof objClass</span>, is also true. However, <span class="commands">obj instanceof objSubClass</span> is false. When <span class="commands">instanceof</span> is used as part of equals, define the overridden equals() method in the parent class only and allow the subclass to use the parent class' equals() method. In other words, do not override equals() in the subclass. To ensure this behaviour, mark the overridden equals() and hashCode() methods in the parent class as 'final'.
 </p>

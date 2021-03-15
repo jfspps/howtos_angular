@@ -42,6 +42,27 @@ export class JavasortcollectionspageComponent implements OnInit {
   // then compare(seat1, seat2) is equivalent to
   // seat1.getPrice().compareTo(seat2.getPrice())`;
 
+  hashCodeEquals = `@Override
+  public boolean equals(Object obj) {
+    // referential equality
+    if(this == obj) {
+        return true;
+    }
+
+    // someProperty is of type String; retrieve it
+    
+    // apply Java Lang's String equals() method
+    return this.someProperty.equals(someProperty);
+}
+
+@Override
+public int hashCode() {
+  // build a unique hashCode by adding, for example, 64 to the hashCode
+  // someStringTypeProperty is of type String so here we apply String's
+  // hashCode() method
+    return this.someStringTypeProperty.hashCode() + 64;
+}`
+
   onHighlight(e) {
     this.response = {
       language: e.language,
