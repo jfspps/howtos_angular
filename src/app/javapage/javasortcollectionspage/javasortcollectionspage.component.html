@@ -8,6 +8,56 @@
     The Collection interface is an extension of Iterable, an interface that allows for the foreach loop. Sub-interfaces of Collection include Deque, List, Queue, and Set. These sub-interfaces are implemented by, as relevant, the Collections class (contrast to the Collection interface) along with the Deque, List, Queue, and Set classes. Furthermore, these classes have other other subclasses.
 </p>
 
+<h5>Lists</h5>
+
+<p>
+    Lists can be copied by reference (a shallow copy) by initialising a new List as <span class="commands">List&lt;ClassID&gt; newList = new ArrayList&lt;&gt;(sourceList)</span>, in preference to Collections.copy(dest, source).  Elements can be reversed and shuffled using reverse() and shuffle(). (Reversing a list requires the implementation of the Comparable interface, below.) The min() and max() methods return the smallest and largest numerical based element. One can also swap elements with swap().
+</p>
+
+<h5>Comparator and Comparable interfaces</h5>
+
+<p>
+    Comparable and Comparator are interfaces which allow one to sort collections or lists. Comparable declares the compareTo() method, amongst others.
+</p>
+
 <pre>
-    <code [highlight]="" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+    <code [highlight]="compareTo" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<p>
+    The above code snippet returns a positive value if this.seatNumber &gt; seat.getSeatNumber(), a negative value if this.seatNumber &lt; seat.getSeatNumber() and zero if they are equal.
+</p>
+
+<p>
+    Comparator defines one method: compare() (hence, Comparator is a functional interface) and can provide a more custom sort method. 
+</p>
+
+<pre>
+    <code [highlight]="comparator" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The command <span class="commands">Collections.sort(priceSeats, Theatre.PRICE_ORDER);</span> then sorts the the list of Seats, priceSeats, by first by the order they were added (FIFO, lowest to highest index number) and then by price, from lowest price to highest. Elements are only swapped if they have different prices.
+</p>
+
+<p>
+    More comparators can be applied with different sort criteria.
+</p>
+
+<h5>The Map interface</h5>
+
+<p>
+    This interface has a key and value pairings and replaces dictionaries. Maps can be implement with the HashMap generic class with <span class="commands">Map&lt;Integer, String&gt; someMap = new HashMap&lt;&gt;();</span>, for example. Keys are unique so all references, with put(), to the same key will overwrite the stored value. Keys are also immutable. The method put() returns the previous value if the key-value pair already exists and null if not.
+</p>
+
+<p>
+    One can also use containsKey() to determine if a value already exists without overwriting it through put(). With regard to thread management, one can use putIfAbsent(), preventing two or more threads from writing to the map repeatedly.
+</p>
+
+<p>
+    Removing elements from maps can be carried out with remove(). This method returns true is the key-value pair were found (and subsequently deleted) and false otherwise.
+</p>
+
+<p>
+    One can replace an already mapped value (a value with a key present) with replace(). The method returns the original value if the key was found (and the original value updated) and null of the key was not found. One can also check the value also exists (in addition to the key) by using passing three parameters as: <span class="commands">someMap.replace(key, originalValue, newValue);</span> before replacing the originalValue. This provides more strict control over how key-values are replaced.
+</p>
