@@ -69,7 +69,7 @@
 </p>
 
 <p>
-    Like Lists, shallow copies can be applied with <span class="commands">Set&lt;ClassID&gt; newSet = new HashSet&lt;&gt;(sourceSet)</span>. Elements are added with add() and a union of two sets is achieved with addAll().
+    Like Lists, shallow copies can be applied with <span class="commands">Set&lt;ClassID&gt; newSet = new HashSet&lt;&gt;(sourceSet)</span>. Elements are added with add() and a union of two sets is achieved with addAll(). The methods removeAll() and containsAll() are useful with mathematical Set logic. The method addAll() can be applied to the union of Sets, removeAll() applies to the difference of two sets and containsAll() (a non-destructive method) can be used to test if one Set is a Subset of another.
 </p>
 
 <p>
@@ -97,5 +97,5 @@
 </p>
 
 <p>
-    Some thought is required though when overriding equals() for a class and its subclass. In many cases, properties in the subclass are not known by the parent class. When <span class="commands">obj instanceof objClass</span> is used in the equals() method, it returns true. Similarly, it works for subclasses, so the following, <span class="commands">subClassObj instanceof objClass</span>, is also true. However, <span class="commands">obj instanceof objSubClass</span> is false. When <span class="commands">instanceof</span> is used as part of equals, define the overridden equals() method in the parent class only and allow the subclass to use the parent class' equals() method. In other words, do not override equals() in the subclass. To ensure this behaviour, mark the overridden equals() and hashCode() methods in the parent class as 'final'.
+    Some thought is required though when overriding equals() for a class and its subclass. When <span class="commands">obj instanceof objClass</span> is used in the equals() method, it returns true. Similarly, it works for subclasses, so the following, <span class="commands">subClassObj instanceof objClass</span>, is also true. However, <span class="commands">obj instanceof objSubClass</span> is false. When <span class="commands">instanceof</span> is used as part of equals, define the overridden equals() method in the parent class only and allow the subclass to use the parent class' equals() method. In other words, do not override equals() in the subclass. To ensure this behaviour, mark the overridden equals() and hashCode() methods in the parent class as 'final'.
 </p>
