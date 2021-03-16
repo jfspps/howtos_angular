@@ -36,3 +36,59 @@
 <pre>
     <code [highlight]="lambdaFunc" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>Return values</h5>
+
+<p>
+    Take the functional interface and return values as shown below.
+</p>
+
+<pre>
+    <code [highlight]="returnValues" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The above lambda could be passed directly to a method without storing locally as uc, if appropriate. A 'return' keyword is not required in the above case. For function bodies with more than one statement, the following form is expected:
+</p>
+
+<pre>
+    <code [highlight]="returnValuesBlock" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Scope</h5>
+
+<p>
+    Anonymous classes can only access external variables if they are declared final. The anonymous class defines the behaviour of the function but are not necessarily executed straight away. This means that the external variables can change after they were defined in code. If the variable changed to the point where the anonymous class cannot process it (leading to an exception) when required, then the program would likely fail. One way to ensure that the variable does not change at any point is to declare it 'final'. In the next two snippets below, variable i is accessible to all in doSomething().
+</p>
+
+<p>
+    The example below assumes what would happen if an anonymous class would receive <i>if</i> it was granted access to variable i. In reality, the next two snippets would never compile.
+</p>
+
+<pre>
+    <code [highlight]="scopeAnon" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The lambda form, with the same problems, is below.
+</p>
+
+<pre>
+    <code [highlight]="scopeLambda" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To give the anonymous class (and lambda function) access to variable i, first one must declare i as 'final'. This consequently makes <i>any</i> operation on variable i as illegal. Hence the post-decremental operator on i is removed.
+</p>
+
+<pre>
+    <code [highlight]="corrected" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    If variable i is in scope of the anonymous class or lambda function, then variable i need not be declared 'final'.
+</p>
+
+<pre>
+    <code [highlight]="correctedLambda" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
