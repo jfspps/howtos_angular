@@ -1,0 +1,38 @@
+<h5>Java 8 lambda functions</h5>
+
+<p>
+    Lambda functions provide a more concise and arguably clearer execution of anonymous class methods. Lambda functions are composed of three main parts, the argument list, the arrow token and the body, as
+</p>
+
+<p><span class="commands">new newObject((argumentList) -&gt; functionBody())</span></p>
+
+<p>
+    or for some already defined object as
+</p>
+
+<p>
+    <span class="commands">existingObject((argumentList) -&gt; functionBody())</span>
+</p>
+
+<p>
+    The curly braces are required for multiple statements. The compiler matches the argument list with a method defined
+    by the object's interface (note here that the functionBody defines the method so a class is not relevant here).
+    Since interfaces can list overloaded functions, it is necessary to restrict interfaces to have only one method which needs defining.
+    Hence, lambda functions only work with functional interfaces.
+</p>
+
+<p>
+    Lambda functions can be used for the Comparator interface, for example, to define the behaviour of compare(). Below is the anonymous class implementation of compare().
+</p>
+
+<pre>
+    <code [highlight]="anonClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Ultimately, the override uses Comparable's compareTo() method for a String type. The Lambda function is actually the second parameter of sort(), and overrides the compare() method of Comparator and ends up using the compareTo() method of Comparable.
+</p>
+
+<pre>
+    <code [highlight]="lambdaFunc" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
