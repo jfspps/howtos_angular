@@ -2,27 +2,44 @@ import { Component, OnInit } from '@angular/core';
 import { HighlightResult } from 'ngx-highlightjs';
 
 @Component({
-  selector: 'app-javasortcollectionspage',
-  templateUrl: './javasortcollectionspage.component.html',
-  styleUrls: ['./javasortcollectionspage.component.css']
+    selector: 'app-javasortcollectionspage',
+    templateUrl: './javasortcollectionspage.component.html',
+    styleUrls: ['./javasortcollectionspage.component.css']
 })
 export class JavasortcollectionspageComponent implements OnInit {
 
-  response: HighlightResult;
+    response: HighlightResult;
 
-  lang = ["java"];
+    lang = ["java"];
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  compareTo = `@Override
+    compareTo = `@Override
   public int compareTo(Seat seat) {
+      // seatNumber is of String type and so this return uses String's
+      // compareToIgnoreCase
       return this.seatNumber.compareToIgnoreCase(seat.getSeatNumber());
   }`;
 
-  comparator = `static final Comparator<Seat> PRICE_ORDER;
+    compareToExample = `String s1="hello";
+String s2="hello";
+String s3="meklo";  
+String s5="flag";  
+
+// both return 0
+System.out.println(s1.compareTo(s2)); 
+System.out.println(s2.compareTo(s1)); 
+
+// returns -5 because "h" is 5 times lower than "m"
+System.out.println(s1.compareTo(s3));  
+
+// returns 2 because "h" is 2 times greater than "f"
+System.out.println(s1.compareTo(s5));`
+
+    comparator = `static final Comparator<Seat> PRICE_ORDER;
 
   static {
       PRICE_ORDER = new Comparator<Seat>() {
@@ -42,7 +59,7 @@ export class JavasortcollectionspageComponent implements OnInit {
   // then compare(seat1, seat2) is equivalent to
   // seat1.getPrice().compareTo(seat2.getPrice())`;
 
-  hashCodeEquals = `@Override
+    hashCodeEquals = `@Override
   public boolean equals(Object obj) {
     // referential equality
     if(this == obj) {
@@ -63,7 +80,7 @@ public int hashCode() {
     return this.someStringTypeProperty.hashCode() + 64;
 }`;
 
-stockItem = `public class StockItem implements Comparable<StockItem> {
+    stockItem = `public class StockItem implements Comparable<StockItem> {
   private final String name;
   private double price;
   private int quantityStock = 0;
@@ -135,7 +152,7 @@ stockItem = `public class StockItem implements Comparable<StockItem> {
   }
 }`;
 
-stockList = `public class StockList {
+    stockList = `public class StockList {
   private final Map<String, StockItem> list;
 
   public StockList() {
@@ -201,7 +218,7 @@ stockList = `public class StockList {
   }
 }`;
 
-basket = `public class Basket {
+    basket = `public class Basket {
   private final String name;
   private final Map<StockItem, Integer> list;
 
@@ -237,7 +254,7 @@ basket = `public class Basket {
   }
 }`;
 
-stockMainClass = `private static StockList stockList = new StockList();
+    stockMainClass = `private static StockList stockList = new StockList();
 
 public static void main(String[] args) {
   // stock the shop
@@ -273,13 +290,13 @@ public static int sellItem(Basket basket, String item, int quantity) {
   return 0;
 }`
 
-  onHighlight(e) {
-    this.response = {
-      language: e.language,
-      relevance: e.relevance,
-      second_best: '{...}',
-      top: '{...}',
-      value: '{...}'
+    onHighlight(e) {
+        this.response = {
+            language: e.language,
+            relevance: e.relevance,
+            second_best: '{...}',
+            top: '{...}',
+            value: '{...}'
+        }
     }
-  }
 }

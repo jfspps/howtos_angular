@@ -14,10 +14,22 @@
     Lists can be copied by reference (a shallow copy) by initialising a new List as <span class="commands">List&lt;ClassID&gt; newList = new ArrayList&lt;&gt;(sourceList)</span>, in preference to Collections.copy(dest, source).  Elements can be reversed and shuffled using reverse() and shuffle(). (Reversing a list requires the implementation of the Comparable interface, below.) The min() and max() methods return the smallest and largest numerical based element. One can also swap elements with swap().
 </p>
 
-<h5>Comparator and Comparable interfaces</h5>
+<h5>Comparable and Comparator interfaces</h5>
 
 <p>
-    Comparable and Comparator are interfaces which allow one to sort collections or lists. Comparable declares the compareTo() method, amongst others.
+    Comparable and Comparator are interfaces which allow one to sort collections or lists.
+</p>
+
+<p>
+    Comparable declares the compareTo() method, which can compare Strings. The command <span class="commands">string1.compareTo(string2)</span> can identify which string should precede which. If strings should be listed alphabetically, left-to-right, then a negative return means string1 is 'behind' string2 and should go before string2. A positive return means string1 is 'ahead' of string2 and should go after string2. The extent to which a string is ahead or behind is relayed in the return value.
+</p>
+
+<pre>
+    <code [highlight]="compareToExample" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The next code snippet demonstrates a String, seatNumber. The compareTo() method returns a positive value if this.seatNumber &gt; seat.getSeatNumber(), a negative value if this.seatNumber &lt; seat.getSeatNumber() and zero if they are equal.
 </p>
 
 <pre>
@@ -25,11 +37,21 @@
 </pre>
 
 <p>
-    The above code snippet returns a positive value if this.seatNumber &gt; seat.getSeatNumber(), a negative value if this.seatNumber &lt; seat.getSeatNumber() and zero if they are equal.
+    In short, the Comparable interface defines the compareTo() method which is evaluated to sort elements. The Collections.sort() method evaluates compareTo() to sort elements in ascending order. As defined, above, the order would be s1, s3 and s5. By default,
+</p>
+
+<ul>
+    <li>Strings are sorted alphabetically</li>
+    <li>Integers are sorted in ascending order</li>
+    <li>Dates are sorted chronologically</li>
+</ul>
+
+<p>
+    A custom Comparable compareTo() can be realised by implementing the Comparable interface, for the class (objects) that need sorting, and overriding compareTo(). 
 </p>
 
 <p>
-    Comparator defines one method: compare() (hence, Comparator is a functional interface) and can provide a more custom sort method. 
+    The order can also be changed by building a Comparator instance. The Comparator interface defines one method: compare() (hence, Comparator is a functional interface) and can provide a more custom sort method. Take care not to associate Comparators with compareTo()! The method compareTo() belongs to the Comparable interface, not the Comparator interface.
 </p>
 
 <pre>
@@ -37,11 +59,15 @@
 </pre>
 
 <p>
-    The command <span class="commands">Collections.sort(priceSeats, Theatre.PRICE_ORDER);</span> then sorts the the list of Seats, priceSeats, by first by the order they were added (FIFO, lowest to highest index number) and then by price, from lowest price to highest. Elements are only swapped if they have different prices.
+    According to the overridden method, the command <span class="commands">Collections.sort(priceSeats, Theatre.PRICE_ORDER);</span> then sorts the the list of Seats, priceSeats, by first by the order they were added (FIFO, lowest to highest index number) and then by price, from lowest price to highest. Elements are only swapped if they have different prices.
 </p>
 
 <p>
     More comparators can be applied with different sort criteria.
+</p>
+
+<p>
+    Instead of building a Comparator instance, one could write a class which implements Comparator and then override compare(). Instantiating the class would then have the same effect. Call <span class="commands">Collections.sort(list, new CustomComparator());</span> to apply the custom comparator.
 </p>
 
 <h5>The Map interface</h5>
