@@ -54,6 +54,7 @@ import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.compone
 import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/javanio-filesyspage.component';
 import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.component';
 import { JavasortcollectionspageComponent } from './javapage/javasortcollectionspage/javasortcollectionspage.component';
+import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpage.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { JavasortcollectionspageComponent } from './javapage/javasortcollections
     JavaniopageComponent,
     JavanioFilesyspageComponent,
     JavaRegExpComponent,
-    JavasortcollectionspageComponent
+    JavasortcollectionspageComponent,
+    JavastaticpageComponent
   ],
   imports: [
     BrowserModule,

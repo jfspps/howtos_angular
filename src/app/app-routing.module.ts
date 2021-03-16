@@ -48,11 +48,13 @@ import { JavaniopageComponent } from './javapage/javaniopage/javaniopage.compone
 import { JavanioFilesyspageComponent } from './javapage/javanio-filesyspage/javanio-filesyspage.component';
 import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.component';
 import { JavasortcollectionspageComponent } from './javapage/javasortcollectionspage/javasortcollectionspage.component';
+import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
   { path: 'java', component: JavapageComponent, children: [
+    { path: 'javaStatic', component: JavastaticpageComponent},
     { path: 'javaSortCollections', component: JavasortcollectionspageComponent},
     { path: 'javaRegExp', component: JavaRegExpComponent},
     { path: 'javaThreads', component: JavathreadspageComponent},
