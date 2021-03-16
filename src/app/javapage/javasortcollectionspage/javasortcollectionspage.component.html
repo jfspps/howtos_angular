@@ -1,7 +1,7 @@
 <h5>Java Collections</h5>
 
 <p>
-    What follows is a brief overview of sorting methods with Java Collections framework as part of the Java utils package
+    What follows is a brief overview of major data structures and methods from the Java Collections framework (part of the Java utils package).
 </p>
 
 <p>
@@ -99,3 +99,41 @@
 <p>
     Some thought is required though when overriding equals() for a class and its subclass. When <span class="commands">obj instanceof objClass</span> is used in the equals() method, it returns true. Similarly, it works for subclasses, so the following, <span class="commands">subClassObj instanceof objClass</span>, is also true. However, <span class="commands">obj instanceof objSubClass</span> is false. When <span class="commands">instanceof</span> is used as part of equals, define the overridden equals() method in the parent class only and allow the subclass to use the parent class' equals() method. In other words, do not override equals() in the subclass. To ensure this behaviour, mark the overridden equals() and hashCode() methods in the parent class as 'final'.
 </p>
+
+<h5>LinkedHashMap and TreeMap</h5>
+
+<p>
+    HashMaps and HashSets are chaotic and the sorted forms are LinkedHashMap and LinkedHashSet. They are ordered in the same order they were entered, that is, FIFO. The methods for Maps and Sets are very similar.
+</p>
+
+<p>
+    Below is a more comprehensive example which summarises many of the concepts covered thus far.
+</p>
+
+<pre>
+    <code [highlight]="stockItem" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Each stock item is stored in a list, StockList. Note how the HashMap is replaced with a LinkedHashMap, which preserves the order of the items that were added.
+</p>
+
+<pre>
+    <code [highlight]="stockList" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    StockItems can be added to a Basket. Note here that the Basket's list is built around a TreeMap. This causes the list to be sorted alphabetically, as defined in StockItem's compareTo() method, which ultimately uses String's compareTo(). Each time a StockItem is added to the TreeMap, the item name is compared using compareTo() each time. It checks where the next added StockItem should go. This will naturally result in a performance hit. 
+</p>
+
+<pre>
+    <code [highlight]="basket" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Time to go shopping...
+</p>
+
+<pre>
+    <code [highlight]="stockMainClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
