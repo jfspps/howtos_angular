@@ -86,9 +86,148 @@
 </pre>
 
 <p>
-    If variable i is in scope of the anonymous class or lambda function, then variable i need not be declared 'final'.
+    If variable i is in scope of the anonymous class or lambda function <b>and</b> i is not changed, then variable i need not be declared 'final' (so is effectively final), as shown below. 
 </p>
 
 <pre>
     <code [highlight]="correctedLambda" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>The foreach method</h5>
+
+<p>
+    Iterable objects can be handled with lambdas, for example, with foreach. The focus is more towards functional programming, where the emphasis is more about direct input and output.
+</p>
+
+<pre>
+    <code [highlight]="foreach" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    What follows is an overview of functional interfaces which can demonstrate the use of lambdas. Note that Lambdas are never a requirement when writing Java.
+</p>
+
+<h5>The Predicate interface</h5>
+
+<p>
+    One can use the Predicate interface (representing a predicate, a boolean-valued function) to determine which elements from a foreach iteration are processed.
+</p>
+
+<pre>
+    <code [highlight]="predicate" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Following the definition, one can print according to testValue.
+</p>
+
+<pre>
+    <code [highlight]="testPredicate" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The anonymous class version of the above would be:
+</p>
+
+<pre>
+    <code [highlight]="anonPredicate" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Executing against different conditions is probably more convenient using lambdas.
+</p>
+
+<h5>The Function and BiFunction interfaces</h5>
+
+<p>
+    One can define a function which receives one parameter and returns a value.
+</p>
+
+<pre>
+    <code [highlight]="function" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Functions can be passed as a parameter, as such, to a function which can then decide which method to call.
+</p>
+
+<pre>
+    <code [highlight]="moreFunctions" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can use getAName() type functions to guarantee that a function is always called but which is executed is determined by some condition. Typical scenarios include callbacks.
+</p>
+
+<p>
+    Following the same print name example, one can chain functions together.
+</p>
+
+<pre>
+    <code [highlight]="chainedFunc" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    It is also possible to add more functions and more 'andThen' calls to chain more functions. Furthermore, the BiFunction interface allows for functions which accept two arguments and returns one value.
+</p>
+
+<pre>
+    <code [highlight]="bifunction" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Streams</h5>
+
+<p>
+    A stream in this context is a sequence of consecutive computations. The Collection interface has a stream() method which returns a stream and is the first call made. The resultant stream can then be handled with a sequence of methods. The order of the elements in the stream is the same as they appear in a List (undefined for a Set). The example below also demonstrates the calling of static methods with the class name, through <i>method referencing</i> (one can also conduct method referencing of non-static methods though objects of a class provided the class is instantiated).
+</p>
+
+<pre>
+    <code [highlight]="streams" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Another way of building streams without using a Collection and linking them with Function interfaces is given below.
+</p>
+
+<pre>
+    <code [highlight]="moreStreams" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Some operations are intermediate, which take in and then return elements to/from the stream. Terminal operations do not return processed elements and are always found once at the end of the stream statement.
+</p>
+
+<h5>FlatMaps - Lists of Lists</h5>
+
+<p>
+    Streams can be composed of lists as elements, each of which can be streamed again. The snippet below effectively prints all employees from all departments.
+</p>
+
+<pre>
+    <code [highlight]="flatMap" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The flatMap() method returns a stream, in this case, flattens nested lists. One gets the list from the list (in this case with getEmployees List) and sends them to a separate stream which is processed by subsequent methods. Note that the original stream is not sent along the method chain. That is, department objects are not printed.
+</p>
+
+<p>
+    One can gather elements from a stream and store them in a new Collection.
+</p>
+
+<pre>
+    <code [highlight]="savingStream" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    It is also possible to print elements from a stream according to certain criteria with lambdas:
+</p>
+
+
+<pre>
+    <code [highlight]="reduceStream" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Reduce() is a BiFunction and returns the youngest employee. Reduce() is the terminal operation and returns an Optional, hence the need to 'unwrap' the Optional with ifPresent().
+</p>

@@ -119,7 +119,8 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     
     public void run() {
       Random random = new Random();
-      for(String latestMessage = message.read(); !latestMessage.equals("Finished"); latestMessage = message.read()) {
+      for(String latestMessage = message.read(); !latestMessage.equals("Finished");
+       latestMessage = message.read()) {
         System.out.println(latestMessage);
         try {Thread.sleep(random.nextInt(2000));
         } catch(InterruptedException e) {
@@ -244,7 +245,8 @@ export class JavaproducerconsumerpageComponent implements OnInit {
       executorService.execute(consumer1);
       executorService.execute(consumer2);
       
-      //shutdowns when all threads have completed their tasks (use shutdownNow() for immediate shutdown)
+      // shutdowns when all threads have completed their
+      // tasks (use shutdownNow() for immediate shutdown)
       executorService.shutdown();
     }
   
@@ -256,7 +258,8 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     private String colour;
     private ReentrantLock bufferlock;
     
-    public MyProducer(List<String> buffer, String colour, ReentrantLock bufferlock) {
+    public MyProducer(List<String> buffer,
+       String colour, ReentrantLock bufferlock) {
       this.buffer = buffer;
       this.colour = colour;
       this.bufferlock = bufferlock;
@@ -300,7 +303,8 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     private String colour;
     private ReentrantLock bufferlock;
     
-    public MyConsumer(List<String> buffer, String colour, ReentrantLock bufferlock) {
+    public MyConsumer(List<String> buffer,
+       String colour, ReentrantLock bufferlock) {
       this.buffer = buffer;
       this.colour = colour;
       this.bufferlock = bufferlock;
