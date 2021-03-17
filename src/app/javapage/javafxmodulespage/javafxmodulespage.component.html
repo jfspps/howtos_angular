@@ -1,7 +1,7 @@
 <h5>Java 9 Modules</h5>
 
 <p>
-    The Java Platform Module System (JPMS) for Java 9 organises packages. The modules include inputs, which state the dependencies, and outputs, which are granted to other modules (and thus Java packages) which rely on said module.
+    The Java Platform Module System (JPMS) for Java 9 organises packages and was conceived to shield or encapsulate packages at compile and run-time. Modules are packages of packages or containers of packages. From Java 9 onwards, packages are assumed private. The modules list inputs, which state the dependencies, and outputs, which are granted to other modules (and thus Java packages) which rely on said module.
 </p>
 
 <p>
@@ -27,13 +27,55 @@
 </p>
 
 <ul>
-    <li>The <span class="commands">requires</span> statement states which other modules are dependencies for the current module</li>
-    <li>The <span class="commands">exports</span> statement states which packages are available to other modules that consume the current module</li>
-    <li>The <span class="commands">provides</span> statement states which service implementations (classes*) that the current module provides. This declaration is commonly used in enterprise level development.</li>
-    <li>The <span class="commands">uses</span> statement states which services or classes the current module consumes</li>
-    <li>The <span class="commands">opens</span> statement states provides access to a specific package, following the open policy ('opens' cannot be used in open modules, which exposes all packages)</li>
+    <li>The <span class="commands">requires moduleName</span> statement states which other modules are dependencies for the current module</li>
+    <li>The <span class="commands">exports packageName</span> statement states which packages are available to other modules that consume the current module</li>
+    <li>The <span class="commands">provides className</span> statement states which service implementations (classes*) that the current module provides. This declaration is commonly used in enterprise level development.</li>
+    <li>The <span class="commands">uses interfaceName</span> statement states which services (interface or abstract class) the current module consumes</li>
+    <li>The <span class="commands">opens packageName</span> statement states provides access to a specific package, following the open policy ('opens' cannot be used in open modules, which exposes all packages)</li>
 </ul>
+
+<p>
+    Prior to Java 9, access to private and public classes was granted by default (through reflection, below) and so the module system provided from Java 9 rectified this by shielding all classes, exposing them only when explicitly stated. The 'exports' statement exposes public classes of the package whereas 'opens' exposes public and private classes.
+</p>
+
+<p>
+    The open and opens statements allow for reflective permissions. Reflection allows other classes to access private members of a package. Overall, reflection makes it possible to inspect classes, interfaces, fields and methods at runtime, without knowing the names of the classes, methods etc. at compile time. It is also possible to instantiate new objects, invoke methods and get/set field values using reflection.
+</p>
+
+<p>
+    One can restrict which packages can access the modules exported packages with the 'To' token, <span class="commands">exports packageName To externalPackagesName</span>. The <span class="commands">opens packageName To externalPackagesName</span> statement defines analogous behaviour.
+</p>
 
 <p>
     Say moduleB not only requires moduleA but also requires other modules listed in moduleA's <span class="commands">requires</span> statement. The function of moduleA requires other dependencies and so other modules which depend on moduleA are more than likely going to require the same modules. To enable moduleB to import the same modules that moduleA imports, use the <span class="commands">requires transitive moduleName</span> statement in moduleA. Here, moduleA is importing the module, moduleName. When moduleB imports moduleA, it will also import moduleName. 
 </p>
+
+<h5>An MVC example</h5>
+
+<p>
+    Segregation of modules is generally supported in the community. Below is a typical example showing how modules communicate with JavaFX packages. Note how all 'opens' statements include the 'To' requirement.
+</p>
+
+<p>
+    The controller or common module:
+</p>
+
+<pre>
+    <code [highlight]="controller" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The database module:
+</p>
+
+<pre>
+    <code [highlight]="database" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The UI module:
+</p>
+
+<pre>
+    <code [highlight]="UI" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
