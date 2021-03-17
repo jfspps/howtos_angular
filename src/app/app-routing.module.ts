@@ -50,6 +50,7 @@ import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.compon
 import { JavasortcollectionspageComponent } from './javapage/javasortcollectionspage/javasortcollectionspage.component';
 import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpage.component';
 import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdaspage.component';
+import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxmodulespage.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -71,7 +72,8 @@ const appRoutes: Routes = [
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaAlgorithms', component: JavaalgorithmspageComponent},
-    { path: 'javafxGradle', component: JavafxgradleComponent}
+    { path: 'javafxGradle', component: JavafxgradleComponent},
+    { path: 'javafxModules', component: JavafxmodulespageComponent}
   ] },
 
   { path: 'androidSpring', component: AndroidspringComponent, children: [

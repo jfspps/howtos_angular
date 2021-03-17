@@ -56,6 +56,7 @@ import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.compon
 import { JavasortcollectionspageComponent } from './javapage/javasortcollectionspage/javasortcollectionspage.component';
 import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpage.component';
 import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdaspage.component';
+import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxmodulespage.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdas
     JavaRegExpComponent,
     JavasortcollectionspageComponent,
     JavastaticpageComponent,
-    JavalambdaspageComponent
+    JavalambdaspageComponent,
+    JavafxmodulespageComponent
   ],
   imports: [
     BrowserModule,

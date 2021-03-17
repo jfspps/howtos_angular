@@ -1,0 +1,39 @@
+<h5>Java 9 Modules</h5>
+
+<p>
+    The Java Platform Module System (JPMS) for Java 9 organises packages. The modules include inputs, which state the dependencies, and outputs, which are granted to other modules (and thus Java packages) which rely on said module.
+</p>
+
+<p>
+    The module metadata is always stored in <span class="commands">module-info.java</span>, which is placed in the root folder of the module. This folder precedes the java package(s), that is, java packages are physically stored one level below the directory where the <span class="commands">module-info.java</span> file is located.
+</p>
+
+<pre>
+    <code [highlight]="example" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Module identifiers resemble package names and include separating periods (.). There are two types of modules: open and 'normal' (non-existant; labelled as such to distinguish from open modules). Both differ in how how other modules access their packages.
+</p>
+
+<p>
+    Normal modules grant access to packages (types) at compile and run-time which are explicitly exported. The above example is a normal module. <b>Open modules</b>, preceded with the 'open' token grant access to packages explicitly exported at compile-time while at run-time grants access to all of its packages.
+</p>
+
+<h5>Module statements</h5>
+
+<p>
+    *A service is an implementation of a specific interface or abstract class that can be consumed by other classes.
+</p>
+
+<ul>
+    <li>The <span class="commands">requires</span> statement states which other modules are dependencies for the current module</li>
+    <li>The <span class="commands">exports</span> statement states which packages are available to other modules that consume the current module</li>
+    <li>The <span class="commands">provides</span> statement states which service implementations (classes*) that the current module provides. This declaration is commonly used in enterprise level development.</li>
+    <li>The <span class="commands">uses</span> statement states which services or classes the current module consumes</li>
+    <li>The <span class="commands">opens</span> statement states provides access to a specific package, following the open policy ('opens' cannot be used in open modules, which exposes all packages)</li>
+</ul>
+
+<p>
+    Say moduleB not only requires moduleA but also requires other modules listed in moduleA's <span class="commands">requires</span> statement. The function of moduleA requires other dependencies and so other modules which depend on moduleA are more than likely going to require the same modules. To enable moduleB to import the same modules that moduleA imports, use the <span class="commands">requires transitive moduleName</span> statement in moduleA. Here, moduleA is importing the module, moduleName. When moduleB imports moduleA, it will also import moduleName. 
+</p>
