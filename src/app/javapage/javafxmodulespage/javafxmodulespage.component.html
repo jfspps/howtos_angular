@@ -13,14 +13,22 @@
 </pre>
 
 <p>
-    Module identifiers resemble package names and include separating periods (.). There are two types of modules: open and 'normal' (non-existant; labelled as such to distinguish from open modules). Both differ in how how other modules access their packages.
+    Module identifiers resemble package names and include separating periods (.). There are two types of modules: open and 'normal' (an informal label used here to distinguish with open modules). Both differ in how how other modules access their packages.
 </p>
 
 <p>
     Normal modules grant access to packages (types) at compile and run-time which are explicitly exported. The above example is a normal module. <b>Open modules</b>, preceded with the 'open' token grant access to packages explicitly exported at compile-time while at run-time grants access to all of its packages.
 </p>
 
-<h5>Module statements</h5>
+<p>
+    When a module exports a package, it exposes the public and protected members and types of the package, that is, classes and static types. All other packages not exported, including any public members and types they define, are hidden from the outside the module. The usual access modifiers still apply to classes within the package however how they behave outside the package with other modules is dependent on whether they are exported. There is more about when to export package, outlined later.
+</p>
+
+<p>
+    The exports and requires statements work hand in hand and must align otherwise the dependent module, with the requires statement, will not compile. Legacy code can compile without modules because the compiler automatically assigns un-declared packages in an 'unnamed module', and makes the unnamed module both a provider and consumer to/of other modules. Applying modules is a judgement and usually more applicable to more complex projects where modularising makes sense.
+</p>
+
+<h5>Module statements and reflection</h5>
 
 <p>
     *A service is an implementation of a specific interface or abstract class that can be consumed by other classes.
@@ -28,23 +36,25 @@
 
 <ul>
     <li>The <span class="commands">requires moduleName</span> statement states which other modules are dependencies for the current module</li>
-    <li>The <span class="commands">exports packageName</span> statement states which packages are available to other modules that consume the current module</li>
+    <li>The <span class="commands">exports packageName</span> statement states which packages are available to other modules that consume the current module at compile-time and run-time</li>
     <li>The <span class="commands">provides className</span> statement states which service implementations (classes*) that the current module provides. This declaration is commonly used in enterprise level development.</li>
     <li>The <span class="commands">uses interfaceName</span> statement states which services (interface or abstract class) the current module consumes</li>
-    <li>The <span class="commands">opens packageName</span> statement states provides access to a specific package, following the open policy ('opens' cannot be used in open modules, which exposes all packages)</li>
+    <li>The <span class="commands">opens packageName</span> statement states provides run-time (not compile-time) access to a specific package. Note that 'opens' cannot be used in open modules, which exposes all packages)</li>
 </ul>
 
 <p>
-    Prior to Java 9, access to private and public classes was granted by default (through reflection, below) and so the module system provided from Java 9 rectified this by shielding all classes, exposing them only when explicitly stated. The 'exports' statement exposes public classes of the package whereas 'opens' exposes public and private classes.
+    Prior to Java 9, access to all classes was granted by default (through reflection, below) and so the module system provided from Java 9 rectified this by shielding all classes, exposing them only when explicitly stated. The 'exports' statement exposes public and protected classes and types of the package at run-time and compile-time, whereas 'opens' exposes public and protected classes and types at run-time only, with reflective permissions.
 </p>
 
 <p>
-    The open and opens statements allow for reflective permissions. Reflection allows other classes to access private members of a package. Overall, reflection makes it possible to inspect classes, interfaces, fields and methods at runtime, without knowing the names of the classes, methods etc. at compile time. It is also possible to instantiate new objects, invoke methods and get/set field values using reflection.
+    The open and opens statements allow for reflective permissions. <b>Reflection</b> is a feature which enables information about a class to obtained at run-time. Overall, reflection makes it possible to inspect classes, interfaces, fields and methods at run-time, without knowing the names of the classes or methods. The process is somewhat involved (not described here) but essentially starts by building an object of the Class queried, with getClass(), and then obtaining information from the object.
 </p>
 
 <p>
-    One can restrict which packages can access the modules exported packages with the 'To' token, <span class="commands">exports packageName To externalPackagesName</span>. The <span class="commands">opens packageName To externalPackagesName</span> statement defines analogous behaviour.
+    One can restrict which packages can access the modules exported packages with the 'to' token, <span class="commands">exports packageName to externalPackagesName</span>. The <span class="commands">opens packageName to externalPackagesName</span> statement defines analogous behaviour.
 </p>
+
+<h5>Transitive</h5>
 
 <p>
     Say moduleB not only requires moduleA but also requires other modules listed in moduleA's <span class="commands">requires</span> statement. The function of moduleA requires other dependencies and so other modules which depend on moduleA are more than likely going to require the same modules. To enable moduleB to import the same modules that moduleA imports, use the <span class="commands">requires transitive moduleName</span> statement in moduleA. Here, moduleA is importing the module, moduleName. When moduleB imports moduleA, it will also import moduleName. 
@@ -53,7 +63,7 @@
 <h5>An MVC example</h5>
 
 <p>
-    Segregation of modules is generally supported in the community. Below is a typical example showing how modules communicate with JavaFX packages. Note how all 'opens' statements include the 'To' requirement.
+    Segregation of modules is generally supported in the community. Below is a typical example showing how modules communicate with JavaFX packages. Note how all 'opens' statements include the 'to' token.
 </p>
 
 <p>
