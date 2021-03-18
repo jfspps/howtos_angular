@@ -1,7 +1,11 @@
 <h5>Java 9 Modules</h5>
 
 <p>
-    The Java Platform Module System (JPMS) for Java 9 organises packages and was conceived to shield or encapsulate packages at compile and run-time. Modules are packages of packages or containers of packages. From Java 9 onwards, packages are assumed private. The modules list inputs, which state the dependencies, and outputs, which are granted to other modules (and thus Java packages) which rely on said module.
+    Prior to Java 9, the compiler looks for packages under the given working directory. If a package lies outside of this range (and must remain so, for example, external libraries like JavaFX) then its path must be added to the project's <span class="commands">CLASSPATH</span> environment variable before compiling, or, passed as a command line parameter with <span class="commands">java</span> and <span class="commands">javac</span> using the <span class="commands">-classpath</span> option.
+</p>
+
+<p>
+    Starting from Java 9, the Java Platform Module System (JPMS) provides another way of locating packages through modules. JPMS organises packages and was conceived to shield or encapsulate packages at compile and run-time. Modules are optional and can be viewed as packages of packages or containers of packages. From Java 9 onwards, modular based projects' packages are assumed private or are hidden from other modules. The modules list inputs, which state the dependencies, and outputs, which are granted to other modules (and thus Java packages) which rely on said module.
 </p>
 
 <p>
@@ -67,7 +71,7 @@
 </p>
 
 <p>
-    The controller or common module:
+    The common or controller module:
 </p>
 
 <pre>
@@ -75,7 +79,7 @@
 </pre>
 
 <p>
-    The database module:
+    The database or model module:
 </p>
 
 <pre>
@@ -83,7 +87,7 @@
 </pre>
 
 <p>
-    The UI module:
+    The UI or viewer module:
 </p>
 
 <pre>
