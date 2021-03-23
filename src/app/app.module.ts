@@ -58,6 +58,7 @@ import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpag
 import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdaspage.component';
 import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxmodulespage.component';
 import { AwsIntroPageComponent } from './dockerpage/aws-intro-page/aws-intro-page.component';
+import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { AwsIntroPageComponent } from './dockerpage/aws-intro-page/aws-intro-pag
     JavastaticpageComponent,
     JavalambdaspageComponent,
     JavafxmodulespageComponent,
-    AwsIntroPageComponent
+    AwsIntroPageComponent,
+    AwsSpringComponent
   ],
   imports: [
     BrowserModule,

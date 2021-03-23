@@ -2,10 +2,8 @@
     Amazon Web Services
 </h4>
 
-<h4>Installing AWSCLI and logging in</h4>
-
 <p>
-    First, install awscli:
+    First, install the AWS CLI:
 </p>
 
 <p class="commands">
@@ -39,6 +37,9 @@
     <code [highlight]="awsConfigure" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
 
+<p>
+    Install the Scheduler CLI following <a href="https://docs.aws.amazon.com/solutions/latest/instance-scheduler/appendix-a.html">these official instructions</a>.
+</p>
 
 <h4>The stack</h4>
 
@@ -47,8 +48,8 @@
 </p>
 
 <ul>
-    <li><a href="https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/">https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/</a></li>
-    <li><a href="https://www.iucc.ac.il/en/blog/using-aws-instance-scheduler-to-save-costs/">https://www.iucc.ac.il/en/blog/using-aws-instance-scheduler-to-save-costs/</a></li>
+    <li><a href="https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/" target="_blank">https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/</a></li>
+    <li><a href="https://www.iucc.ac.il/en/blog/using-aws-instance-scheduler-to-save-costs/" target="_blank">https://www.iucc.ac.il/en/blog/using-aws-instance-scheduler-to-save-costs/</a></li>
 </ul>
 
 <p>
@@ -85,7 +86,7 @@
 
 
 <p>
-    DynamoDB (key-value and document NoSQL database, related to Dynamo) tables <a href="https://eu-west-2.console.aws.amazon.com/dynamodb/home?region=eu-west-2">here</a>. 
+    DynamoDB (key-value and document NoSQL database, related to Dynamo) tables <a href="https://eu-west-2.console.aws.amazon.com/dynamodb/home?region=eu-west-2" target="_blank">here</a>. 
     Click Tables and choose ConfigTable; then click Items and verify OfficeHours schedule and weekdays period are listed.
 </p>
 
@@ -96,7 +97,7 @@
 <h4>Autoscaling: balancing instances by schedule</h4>
 
 <p>
-    Find AutoScaling under EC2 console. Instructions <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-scheduledactions.html">here</a>.
+    Find AutoScaling under EC2 console. Instructions <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-scheduledactions.html" target="_blank">here</a>.
 </p>
 
 <p>

@@ -52,6 +52,7 @@ import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpag
 import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdaspage.component';
 import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxmodulespage.component';
 import { AwsIntroPageComponent } from './dockerpage/aws-intro-page/aws-intro-page.component';
+import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -113,7 +114,8 @@ const appRoutes: Routes = [
     {path: 'dockerSQL', component: SqlpageComponent},
     {path: 'dockerMongo', component: MongopageComponent},
     {path: 'dockerMavenBuild', component: BuildImagepageComponent},
-    {path: 'AWSIntro', component: AwsIntroPageComponent}
+    {path: 'AWSIntro', component: AwsIntroPageComponent},
+    {path: 'AWSSpring', component: AwsSpringComponent}
   ] },
   
   { path: '**', component: PageNotFoundComponent}
