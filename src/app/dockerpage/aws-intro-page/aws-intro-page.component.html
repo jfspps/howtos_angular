@@ -1,0 +1,108 @@
+<h4>
+    Amazon Web Services
+</h4>
+
+<h4>Installing AWSCLI and logging in</h4>
+
+<p>
+    First, install awscli:
+</p>
+
+<p class="commands">
+    $ sudo apt install awscli
+</p>
+
+<p>Review credentials:</p>
+
+<p class="commands">
+    $ aws configure list
+</p>
+
+<p>
+    Configure credentials <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html" target="_blank">here</a>.
+    Build a new access key and secret access key (the latter is only viewed on creation). See ~/.aws/ for config.
+</p>
+
+<p>
+    Edit credentials with keys, passing:
+</p>
+
+<pre>
+    <code [highlight]="awsKeys" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Verify with:
+</p>
+
+<pre>
+    <code [highlight]="awsConfigure" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+
+<h4>The stack</h4>
+
+<p>
+    Two resources which show how to set up stacks (collections of AWS resources, e.g. EC2 instances, as part of CloudFormation): 
+</p>
+
+<ul>
+    <li><a href="https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/">https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/</a></li>
+    <li><a href="https://www.iucc.ac.il/en/blog/using-aws-instance-scheduler-to-save-costs/">https://www.iucc.ac.il/en/blog/using-aws-instance-scheduler-to-save-costs/</a></li>
+</ul>
+
+<p>
+    Run the command below to configure the period, "weekdays", as Monday to Friday between 09:00-17:00 (substitute stack name Mar21-StartStopEC2 with the desired stack name):
+</p>
+
+<p>
+    <span class="commands">$ scheduler-cli create-period --name weekdays --stack Mar21-StartStopEC2 --region eu-west-2 --begintime 09:00 --endtime 17:00 --weekdays mon-fri</span>
+</p>
+
+<p>
+    On execution, this returns:
+</p>
+
+<pre>
+    <code [highlight]="awsPeriod" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Run the command below to configure a schedule, “OfficeHours”, in London time zone (substitute Mar21-StartStopEC2 with the relevant stack name):
+</p>
+
+<p>
+    <span class="commands">$ scheduler-cli create-schedule --name OfficeHours --periods weekdays,weekends --timezone UTC --stack Mar21-StartStopEC2</span>
+</p>
+
+<p>
+    This should return:
+</p>
+
+<pre>
+    <code [highlight]="awsSchedule" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+
+<p>
+    DynamoDB (key-value and document NoSQL database, related to Dynamo) tables <a href="https://eu-west-2.console.aws.amazon.com/dynamodb/home?region=eu-west-2">here</a>. 
+    Click Tables and choose ConfigTable; then click Items and verify OfficeHours schedule and weekdays period are listed.
+</p>
+
+<p>
+    To a deployed EC2 or Amazon RDS instance, add a new tag with key “Schedule” and value “OfficeHours”.
+</p>
+
+<h4>Autoscaling: balancing instances by schedule</h4>
+
+<p>
+    Find AutoScaling under EC2 console. Instructions <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-scheduledactions.html">here</a>.
+</p>
+
+<p>
+    Apply custom auto-scaling to one instance every weekday, starting from 0900, CRON here: 0 9 * * 1-5, autoScaleOneInstanceSecureSRM
+</p>
+
+<p>
+    Apply a second auto-scaling to zero instances every weekday, starting at 1700, CRON here: 1 7 * * 1-5, autoScaleZeroInstanceSecureSRM
+</p>

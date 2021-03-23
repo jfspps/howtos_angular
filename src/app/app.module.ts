@@ -57,6 +57,7 @@ import { JavasortcollectionspageComponent } from './javapage/javasortcollections
 import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpage.component';
 import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdaspage.component';
 import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxmodulespage.component';
+import { AwsIntroPageComponent } from './dockerpage/aws-intro-page/aws-intro-page.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxm
     JavasortcollectionspageComponent,
     JavastaticpageComponent,
     JavalambdaspageComponent,
-    JavafxmodulespageComponent
+    JavafxmodulespageComponent,
+    AwsIntroPageComponent
   ],
   imports: [
     BrowserModule,

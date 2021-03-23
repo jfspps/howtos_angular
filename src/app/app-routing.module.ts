@@ -51,6 +51,7 @@ import { JavasortcollectionspageComponent } from './javapage/javasortcollections
 import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpage.component';
 import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdaspage.component';
 import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxmodulespage.component';
+import { AwsIntroPageComponent } from './dockerpage/aws-intro-page/aws-intro-page.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -111,7 +112,8 @@ const appRoutes: Routes = [
     {path: 'dockerCommands', component: CommandspageComponent},
     {path: 'dockerSQL', component: SqlpageComponent},
     {path: 'dockerMongo', component: MongopageComponent},
-    {path: 'dockerMavenBuild', component: BuildImagepageComponent}
+    {path: 'dockerMavenBuild', component: BuildImagepageComponent},
+    {path: 'AWSIntro', component: AwsIntroPageComponent}
   ] },
   
   { path: '**', component: PageNotFoundComponent}
