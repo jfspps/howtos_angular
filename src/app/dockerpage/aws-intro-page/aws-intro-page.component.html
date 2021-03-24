@@ -91,19 +91,23 @@
 </p>
 
 <p>
-    To a deployed EC2 or Amazon RDS instance, add a new tag with key “Schedule” and value “OfficeHours”.
+    To a deployed (currently running) EC2 or Amazon RDS instance, add a new tag with key “Schedule” and value “OfficeHours”. New instances started by the BeanStalk scaler are tagged automatically by default.
 </p>
 
 <h4>Autoscaling: balancing instances by schedule</h4>
 
 <p>
-    Find AutoScaling under EC2 console. Instructions <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-scheduledactions.html" target="_blank">here</a>.
+    Find AutoScaling under EC2 console. This adjusts how many instances are running through BeanStalk. Instructions <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-scheduledactions.html" target="_blank">here</a>. Note that EC2 instances are started and stopped by the scaler to meet the currently expected demand so setting the above EC2 schedule (set by CloudFormation) only applies to a specific instance with the given instance ID. Such scripts manage EC2 compute time only. The EC2 script will start and stop the specific instance but this does not stop the BeanStalk scaler from starting and stopping new/other EC2 instances to meet the demand. Both EC2 and scaling schedules are needed.
 </p>
 
 <p>
-    Apply custom auto-scaling to one instance every weekday, starting from 0900, CRON here: 0 9 * * 1-5, autoScaleOneInstanceSecureSRM
+    In other example, min = 1 and max = 5 defines the lower and upper limits as guidelines for CloudWatch. Precisely how many instances are running and all other features are explained in the <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.as.html">docs</a>. Since this example manages a single instance at any given time, there is no need to consider anything more at this stage.
 </p>
 
 <p>
-    Apply a second auto-scaling to zero instances every weekday, starting at 1700, CRON here: 1 7 * * 1-5, autoScaleZeroInstanceSecureSRM
+    Apply custom auto-scaling to one instance every weekday, starting from 0900, CRON here: <span class="commands">0 9 * * 1-5</span>. Set the start and end times of a recurring auto-scale as the period when the policy applies (a period of months or years until required). Apply all changes to ensure they are saved. 
+</p>
+
+<p>
+    Apply a second auto-scaling to zero instances every weekday, starting at 1700, CRON here: <span class="commands">1 7 * * 1-5</span>.
 </p>
