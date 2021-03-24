@@ -101,7 +101,7 @@
 </p>
 
 <p>
-    In other example, min = 1 and max = 5 defines the lower and upper limits as guidelines for CloudWatch. Precisely how many instances are running and all other features are explained in the <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.as.html">docs</a>. Since this example manages a single instance at any given time, there is no need to consider anything more at this stage.
+    In other examples, min = 1 and max = 5 defines the lower and upper limits as guidelines for CloudWatch. Precisely how many instances are running and all other features are explained in the <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.as.html">docs</a>. Since this example manages a single instance at any given time, there is no need to consider anything more at this stage.
 </p>
 
 <p>
@@ -109,5 +109,5 @@
 </p>
 
 <p>
-    Apply a second auto-scaling to zero instances every weekday, starting at 1700, CRON here: <span class="commands">1 7 * * 1-5</span>.
+    Apply a second auto-scaling to zero instances every weekday, starting at 1700, CRON here: <span class="commands">0 17 * * 1-5</span>.
 </p>
