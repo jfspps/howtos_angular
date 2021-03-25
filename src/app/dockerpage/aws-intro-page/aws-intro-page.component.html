@@ -97,7 +97,7 @@
 <h4>Autoscaling: balancing instances by schedule</h4>
 
 <p>
-    Find AutoScaling under EC2 console. This adjusts how many instances are running through BeanStalk. Instructions <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-scheduledactions.html" target="_blank">here</a>. Note that EC2 instances are started and stopped by the scaler to meet the currently expected demand so setting the above EC2 schedule (set by CloudFormation) only applies to a specific instance with the given instance ID. Such scripts manage EC2 compute time only. The EC2 script will start and stop the specific instance but this does not stop the BeanStalk scaler from starting and stopping new/other EC2 instances to meet the demand. Both EC2 and scaling schedules are needed.
+    One can set the target number of instances available with Autoscaling. Find AutoScaling under EC2 console. This adjusts how many instances are running through BeanStalk. Instructions <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-scheduledactions.html" target="_blank">here</a>. Note that EC2 instances are started and stopped by the scaler to meet the currently expected demand so setting the above EC2 schedule (set by CloudFormation) only applies to a specific instance with the given instance ID. Such scripts manage EC2 compute time only. The EC2 script will start and stop the specific instance but this does not stop the BeanStalk scaler from starting and stopping new/other EC2 instances to meet the demand. Both EC2 and scaling schedules are needed.
 </p>
 
 <p>
