@@ -1,4 +1,4 @@
-<h5>MySQL setup overview</h5>
+<h5>Installing MySQL and MySQL workbench</h5>
 
 <p>
     For details relating to Docker and MySQL, go <a routerLink="/dockerPage/dockerSQL">here</a>.
@@ -7,6 +7,8 @@
 <p>
     To install MySQL server, go <a href="https://www.javahelps.com/2019/08/install-mysql-8-on-ubuntulinux-mint.html">here</a> (Linux Mint 20 is based on Ubuntu Focal Fossa). Then go <a href="https://medium.com/@shivraj.jadhav82/mysql-setup-on-linux-mint-948470115d5">here</a> for MySQL workbench (community). The following <a href="https://stackoverflow.com/questions/52111129/mysql-workbench-not-opening-on-ubuntu">link</a> may prove useful thereafter.
 </p>
+
+<h5>Adding users</h5>
 
 <p>
     Running MysQL workbench from the console, as <span class="commands">$ mysql-workbench</span> will return more debug info, as opposed to running from the GUI.
@@ -17,7 +19,7 @@
 </p>
 
 <p>
-    To check for password requirements, enter <span class="commands">SHOW VARIABLES LIKE 'validate_password%';</span>. Change the password policy with <span class="commands">SET GLOBAL validate_password_policy=LOW;</span>, for example.
+    To check for password requirements, enter <span class="commands">SHOW VARIABLES LIKE 'validate_password%';</span>. Change the password policy with <span class="commands">SET GLOBAL validate_password.policy=LOW;</span>, for example.
 </p>
 
 <p>
