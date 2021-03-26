@@ -1,7 +1,34 @@
+<h5>MySQL setup overview</h5>
+
+<p>
+    For details relating to Docker and MySQL, go <a routerLink="/dockerPage/dockerSQL">here</a>.
+</p>
+
+<p>
+    Users are stored in mysql.user, with <span class="commands">SELECT host, user FROM mysql.user;</span>. The user table contains many more columns, if desired.
+</p>
+
+<p>
+    To check for password requirements, enter <span class="commands">SHOW VARIABLES LIKE 'validate_password%';</span>. Change the password policy with <span class="commands">SET GLOBAL validate_password_policy=LOW;</span>, for example.
+</p>
+
+<p>
+    To add new users, follow <a href="https://linuxize.com/post/how-to-create-mysql-user-accounts-and-grant-privileges/" target="_blank">this</a>. The key commands are:
+</p>
+
+<ul>
+    <li>
+        <span class="commands">CREATE USER 'userName'@'localhost' IDENTIFIED BY 'userPassword';</span>, substituting the relevant fields. This assigns the user to the localhost only. To assign to any host, substitute 'localhost' for '%'.
+    </li>
+    <li>
+        To grant a user with all privileges on all databases, use <span class="commands">GRANT ALL PRIVILEGES ON *.* TO 'userName'@'localhost';</span>
+    </li>
+</ul>
+
 <h5>MySQL notes</h5>
 
 <p>
-    These are my course notes on MySQL. The GitHub Pages landing page is <a href="https://jfspps.github.io/MySQL-notes" target="_blank">here</a>.
+    These are my course notes on MySQL database methods. The GitHub Pages landing page is <a href="https://jfspps.github.io/MySQL-notes" target="_blank">here</a>.
 </p>
 
 <p>
