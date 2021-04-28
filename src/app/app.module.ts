@@ -21,22 +21,21 @@ import { ComputationspageComponent } from './cpythonpage/computationspage/comput
 import { JavathreadspageComponent } from './javapage/javathreadspage/javathreadspage.component';
 import { JavaclientserverpageComponent } from './javapage/javaclientserverpage/javaclientserverpage.component';
 import { JavadesignpatternspageComponent } from './javapage/javadesignpatternspage/javadesignpatternspage.component';
-import { JavafxgradleComponent } from './javapage/javafxgradle/javafxgradle.component';
-import { SpringmvcpageComponent } from './androidspring/springmvcpage/springmvcpage.component';
-import { SpringsecuritypageComponent } from './androidspring/springsecuritypage/springsecuritypage.component';
-import { SpringreactivepageComponent } from './androidspring/springreactivepage/springreactivepage.component';
-import { SpringrestapipageComponent } from './androidspring/springrestapipage/springrestapipage.component';
-import { AndroidbuttonpageComponent } from './androidspring/androidbuttonpage/androidbuttonpage.component';
-import { AndroidcalculatorpageComponent } from './androidspring/androidcalculatorpage/androidcalculatorpage.component';
-import { AndroidrssreaderpageComponent } from './androidspring/androidrssreaderpage/androidrssreaderpage.component';
-import { AndroidyoutubepageComponent } from './androidspring/androidyoutubepage/androidyoutubepage.component';
-import { AndroidflickrpageComponent } from './androidspring/androidflickrpage/androidflickrpage.component';
-import { AndroidcontentproviderspageComponent } from './androidspring/androidcontentproviderspage/androidcontentproviderspage.component';
-import { AndroidtasktimerpageComponent } from './androidspring/androidtasktimerpage/androidtasktimerpage.component';
+import { JavafxgradleComponent } from './androidJavaFX/javafxgradle/javafxgradle.component';
+import { SpringmvcpageComponent } from './spring-jakarta/springmvcpage/springmvcpage.component';
+import { SpringsecuritypageComponent } from './spring-jakarta/springsecuritypage/springsecuritypage.component';
+import { SpringreactivepageComponent } from './spring-jakarta/springreactivepage/springreactivepage.component';
+import { SpringrestapipageComponent } from './spring-jakarta/springrestapipage/springrestapipage.component';
+import { AndroidbuttonpageComponent } from './androidJavaFX/androidbuttonpage/androidbuttonpage.component';
+import { AndroidcalculatorpageComponent } from './androidJavaFX/androidcalculatorpage/androidcalculatorpage.component';
+import { AndroidrssreaderpageComponent } from './androidJavaFX/androidrssreaderpage/androidrssreaderpage.component';
+import { AndroidyoutubepageComponent } from './androidJavaFX/androidyoutubepage/androidyoutubepage.component';
+import { AndroidflickrpageComponent } from './androidJavaFX/androidflickrpage/androidflickrpage.component';
+import { AndroidcontentproviderspageComponent } from './androidJavaFX/androidcontentproviderspage/androidcontentproviderspage.component';
+import { AndroidtasktimerpageComponent } from './androidJavaFX/androidtasktimerpage/androidtasktimerpage.component';
 import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaalgorithmspage.component';
-import { AndroidspringComponent } from './androidspring/androidspring.component';
 import { AppHeaderComponent } from './header/header.component';
-import { SpringjmspageComponent } from './androidspring/springjmspage/springjmspage.component';
+import { SpringjmspageComponent } from './spring-jakarta/springjmspage/springjmspage.component';
 import { DockerpageComponent } from './dockerpage/dockerpage.component';
 import { MongopageComponent } from './dockerpage/mongopage/mongopage.component';
 import { SqlpageComponent } from './dockerpage/sqlpage/sqlpage.component';
@@ -56,9 +55,11 @@ import { JavaRegExpComponent } from './javapage/java-reg-exp/java-reg-exp.compon
 import { JavasortcollectionspageComponent } from './javapage/javasortcollectionspage/javasortcollectionspage.component';
 import { JavastaticpageComponent } from './javapage/javastaticpage/javastaticpage.component';
 import { JavalambdaspageComponent } from './javapage/javalambdaspage/javalambdaspage.component';
-import { JavafxmodulespageComponent } from './javapage/javafxmodulespage/javafxmodulespage.component';
+import { JavafxmodulespageComponent } from './androidJavaFX/javafxmodulespage/javafxmodulespage.component';
 import { AwsIntroPageComponent } from './dockerpage/aws-intro-page/aws-intro-page.component';
 import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component';
+import { SpringJakartaComponent } from './spring-jakarta/spring-jakarta.component';
+import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,6 @@ import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component
     AndroidcontentproviderspageComponent,
     AndroidtasktimerpageComponent,
     JavaalgorithmspageComponent,
-    AndroidspringComponent,
     AppHeaderComponent,
     SpringjmspageComponent,
     DockerpageComponent,
@@ -116,14 +116,16 @@ import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component
     JavalambdaspageComponent,
     JavafxmodulespageComponent,
     AwsIntroPageComponent,
-    AwsSpringComponent
+    AwsSpringComponent,
+    SpringJakartaComponent,
+    AndroidJavaFxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HighlightModule
-    ],
+  ],
   providers: [
     {
       provide: HIGHLIGHT_OPTIONS,
