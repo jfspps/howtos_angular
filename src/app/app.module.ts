@@ -60,6 +60,7 @@ import { AwsIntroPageComponent } from './dockerpage/aws-intro-page/aws-intro-pag
 import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component';
 import { SpringJakartaComponent } from './spring-jakarta/spring-jakarta.component';
 import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component';
+import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component'
     AwsIntroPageComponent,
     AwsSpringComponent,
     SpringJakartaComponent,
-    AndroidJavaFxComponent
+    AndroidJavaFxComponent,
+    JakartademoComponent
   ],
   imports: [
     BrowserModule,
