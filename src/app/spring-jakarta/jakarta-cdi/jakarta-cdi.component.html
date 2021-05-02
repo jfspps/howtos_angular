@@ -1,0 +1,47 @@
+<h5>Context Dependency Injection CDI</h5>
+
+<p>
+    <b>Inversion of control (IOC)</b> is a paradigm which enables individual components of a program to be loosely
+    coupled with one another. It makes large scale programs to be extended more easily and tested more independently.
+    The primary responsibility of instantiating and supplying (injecting) objects is not handled by the method executed.
+    IOC is implemented by <b>dependency injection (DI)</b>, in which the container manages the instantiating of classes
+    (beans) and injects them into a method.
+</p>
+
+<p>
+    Some of the main features of CDI 2.0 are:
+</p>
+
+<ul>
+    <li>Typesafe dependency: the dependencies are typesafe; the compilation or runtime execution of the context is
+        halted if the wrong type is passed to a method</li>
+    <li>Lifecycle contexts: the context (where beans are instantiated) and objects (contextual instances) have a
+        lifecycle and are automatically managed in the background</li>
+    <li>Interceptors: these can perform tasks before, during and after a method is executed (typical example includes
+        the logging of metadata for a specific method)</li>
+    <li>Events: these are responses to particular events executed by the user or program, and are asynchronous</li>
+    <li>Service Provider Interface: these are extensions available to the CDI</li>
+</ul>
+
+<h5>Bean discovery mode</h5>
+
+<p>
+    <b>Bean discovery</b> is handled by the <i>beans.xml</i> configuration. By default, the <i>bean-discovery-mode</i> is
+    set to "annotated" and directs only annotated classes (beans) to be managed by the CDI runtime. The other discovery
+    mode is "all" and directs all beans to to be managed by the CDI runtime. Generally, most projects use the "all"
+    mode.
+</p>
+
+<p>
+    Assuming the program runs, then the object will not be null and can be accessed by its reference from anywhere in the application.
+</p>
+
+<h5>CDI container, beans and contextual instances</h5>
+
+<p>
+    The CDI container can be viewed as factory where beans (classes which will be instantiated in preparation for DI) are managed and looks out for adherence to the API standards. Failure to do so prevents the program from running.
+</p>
+
+<p>
+    The context is a part of the container where beans are instantiated. They build objects, known as contextual instances. Dependencies can be injected through class fields, via a constructor or directly into methods. To do so, set the field/constructor/method with the @Inject annotation.
+</p>

@@ -55,6 +55,7 @@ import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component
 import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component';
 import { SpringJakartaComponent } from './spring-jakarta/spring-jakarta.component';
 import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.component';
+import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -96,7 +97,8 @@ const appRoutes: Routes = [
     { path: 'springREST', component: SpringrestapipageComponent},
     { path: 'springReactive', component: SpringreactivepageComponent},
     { path: 'springAndJMS', component: SpringjmspageComponent},
-    { path: 'jakartaDemo', component: JakartademoComponent}
+    { path: 'jakartaDemo', component: JakartademoComponent},
+    { path: 'jakartaCDI', component: JakartaCDIComponent}
   ] },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [

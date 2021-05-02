@@ -61,6 +61,7 @@ import { AwsSpringComponent } from './dockerpage/aws-spring/aws-spring.component
 import { SpringJakartaComponent } from './spring-jakarta/spring-jakarta.component';
 import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component';
 import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.component';
+import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.c
     AwsSpringComponent,
     SpringJakartaComponent,
     AndroidJavaFxComponent,
-    JakartademoComponent
+    JakartademoComponent,
+    JakartaCDIComponent
   ],
   imports: [
     BrowserModule,
