@@ -43,5 +43,47 @@
 </p>
 
 <p>
-    The context is a part of the container where beans are instantiated. They build objects, known as contextual instances. Dependencies can be injected through class fields, via a constructor or directly into methods. To do so, set the field/constructor/method with the @Inject annotation.
+    The context is a part of the container where beans are instantiated. Contexts build objects, known as contextual instances. Dependencies can be injected through class fields, via a constructor or directly into methods. To do so, set the field/constructor/method with the @Inject annotation.
 </p>
+
+<h5>Lifecycle callbacks</h5>
+
+<p>
+    The @PostConstruct and @PreDestroy are applied to methods which will be executed, respectively, once the contextual instance is built and before it is destroyed. The access modifiers private, package-private (i.e. nothing declared), protected (visible to parent and child classes only) and public can be applied.
+</p>
+
+<h5>Managed beans and bean types</h5>
+
+<p>
+    Managed beans are simply beans managed by the CDI runtime. Beans which appear to be of the same type: they implement the same interface (and all parent interfaces before it), for example. The correct dependency is injected via a mechanism known as <b>CDI qualifiers</b>.
+</p>
+
+<p>
+    If one has an interface which can be implemented differently, such as:
+</p>
+
+<pre>
+    <code [highlight]="commonInterface" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>One can direct the CDI container to instantiate a specific bean that implements CommonInterface. First define said bean:</p>
+
+<pre>
+    <code [highlight]="qualifyBean" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Then set a custom annotation CDI qualifier:
+</p>
+
+<pre>
+    <code [highlight]="cdiQualifiers" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Then inject a specific implementation of CommonInterface:
+</p>
+
+<pre>
+    <code [highlight]="injectHere" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
