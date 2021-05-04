@@ -16,7 +16,7 @@
     <li>Typesafe dependency: the dependencies are typesafe; the compilation or runtime execution of the context is
         halted if the wrong type is passed to a method</li>
     <li>Lifecycle contexts: the context (where beans are instantiated) and objects (contextual instances) have a
-        lifecycle and are automatically managed in the background</li>
+        lifecycle and are automatically managed in the background by the container</li>
     <li>Interceptors: these can perform tasks before, during and after a method is executed (typical example includes
         the logging of metadata for a specific method)</li>
     <li>Events: these are responses to particular events executed by the user or program, and are asynchronous</li>
@@ -111,3 +111,24 @@
 <pre>
     <code [highlight]="injectHereEnum" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>CDI scopes and contexts</h5>
+
+<p>
+    The context is the environment within the container where contextual instances are created and reside. There can be more than one context in the given container. The container is responsible for the lifecycle of all contexts. When a bean is instantiated in a particular context, the bean is said to be in scope of the given context and is bound to that context. Scope is definition and defines which context a bean is managed by. That is, the context is responsible for the lifecycle of the bean.
+</p>
+
+<p>
+    Any bean that is not assigned a scope is by default assigned the DependentScope (optionally, the bean can be annotated with @Dependent to signify this). The DependentScope is a class which defines the scope of a bean that is not a dependency of any particular context when instantiated. When it is injected into, say, Bean2, which is assigned a scope (so other than DependentScope) then the injected bean will inherit whatever scope Bean2 is assigned. This is why it is called DependentScope because the injected bean's scope depends on what other bean it is injected into.
+</p>
+
+<p>
+    All CDI beans are <i>lazily</i> created: they are only instantiated when needed. There are other scopes:
+</p>
+
+<ul>
+    <li>Request scoped (annotate bean with @RequestScoped): a context which creates and destroys beans based on HTTP requests</li>
+    <li>Session scoped (annotate bean with @SessionScoped): a context based on client-server sessions (conversations as such), beans are created on session startup and destroyed when a session is closed. Session contextual instances tend to run over long periods and consequently bound contextual instances can persist in memory for the same duration. To optimise memory use on the server, contextual instances are set into service when needed but then <i>passivated</i> by the container (placed into hibernation) until they are needed again.</li>
+    <li>Application scoped (annotate bean with @ApplicationScoped): lifecycle of the bean parallels the lifetime of the application. Consequently, only one contextual instance of the given type can exist and as such application scoped instances follow a Singleton pattern.</li>
+    <li>Conversation scoped (annotate with @ConversationScoped): related to JSF API and can partly be viewed as Models in Spring. They have a lifetime shorter than the session and traverse along HTTP requests.</li>
+</ul>
