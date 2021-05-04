@@ -81,9 +81,33 @@
 </pre>
 
 <p>
-    Then inject a specific implementation of CommonInterface:
+    The @Retention annotation is explained later. A separate custom interface annotation (CustomBean) is required for each different implementation of CommonInterface.** Inject a specific implementation of CommonInterface:
 </p>
 
 <pre>
     <code [highlight]="injectHere" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that the above CustomBean refers to one specific type of bean. **A more concise way of declaring a CDI qualifier involves enumerations (it is possible to use other types, though enums are generally safer). That is, only one CustomBean interface needs to be defined.
+</p>
+
+<pre>
+    <code [highlight]="cdiQualifierEnum" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The important part is pairing SomeClass with CustomBeanManager's value. This is done by setting the specific class with the given value. Note that the @annotationsPackagePath.CustomBean is no longer needed.
+</p>
+
+<pre>
+    <code [highlight]="qualifyBeanEnum" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Then use the SomeClass (TYPE2) implementation with the following.
+</p>
+
+<pre>
+    <code [highlight]="injectHereEnum" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>

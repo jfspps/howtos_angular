@@ -32,15 +32,47 @@ export class JakartaCDIComponent implements OnInit {
 
   injectHere = `
   @Inject
+  // use SomeClass implementation of CommonInterface
   @CustomBean
   private CommonInterface someInstance;
-  `
+  `;
 
   qualifyBean = `
   @annotationsPackagePath.CustomBean
   public class SomeClass implements CommonInterface {
     // some fields/methods unique to SomeClass
   }`;
+
+  cdiQualifierEnum = `// in annotationsPackagePath
+
+  @Qualifier
+  @Retention(RetentionPolicy.RUNTIME)
+  // set how the dependency can be injected:
+  @Target({ElementType.FIELD, ElementType.TYPE, ElementType.METHOD})
+  public @interface CustomBeanManager {
+
+    CustomBeanType value();
+
+    // inner class of constants (enum)
+    public enum CustomBeanType{
+      TYPE1, TYPE2
+    }
+
+  }`;
+
+  qualifyBeanEnum = `
+  // SomeClass is assigned TYPE2
+  @CustomBeanManager(value = CustomBeanManager.CustomBeanType.TYPE2)
+  public class SomeClass implements CommonInterface {
+    // some fields/methods unique to SomeClass
+  }`;
+
+  injectHereEnum = `
+  @Inject
+  // use SomeClass implementation of CommonInterface
+  @CustomBeanManager(value = CustomBean.CustomBeanType.TYPE2)
+  private CommonInterface someInstance;
+  `;
 
   onHighlight(e) {
     this.response = {
