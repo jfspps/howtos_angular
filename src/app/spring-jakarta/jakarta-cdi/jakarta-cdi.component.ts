@@ -74,6 +74,39 @@ export class JakartaCDIComponent implements OnInit {
   private CommonInterface someInstance;
   `;
 
+  producerMethod = `
+  import javax.enterprise.inject.Produces;
+  import javax.enterprise.inject.spi.InjectionPoint;
+  import java.util.logging.Logger;
+  
+  public class LoggerProducer {
+  
+      // note that Logger is now a bean
+      @Produces
+      public Logger produceLogger(InjectionPoint injectionPoint) {
+          return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+      }
+  }`;
+
+  injectLogger = `    //Producer object in a class that implements Serializable, inheriting the same scope
+  @Inject
+  private Logger logger;`
+
+  producerMethodList = `
+  public class SomeNonBean {
+  
+      @Produces
+      public List<String> getList() {
+
+        List<String> someList = new ArrayList<>();
+
+        someList.add("Greetings");
+        someList.add("Bye for now");
+        
+        return someList;
+      }
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

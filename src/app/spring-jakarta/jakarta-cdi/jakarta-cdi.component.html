@@ -115,7 +115,7 @@
 <h5>CDI scopes and contexts</h5>
 
 <p>
-    The context is the environment within the container where contextual instances are created and reside. There can be more than one context in the given container. The container is responsible for the lifecycle of all contexts. When a bean is instantiated in a particular context, the bean is said to be in scope of the given context and is bound to that context. Scope is definition and defines which context a bean is managed by. That is, the context is responsible for the lifecycle of the bean.
+    The context is the environment within the container where contextual instances are created and reside. There can be more than one context in the given container. The container is responsible for the lifecycle of all contexts. When a bean is instantiated in a particular context, the bean is said to be in scope of the given context and is bound to that context. Scopes are definitions that associate a managed bean with a context. That is, it defines which context is responsible for the lifecycle of the bean.
 </p>
 
 <p>
@@ -132,3 +132,37 @@
     <li>Application scoped (annotate bean with @ApplicationScoped): lifecycle of the bean parallels the lifetime of the application. Consequently, only one contextual instance of the given type can exist and as such application scoped instances follow a Singleton pattern.</li>
     <li>Conversation scoped (annotate with @ConversationScoped): related to JSF API and can partly be viewed as Models in Spring. They have a lifetime shorter than the session and traverse along HTTP requests.</li>
 </ul>
+
+<h5>CDI Producers</h5>
+
+<p>
+    Producers are non-void methods (annotated with @Produces) that convert Java classes, not normally managed or owned, into CDI managed beans. The method must return an object. The method parameters are optional but must be injectable. All are handled by the container.
+</p>
+
+<p>
+    The return object is not normally handled by the CDI container e.g. an instance of Logger. 
+</p>
+
+<pre>
+    <code [highlight]="producerMethod" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Any class which attempts to inject a Logger instance automatically triggers the execution of produceLogger() and returns the Logger instance as a contextual instance.
+</p>
+
+<pre>
+    <code [highlight]="injectLogger" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The Producer converts Logger into a bean, scoped as the DependentScope. The above injection in particular is scoped according to the calling class.
+</p>
+
+<p>
+    Any object from the Java library can be returned and managed as a bean e.g. a Collections API List of Strings, for example.
+</p>
+
+<pre>
+    <code [highlight]="producerMethodList" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
