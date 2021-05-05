@@ -134,6 +134,23 @@ export class JakartaCDIComponent implements OnInit {
   @CustomBean
   private CommonInterface someInstance;`;
 
+  producerMethodListFieldDisposes = `
+  public class SomeNonBean {
+    @Produces
+    SomeOtherNonBean example;
+
+    // note that the method must return void
+    public void dispose(@Disposes SomeOtherNonBean currentInstance) {
+      // do stuff to currentInstance before SomeOtherNonBean instance is destroyed
+    }
+  }
+  
+  // some other class, inject SomeOtherNonBean
+  
+  @Inject
+  SomeOtherNonBean anotherBean;
+  `;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
