@@ -50,7 +50,6 @@ export class JakartaCDIComponent implements OnInit {
   // set how the dependency can be injected:
   @Target({ElementType.FIELD, ElementType.TYPE, ElementType.METHOD})
   public @interface CustomBeanManager {
-
     CustomBeanType value();
 
     // inner class of constants (enum)
@@ -80,7 +79,6 @@ export class JakartaCDIComponent implements OnInit {
   import java.util.logging.Logger;
   
   public class LoggerProducer {
-  
       // note that Logger is now a bean
       @Produces
       public Logger produceLogger(InjectionPoint injectionPoint) {
@@ -94,7 +92,6 @@ export class JakartaCDIComponent implements OnInit {
 
   producerMethodList = `
   public class SomeNonBean {
-  
       @Produces
       public List<String> getList() {
 
@@ -106,6 +103,36 @@ export class JakartaCDIComponent implements OnInit {
         return someList;
       }
   }`;
+
+  producerMethodListField = `
+  public class SomeNonBean {
+      @Produces
+      SomeOtherNonBean example;
+  }
+  
+  // some other class, inject SomeOtherNonBean
+  
+  @Inject
+  SomeOtherNonBean anotherBean;
+  `;
+
+  producerMethodListQualifier = `
+  public class SomeNonBean {
+      @Produces
+      // the important bit is here:
+      @pathToPackage.CustomBean
+      public CommonInterface getTheRightBean() {        
+        return new CustomBean;
+      }
+  }
+  
+  // some other class
+  
+  @Inject
+  // recall, CustomBean is an annotation referencing SomeClass
+  // SomeClass is one implementation of CommonInterface
+  @CustomBean
+  private CommonInterface someInstance;`;
 
   onHighlight(e) {
     this.response = {

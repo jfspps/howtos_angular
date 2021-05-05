@@ -156,7 +156,7 @@
 </pre>
 
 <p>
-    The Producer converts Logger into a bean, scoped as the DependentScope. The above injection in particular is scoped according to the calling class.
+    The Producer converts Logger into a bean, scoped as the DependentScope, and in many ways can be viewed as implementations of Factory design patterns. The above injection in particular is scoped according to the calling class.
 </p>
 
 <p>
@@ -166,3 +166,23 @@
 <pre>
     <code [highlight]="producerMethodList" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<p>
+    Classes can also be injected directly as managed beans using fields. This works if the non-bean does not require further inquiry (e.g. EntityManager).
+</p>
+
+<pre>
+    <code [highlight]="producerMethodListField" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Related to the above discussion about CDI qualifiers, the producers (methods or fields) can be qualified to eliminate ambiguity. Consequently, an injection of CommonInterface will invoke the above Producer method.
+</p>
+
+<pre>
+    <code [highlight]="producerMethodListQualifier" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    
+</p>
