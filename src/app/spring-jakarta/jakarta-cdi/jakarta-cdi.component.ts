@@ -151,6 +151,45 @@ export class JakartaCDIComponent implements OnInit {
   SomeOtherNonBean anotherBean;
   `;
 
+  interceptor = `
+  @InterceptorBinding
+  @Retention(RetentionPolicy.RUNTIME)
+  // consecutively, by method and by class
+  @Target({ElementType.METHOD, ElementType.TYPE})
+  @Inherited
+  public @interface Logged {
+  }`;
+
+  interceptorBinding = `
+  @Logged
+  @Interceptor
+  // this activates the interceptor (Java EE 7+ ; previously done via XML config)
+  @Priority(Interceptor.Priority.APPLICATION)
+  public class LoggedInterceptor {
+  
+      @Inject
+      private Logger logger;
+
+      private String username = "Jimi";
+   
+      // This method will be called by the container when the interceptor is triggered
+      // InvocationContext passes info re. the class where the interceptor was 
+      // triggered/invoked (the invocation target) and grants the runtime access to the 
+      // class, allowing it to handle its properties
+      @AroundInvoke
+      public Object logMethodCall(InvocationContext context) throws Exception {
+
+          // Log for example user who called method and time
+          logger.log(Level.INFO, "User {0} invoked {1} method at {2}", 
+              new Object[]{username, context.getMethod().getName(), LocalDate.now()});
+
+          // allow the context to continue with the method called
+          return context.proceed();
+      }
+
+      // other methods and fields...
+    }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

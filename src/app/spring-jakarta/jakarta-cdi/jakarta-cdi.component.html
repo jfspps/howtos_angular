@@ -190,3 +190,25 @@
 <pre>
     <code [highlight]="producerMethodListFieldDisposes" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>CDI Interceptors</h5>
+
+<p>
+    Interceptors intercept method calls and execute other functions (auditing, security etc.) before the method is executed. Interceptors can also help decide if the method call goes ahead.
+</p>
+
+<p>
+    Interceptors are implemented by declaring the method that is intercepted and the interceptor code (the binding code)that is executed. Typically, a custom annotation is defined, giving the target type i.e. does the interceptor intercept a method or class. If a class is the target then all methods of the class are intercepted. The approach is similar to Aspect Orientated Programming paradigms.
+</p>
+
+<pre>
+    <code [highlight]="interceptor" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The interceptor binding code is demonstrated next. This could run, for example, security related functions. The InvocationContext interface is used to pass info related to calling method and its class so decisions about what to do now next can be carried out.
+</p>
+
+<pre>
+    <code [highlight]="interceptorBinding" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
