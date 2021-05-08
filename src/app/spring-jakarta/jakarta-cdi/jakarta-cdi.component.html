@@ -212,3 +212,53 @@
 <pre>
     <code [highlight]="interceptorBinding" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>CDI events</h5>
+
+<p>
+    Disparate classes can be linked, such that one observes the events (occurrences) of another. The observer class (an event observer) is not dependency. One can trigger the observer class (the event is fired by the observed class) to run its own code. The observed class passes data (a payload) to the observer class and the observer class processes the payload. Since CDI 2.0, the observer class can run asynchronously to the observed class.
+</p>
+
+<p>
+    Less abstractly, a user can book tickets online and the data can be managed by a dependency. The dependency can then fire an event (e.g. ticketsBooked) and send data re. the booking to another observer class. The ticket booking dependency continues on with whatever it was assigned to do and the event observer takes the payload and can process it independently of the booking dependency. Another example are mouse clicks. An application processes the action of a mouse click, usually through the OS, while the class fires an event, onClick, which the application then responds to and performs some directed action.
+</p>
+
+<p>
+    The Event interface allows the application to fire events. The Event interface (as an injected instance) receives the payload. The payload is defined by its own POJO.
+</p>
+
+<pre>
+    <code [highlight]="payLoad" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One then injects an instance of the Event interface, usually at the controller level.
+</p>
+
+<pre>
+    <code [highlight]="injectEvent" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The observer class is then defined and lists the methods that are executed when it receives a payload. Note how specific events can be fired. Each method that can be invoked are more generally referred to as "observers".
+</p>
+
+<pre>
+    <code [highlight]="observerClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The custom annotation @SpecificEvent is given below.
+</p>
+
+<pre>
+    <code [highlight]="specificEventAnnotation" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    If there are multiple observers (methods) then the CDI will execute all in a random order. A specific order can be established by passing the @Priority(100) annotation. Passing lower integers into the @Priority() annotation causes the CDI to place more priority to the annotated observer.
+</p>
+
+<pre>
+    <code [highlight]="eventObserverPriority" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
