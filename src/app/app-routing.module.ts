@@ -100,7 +100,7 @@ const appRoutes: Routes = [
     { path: 'springAndJMS', component: SpringjmspageComponent},
     { path: 'jakartaDemo', component: JakartademoComponent},
     { path: 'jakartaCDI', component: JakartaCDIComponent},
-    { path: 'jakartsJPA', component: JakartaJpaComponent}
+    { path: 'jakartaJPA', component: JakartaJpaComponent}
   ] },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [
