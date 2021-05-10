@@ -9,7 +9,7 @@
 </p>
 
 <p>
-    Some of the main features of CDI 2.0 are:
+    Some of the main features of CDI 2.0 (an API that implements DI) are:
 </p>
 
 <ul>
@@ -19,7 +19,7 @@
         lifecycle and are automatically managed in the background by the container</li>
     <li>Interceptors: these can perform tasks before, during and after a method is executed (typical example includes
         the logging of metadata for a specific method)</li>
-    <li>Events: these are responses to particular events executed by the user or program, and are asynchronous</li>
+    <li>Events: these are responses to particular events executed by the user or program, and can be asynchronous</li>
     <li>Service Provider Interface: these are extensions available to the CDI</li>
 </ul>
 
@@ -43,7 +43,7 @@
 </p>
 
 <p>
-    The context is a part of the container where beans are instantiated. Contexts build objects, known as contextual instances. Dependencies can be injected through class fields, via a constructor or directly into methods. To do so, set the field/constructor/method with the @Inject annotation.
+    The context is a part of the container where beans are instantiated. Contexts build objects, known as contextual instances and there can be more than one context present in the container. Dependencies can be injected through class fields, via a constructor or directly into methods. To do so, set the field/constructor/method with the @Inject annotation.
 </p>
 
 <h5>Lifecycle callbacks</h5>

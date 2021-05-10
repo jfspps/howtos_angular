@@ -56,6 +56,7 @@ import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component'
 import { SpringJakartaComponent } from './spring-jakarta/spring-jakarta.component';
 import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.component';
 import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.component';
+import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -98,7 +99,8 @@ const appRoutes: Routes = [
     { path: 'springReactive', component: SpringreactivepageComponent},
     { path: 'springAndJMS', component: SpringjmspageComponent},
     { path: 'jakartaDemo', component: JakartademoComponent},
-    { path: 'jakartaCDI', component: JakartaCDIComponent}
+    { path: 'jakartaCDI', component: JakartaCDIComponent},
+    { path: 'jakartsJPA', component: JakartaJpaComponent}
   ] },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [

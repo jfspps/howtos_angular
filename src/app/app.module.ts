@@ -62,6 +62,7 @@ import { SpringJakartaComponent } from './spring-jakarta/spring-jakarta.componen
 import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component';
 import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.component';
 import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.component';
+import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.co
     SpringJakartaComponent,
     AndroidJavaFxComponent,
     JakartademoComponent,
-    JakartaCDIComponent
+    JakartaCDIComponent,
+    JakartaJpaComponent
   ],
   imports: [
     BrowserModule,
