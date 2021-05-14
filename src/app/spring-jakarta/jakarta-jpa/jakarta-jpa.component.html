@@ -5,7 +5,7 @@
 </p>
 
 <p>
-    The JPA is an interface which is implemented by a number of frameworks. The default Java EE implementation is <a href="https://www.eclipse.org/eclipselink/" target="_blank">EclipseLink</a> though there are others in use in the enterprise environment including <a href="https://hibernate.org/" target="_blank">Hibernate</a> and <a href="https://spring.io/projects/spring-data-jpa" target="_blank">Spring Data JPA</a>.
+    The JPA is an interface which is implemented by a number of frameworks or <b>providers</b> or JPA runtime. The default Java EE implementation is <a href="https://www.eclipse.org/eclipselink/" target="_blank">EclipseLink</a> though there are others in use in the enterprise environment including <a href="https://hibernate.org/" target="_blank">Hibernate</a> and <a href="https://spring.io/projects/spring-data-jpa" target="_blank">Spring Data JPA</a>.
 </p>
 
 <h5>Setting up the tables and entities</h5>
@@ -56,4 +56,30 @@
 
 <p>
     To exclude the mapping of super class or child class field, use the @Transient annotation. In other words, the Java POJO will have a field that is never stored or known when consulting the JPA table. This might be useful if the POJO stores metadata that is not relevant to the database. Otherwise, without the @Transient annotation the field will automatically be mapped as a basic type.
+</p>
+
+<h5>Access types</h5>
+
+<p>
+    As stated, the JPA implementation is also known as the provider. Access types describe the method which the provider follows to map data to/from the database/Java object. Regarding the Java object, the data can be retrieved or set directly via the fields or though its class' getter and setters.
+</p>
+
+<p>
+    Take the case when a provider extracts field values from the POJO's fields directly and stores them in the database. This direct mechanism is referred to as "Field Access" and is the default mechanism for all fields of a class, where at least one field not method (normally the @Id annotated field) is given a valid JPA annotation. More fundamentally, the runtime will use 'reflection' to access the field "income" above directly. It will not make use of any getter.
+</p>
+
+<p>
+    In general, all fields of a class which are then assumed to follow field access are field access types and should be either private or protected. Furthermore, classes which extend said class are also assumed to follow field access. Only the JPA provider will have access to the fields.
+</p>
+
+<p>
+    "Property Access" is a mechanism where the provider uses getters and setters to access fields' values. The getters and setters must be public. To signal property access of the Id, for example, simply move the @Id annotation from its field to the getter.
+</p>
+
+<pre>
+    <code [highlight]="jpaPropertyAccess" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Generally, field access tends to be easier to read and is applied more often than property access. It is also possible to follow a "Mixed Access" method which is essentially a mixture of Field and Property access types. This can be achieved by a combination of the @Access and @Transient annotations. This approach is quite rare and not described here.
 </p>

@@ -69,6 +69,25 @@ export class JakartaJpaComponent implements OnInit {
   }
   `;
 
+  jpaPropertyAccess = `
+  @Entity
+  @Table(name = "Some_Table_Name")
+  public class Costs {
+
+    private Long id;
+
+    private double income;
+
+    // getters and setters
+
+    // this signal the use of Property access
+    @Id
+    public Long getId(){
+      return this.id;
+    }
+  }
+  `;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
