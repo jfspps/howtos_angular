@@ -7,3 +7,41 @@
 <p>
     The JPA is an interface which is implemented by a number of frameworks. The default Java EE implementation is <a href="https://www.eclipse.org/eclipselink/" target="_blank">EclipseLink</a> though there are others in use in the enterprise environment including <a href="https://hibernate.org/" target="_blank">Hibernate</a> and <a href="https://spring.io/projects/spring-data-jpa" target="_blank">Spring Data JPA</a>.
 </p>
+
+<h5>Setting up the table</h5>
+
+<p>
+    The fundamental (atomic) unit of a JPA component is a POJO, with its class annotated with the @Entity. The @Id annotation is then applied to a field, of type Long, to ensure that each instance is unique with a unique Id.
+</p>
+
+<p>
+    To this point, the minimum needed to declare a JPA component is done. The name of the table is, without further intervention, the same as the class name. To use a different name, use the @Table(name = "SomeTableName") annotation. So far, the class would look like the following.
+</p>
+
+<pre>
+    <code [highlight]="jpaTable" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Changing the table name enables POJOs to be stored according to different database requirements. Super classes can form the foundation of JPA entities which have similar fields. This can be implemented by defining an abstract class, itself implementing Serializable.
+</p>
+
+<pre>
+    <code [highlight]="jpaSuperClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The abstract class can then be extended, using the same fields already listed, as follows.
+</p>
+
+<pre>
+    <code [highlight]="jpaChildClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To override fields in the child class, annotate the child class with @AttributeOverride.
+</p>
+
+<pre>
+    <code [highlight]="jpaChildClassOverride" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
