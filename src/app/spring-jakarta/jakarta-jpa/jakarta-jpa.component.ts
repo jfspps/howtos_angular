@@ -47,7 +47,7 @@ export class JakartaJpaComponent implements OnInit {
     // other fields to be implemented go next
 
     // getters and setters
-  }`
+  }`;
 
   jpaChildClass = `
   @Entity
@@ -55,18 +55,19 @@ export class JakartaJpaComponent implements OnInit {
 
     // add other fields, getters and setters that are unique to ChildOne
   }
-  `
+  `;
 
   jpaChildClassOverride = `
   @Entity
   @AttributeOverride(name = "id", column = @Column(name = "childOneID"))
   public class ChildOne extends SomeAbstractEntityClass {
 
-    // ChildOne instances JPA id is now referred to as childOneID
+    // ChildOne entities' "id" is now referred to in the JPA table as "childOneID",
+    // note that the Java instance is still referred to as "id"
 
     // add other fields, getters and setters that are unique to ChildOne
   }
-  `
+  `;
 
   onHighlight(e) {
     this.response = {
