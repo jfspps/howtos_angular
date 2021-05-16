@@ -131,6 +131,32 @@ export class JakartaJpaComponent implements OnInit {
   }
   `;
 
+  jpaCustomSequence = `
+  public class someClass {
+
+    @SequenceGenerator(name = "CustomSeq", sequenceName = "newKeySeq")
+    @GeneratedValue(generator = "CustomSeq")
+    @Id
+    private Long id;
+
+    // this query would be executed in the DB client beforehand
+    // CREATE SEQUENCE newKeySeq MINVALUE 1 START WITH 1 INCREMENT BY 20
+
+    // other fields and methods
+  }`;
+
+  jpaTableGenerator = `
+  public class someClass {
+
+    @TableGenerator(name = "tableGen", table = "pkTable",
+          pkColumnName = "generatedIDsPKs", valueColumnName = "latestPK")
+    @GeneratedValue(generator = "tableGen")
+    @Id
+    private Long id;
+
+    // other fields and methods
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

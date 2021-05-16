@@ -127,3 +127,35 @@
 </pre>
 
 <h5>Primary keys</h5>
+
+<p>
+    Primary keys can take the form of different Java types, not only (wrapped) Long types. Generally, the floating point types like double and Double are not recommended given the representation is not uniformly defined across systems. 
+</p>
+
+<p>
+    Primary keys generation types vary. The annotation @GeneratedValue(strategy = GenerationType.AUTO) assigns responsibility of primary key generation to the JPA provider and is fine for development. For deployment, this is not recommended since more control is generally expected. The primary key is only set once the transaction (for example, an insertion) has been completed.
+</p>
+
+<p>
+    The annotation @GeneratedValue(strategy = GenerationType.IDENTITY) directs supporting providers to generate unique primary keys in a primary key column. Not all implementations support a dedicated primary key column.
+</p>
+
+<p>
+    Some database implementation enable custom sequences of integers to be constructed, using the SEQUENCE command. By default, a primary key is constructed as unit integers, that is, the next key is one integer greater than the previous. The SEQUENCE command can be used to define a different sequence. The application of the custom sequence can be directed using the annotations @SequenceGenerator in combination with @GeneratedValue.
+</p>
+
+<pre>
+    <code [highlight]="jpaCustomSequence" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    A more flexible primary key generator is the Table Generator and tends to be used during deployment. This generates a separate table in the database which specifically acts as a mapper between the Java object and its persistent entity on the database. 
+</p>
+
+<pre>
+    <code [highlight]="jpaTableGenerator" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Going through each part (above), the name of the table is "pkTable". The primary key column for <i>pkTable</i> is "generatedIDsPKs". The second column in <i>pkTable</i> labelled "latestPK" contains a record of the last primary key that was set. This last column informs the JPA provider what the next key should be, normally one unit integer higher. It examines the value in this column and then proceeds to assign the next entity primary key based on teh value in "latestPK".
+</p>
