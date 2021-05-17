@@ -141,7 +141,7 @@
 </p>
 
 <p>
-    Some database implementation enable custom sequences of integers to be constructed, using the SEQUENCE command. By default, a primary key is constructed as unit integers, that is, the next key is one integer greater than the previous. The SEQUENCE command can be used to define a different sequence. The application of the custom sequence can be directed using the annotations @SequenceGenerator in combination with @GeneratedValue.
+    Some database implementation enable (indeed, expect) custom sequences of integers to be constructed, using the SEQUENCE command. In these cases, the database does not have an automatic schema generator (requires administration). By default, a primary key is constructed as unit integers, that is, the next key is one integer greater than the previous. The SEQUENCE command can be used to define a different sequence. The application of the custom sequence can be directed using the annotations @SequenceGenerator in combination with @GeneratedValue.
 </p>
 
 <pre>
@@ -158,4 +158,18 @@
 
 <p>
     Going through each part (above), the name of the table is "pkTable". The primary key column for <i>pkTable</i> is "generatedIDsPKs". The second column in <i>pkTable</i> labelled "latestPK" contains a record of the last primary key that was set. This last column informs the JPA provider what the next key should be, normally one unit integer higher. It examines the value in this column and then proceeds to assign the next entity primary key based on teh value in "latestPK".
+</p>
+
+<h5>Relational mapping with JPA</h5>
+
+<p>
+    Relationships between two entities can either be unidirectional or bidirectional. An address related to a employee is normally unidirectional since it makes more sense for the employee to know its address but it does not make sense for an address to know its employee.
+</p>
+
+<p>
+    The <i>cardinality</i> refers to the number entities at the end of each relationship. From a department's viewpoint, the department will have many employees, and be one-to-many. From the employees viewpoint it would be many-to-one. The cardinality is one for the department and many for the employees, as such.
+</p>
+
+<p>
+    The <i>ordinality</i> (or "optionality") refers to a boolean which denotes whether or not a entity must be defined when persisting data. Other authors refer to ordinality as the minimum number of entities that must exist in a given relationship. In order for employees to be saved to the database, a department must exist. However, in order for a department to be saved, having employees is not a requirement. From a global viewpoint, the ordinality (in the department-employee relationship) is said to be "0" or false for employee and "1+" or true for the department.
 </p>
