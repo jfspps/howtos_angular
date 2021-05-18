@@ -163,7 +163,7 @@
 <h5>Relational mapping with JPA</h5>
 
 <p>
-    Relationships between two entities can either be unidirectional or bidirectional. An address related to a employee is normally unidirectional since it makes more sense for the employee to know its address but it does not make sense for an address to know its employee.
+    Relationships between two entities can either be unidirectional or bidirectional (explain in more detail shortly). An address related to a employee is normally unidirectional since it makes more sense for the employee to know its address but it does not make sense for an address to know its employee.
 </p>
 
 <p>
@@ -173,3 +173,51 @@
 <p>
     The <i>ordinality</i> (or "optionality") refers to a boolean which denotes whether or not a entity must be defined when persisting data. Other authors refer to ordinality as the minimum number of entities that must exist in a given relationship. In order for employees to be saved to the database, a department must exist. However, in order for a department to be saved, having employees is not a requirement. From a global viewpoint, the ordinality (in the department-employee relationship) is said to be "0" or false for employee and "1+" or true for the department.
 </p>
+
+<h5>Single-valued associations</h5>
+
+<p>
+    <i>Single-valued associations</i> are those where there is only one entity at the target end of the relationship. From the employee point of view, whether there is one employee or multiple employees, the target entity (the department) is the sole entity. As such, there are consequently either one-to-one and many-to-one relationships.
+</p>
+
+<p>
+    The annotations used are @ManyToOne and @OneToOne.
+</p>
+
+<pre>
+    <code [highlight]="jpaSingleValued" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To parse this, read the source from the class' point of view. Reading form the Employee literal, of which there are many, is a department, of which there is one. There will be a column in the Employee, known as the <i>foreign key column</i> (in JPA, the "join column", named according to the provider defaults), which references the primary key of the Department table. Thus, the Employee table will store not only the primary keys of its employee entities but also the reference (a foreign key) of the Department entity. The Department table currently does not store references re. the Employees. It does not know anything about Employee entities. As such, the Employee is said to have <b>ownership</b> over the relationship.
+</p>
+
+<p>
+    By default, the join column name is normally "targetName_id". To customise the name of the join column, annotate the Department field with @JoinColumn(name = "departmentID"), see above.
+</p>
+
+<p>
+    One-to-one relationships are single-valued and unidirectional. The owner of the relationship is given by the class that references to the other entity.
+</p>
+
+<pre>
+    <code [highlight]="jpaSingleValued2" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    In the above case, Employee is the owner of the relationship. The @JoinColumn annotation can be applied to the PaySlip reference in the same way. In both one-to-one and many-to-one relationships, one can only traverse from one entity to the other in one direction, that is, from Employee to Department and from Employee to PaySlip. Such relationships are <i>unidirectional</i>.
+</p>
+
+<p>
+    <i>Bidirectional relationships</i> are those where it is possible to traverse between entities in both directions of the relationship (or continuum). In this case, both entities would need to reference the other entity in their respective Java beans.
+</p>
+
+<p>
+    To set Office with the ownership via the join column, set as follows. In this case, the Office entity is the owner and the Employee entity is owned.
+</p>
+
+<pre>
+    <code [highlight]="jpaBidirectional" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Multivalued associations</h5>

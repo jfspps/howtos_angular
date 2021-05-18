@@ -157,6 +157,54 @@ export class JakartaJpaComponent implements OnInit {
     // other fields and methods
   }`;
 
+  jpaSingleValued = `
+  public class Employee {
+
+    // to the "left" of the annotation, there are many Employees and to
+    // the right is one department; note, this assumes field access
+    // the optional @JoinColumn annotation sets the provider foreign key (join) column name
+    @ManyToOne
+    @JoinColumn(name = "departmentID")
+    private Department department;
+  }
+  
+  // some other class file
+  s
+  public class Department {
+
+    @OneToMany
+    private List<Employee> employees;
+  }`;
+
+  jpaSingleValued2 = `
+  public class Employee {
+
+    @OneToOne
+    private PaySlip payslip;
+  }
+  
+  // some other class file
+  public class PaySlip {
+
+    // various other fields and methods (no reference to Employee)
+  }`;
+
+  jpaBidirectional = `
+  public class Employee {
+
+    // use the name of the Java bean field
+    @OneToOne(mappedBy = "employee")
+    private Office office;
+  }
+  
+  // some other class file
+  public class Office {
+
+    @OneToOne
+    @JoinColumn(name = "EMPLOYEE_ID")
+    private Employee employee;
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
