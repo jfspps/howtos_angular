@@ -189,7 +189,7 @@
 </pre>
 
 <p>
-    To parse this, read the source from the class' point of view. Reading form the Employee literal, of which there are many, is a department, of which there is one. There will be a column in the Employee, known as the <i>foreign key column</i> (in JPA, the "join column", named according to the provider defaults), which references the primary key of the Department table. Thus, the Employee table will store not only the primary keys of its employee entities but also the reference (a foreign key) of the Department entity. The Department table currently does not store references re. the Employees. It does not know anything about Employee entities. As such, the Employee is said to have <b>ownership</b> over the relationship.
+    To parse this, read the source from the class' point of view. Reading from the Employee literal, of which there are many, is a department, of which there is one. There will be a column in the Employee, known as the <i>foreign key column</i> (in JPA, the "join column", named according to the provider defaults), which references the primary key of the Department table. Thus, the Employee table will store not only the primary keys of its employee entities but also the reference (a foreign key) of the Department entity. The Department table currently does not store references re. the Employees. It does not know anything about Employee entities. As such, the Employee is said to have <b>ownership</b> over the relationship.
 </p>
 
 <p>
@@ -221,3 +221,35 @@
 </pre>
 
 <h5>Multivalued associations</h5>
+
+<p>
+    When there is more than one target entity, it gives rise to a Collection valued relationships. This includes one-to-many and many-to-many relationships.
+</p>
+
+<p>
+    The one-to-many relationship has been shown previously between employees and the department (above).
+</p>
+
+<pre>
+    <code [highlight]="oneToMany" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that the @OneToMany annotation ensures that one can traverse from Department <i>to</i> Employee and ensure that the relationship is bidirectional.
+</p>
+
+<p>
+    The many-to-many relationship is signified by the @ManyToMany annotation. This brings in <i>join tables</i> which are separate tables that are solely purposed to store primary keys of the related entities.
+</p>
+
+<pre>
+    <code [highlight]="manyToMany" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The owned table (entity) is signified by a field with @ManyToMany(mappedBy = "ownerField") annotation.
+</p>
+
+<p>
+    With the above relationships, it is necessary to control what other related entities are loaded when a contextual instance is constructed. This is handled with options to the relationship annotations. Note that the provider is not bound to fetch lazily or eagerly, and any fetch annotation is considered a suggestion (consult the provider documentation).
+</p>

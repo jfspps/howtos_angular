@@ -169,11 +169,12 @@ export class JakartaJpaComponent implements OnInit {
   }
   
   // some other class file
-  s
+  
   public class Department {
 
-    @OneToMany
-    private List<Employee> employees;
+    // Department is owned by Employee (see Multivalued relationships)
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employees = new ArrayList<>();
   }`;
 
   jpaSingleValued2 = `
@@ -203,6 +204,49 @@ export class JakartaJpaComponent implements OnInit {
     @OneToOne
     @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
+  }`;
+
+  oneToMany = `
+  public class Employee {
+
+    // the optional @JoinColumn annotation sets the provider foreign key (join) column name
+    @ManyToOne
+    @JoinColumn(name = "departmentID")
+    private Department department;
+  }
+  
+  // some other class file
+
+  public class Department {
+
+    // Department is owned by Employee
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employees = new ArrayList<>();
+  }`;
+
+  manyToMany = `
+  public class Employee {
+
+    // option to fetch lazily (this is the default anyway)
+    @ManyToMany(mappedBy = employees, fetch = FetchType.LAZY)
+    private List<Project> projects = new ArrayList<>();
+
+  }
+  
+  // another class file
+  
+  public class Project {
+
+    // in order, the annotation options are
+    // 1. join table name
+    // 2. column of PKs of the owning entity
+    // 3. column of PKs of the owned entity
+    @ManyToMany
+    @JoinTable(
+      name = "Employees_Projects",
+      joinColumns = @JoinColumn(name = "projectID"),
+      inverseJoinColumns = @JoinColumn(name = "employeeID"))
+    private List<Employee> employees = new ArrayList<>();
   }`;
 
   onHighlight(e) {
