@@ -223,7 +223,7 @@
 <h5>Multivalued associations</h5>
 
 <p>
-    When there is more than one target entity, it gives rise to a Collection valued relationships. This includes one-to-many and many-to-many relationships.
+    When there is more than one target entity, it gives rise to Collection valued relationships. This includes one-to-many and many-to-many relationships.
 </p>
 
 <p>
@@ -235,7 +235,11 @@
 </pre>
 
 <p>
-    Note that the @OneToMany annotation ensures that one can traverse from Department <i>to</i> Employee and ensure that the relationship is bidirectional.
+    Note that the @OneToMany annotation ensures that one can traverse from Department <i>to</i> Employee and ensure that the relationship is bidirectional. Without the @OneToMany annotation, the relationship would be unidirectional (from Employee to Department).
+</p>
+
+<p>
+    A single entity on the one-side is unable to store the foreign keys of multiple entities from the many-side (a single cell in a row can only hold one value). To proceed, virtually all one-to-many relationships require a complimentary many-to-one declaration given on the one-side's target. That is, <b>one cannot have a @OneToMany annotation in Department without the @ManyToOne on the Employee side</b>. The converse though is not a requirement, that is, a @ManyToOne annotation in Employee can exist without the @OneToMany in Department. (Each Employee will only need to store one foreign key to one department.) If the @OneToMany annotation is omitted then the JPA provider will build a separate join table (explained shortly) to enable the one-side to store the foreign keys.
 </p>
 
 <p>
