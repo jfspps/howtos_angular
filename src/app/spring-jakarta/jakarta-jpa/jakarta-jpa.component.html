@@ -257,3 +257,87 @@
 <p>
     With the above relationships, it is necessary to control what other related entities are loaded when a contextual instance is constructed. This is handled with options to the relationship annotations. Note that the provider is not bound to fetch lazily or eagerly, and any fetch annotation is considered a suggestion (consult the provider documentation).
 </p>
+
+<h5>Embeddable object persistence</h5>
+
+<p>
+    Previously Embeddable objects were given their own allocation in the database when the embedded object was persisted to a database. The above example focused on one entity.
+</p>
+
+<p>
+    To embed a Collection, annotate the field with @ElementCollection. The HelperClass objects are not JDK entities. Generally all non-JDK entities are flagged with @ElementCollection. This causes the provider to build a secondary table, where one column stores a reference to the Employee table and the remaining columns relate to the fields of the HelperClass.
+</p>
+
+<pre>
+    <code [highlight]="jpaEmbeddedCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The JPA handles the mapping and build of a separate table. The @CollectionTable overrides the defaults of the secondary table.
+</p>
+
+<p>
+    Standard JDK entities can be stored along with the owning entity in their own column, as opposed to being stored in a separate table. To handle Collections of standard JDK entities, for example String, use a combination of @ElementCollection and optionally customise the name of the @Column(name = "collectionColumnName") annotations.
+</p>
+
+<h5>Sorting Collections</h5>
+
+<p>
+    It is recommended to use the Collection interface when defining the variable type of a collection of objects. This is because some providers will use their own more optimised implementation of the collection, rather than the Collections List, ArrayList, Set or Map implementations.
+</p>
+
+<p>
+    By default, elements in a Java List (indeed any JDK entity) are ordered, ascending, by the primary key. This is symbolised by the optional annotation @OrderBy(). To order by a particular field of the persisted object can be applied with @OrderBy("fieldName asc, secondaryFieldName desc"). Here, the list is sorted by fieldName first, and then by secondaryFieldName. One can add more field names. The token asc and desc represent ascending (default) ordering and descending order, respectively.
+</p>
+
+<pre>
+    <code [highlight]="jpaSortCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    By default, the ordering of primitive Java types is based on the values. The ordering of non-JDK entities is undefined. Note that the fields of a target non-JDK entity used to sort a collection must be orderable and not another non-JDK entity type.
+</p>
+
+<p>
+    In cases where there are no orderable fields, an alternative sorting method is signalled by the @OrderColumn annotation. This creates a separate column in the database which mirrors the indices of the Collections List object. As such, the column is zero-based. The name of the column is by default "ClassName_order" and can be overridden with @OrderColumn(name = "indexColumnName") annotation option. The developer then needs to set the index of the List element as desired separately from the JPA provider. The JPA provider will simply order by index.
+</p>
+
+<p>
+    The persistence of Java Maps (assume that the key and value are JDK entities for now) are handled such that both the key and value are stored in their own columns in a separate table along with a reference to the entity in which they were declared. Use @ElementCollection and a few other annotations.
+</p>
+
+<pre>
+    <code [highlight]="jpaMapCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    It is possible to use an enumeration as a key to a map. To enforce the provider to use the literals instead of the ordinals of the enumeration, follow the aforementioned persistence mode.
+</p>
+
+<pre>
+    <code [highlight]="jpaMapEnumKeyCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can also use a field of the entity as a key and the entity itself as the value. (For example, a field might be security number of an employee as the key.)
+</p>
+
+<pre>
+    <code [highlight]="jpaMapFieldKeyCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that the key is not stored in a separate table since it already exists, effectively, as a column in the given entity.
+</p>
+
+<p>
+    One can also use non-JDK entities as keys. For example, the key represents a particular employee in a department and the value (of the map) represents shift allocation (late shift is 0, day shift is 1 etc.). The key column is actually represented by the ID of the employee; the actual non-JDK entity is not stored in the column (cell).
+</p>
+
+<pre>
+    <code [highlight]="jpaMapEntityKeyCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can in theory use Embeddable types as keys, however, their use is not recommended. This is largely because embeddable types do not have their own tables, and are only persisted with the embedded entity. If the embedded entity is not in the database then the embeddable entities are also absent; as a result, the querying of embeddable types is not guaranteed.
+</p>

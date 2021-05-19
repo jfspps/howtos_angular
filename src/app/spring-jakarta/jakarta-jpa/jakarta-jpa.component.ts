@@ -249,6 +249,80 @@ export class JakartaJpaComponent implements OnInit {
     private List<Employee> employees = new ArrayList<>();
   }`;
 
+  jpaEmbeddedCollection = `
+  @Embeddable
+  public class HelperClass {
+    // other fields and methods
+  }
+
+  // in some other class file...
+
+  public class MainClass {
+
+    // this actually directs the provider to build a secondary table of 
+    // HelperClass entities (@CollectionTable is optional)
+    @ElementCollection
+    @CollectionTable(
+        name = "secondaryTableName", 
+        joinColumns = @JoinColumn(name = "employeeID"))
+    private Collection<HelperClass> embeddedClasses;
+
+    // getters and setters etc.
+  }
+  `;
+
+  jpaSortCollection = `
+  public class SomeClass {
+    
+    @OrderBy("fieldName desc, nextField asc, nextField2 desc")
+    private List<SomeNonEntity> customObjects = new ArrayList<>();
+  }`;
+
+  jpaMapCollection = `
+  public class SomeClass {
+    
+    @ElementCollection
+    @CollectionTable(name = "collectionTableName")
+    @MapKeyColumn(name = "keyColumnName")
+    @Column(name = "valueColumnValue")
+    private Map<String, String> customObjects = new HashMap<>();
+  }`;
+
+  jpaMapEnumKeyCollection = `
+  public class SomeClass {
+    
+    // note that for keys as enums, use 
+    // @MapKeyEnumerated instead of @Enumerated
+    @ElementCollection
+    @CollectionTable(name = "collectionTableName")
+    @MapKeyColumn(name = "keyColumnName")
+    @Column(name = "valueColumnValue")
+    @MapKeyEnumerated(EnumType.STRING)
+    private Map<SomeEnum, String> customObjects = new HashMap<>();
+  }`;
+
+  jpaMapFieldKeyCollection = `
+  public class SomeClass {
+    
+    private Long fieldName;
+
+    // allow the JPA provider to build other tables as needed with @OneToMany
+    @OneToMany
+    @MapKey(name = "fieldName")
+    private Map<Long, Employee> employees = new HashMap<>(); 
+  }`;
+
+  jpaMapEntityKeyCollection = `
+  public class SomeOtherClass {
+    
+    // use the @MapKeyJoinColumn to persist the Employee by employeeID
+    @ElementCollection
+    @CollectionTable(name = "collectionTableName")
+    @MapKeyJoinColumn(name = "employeeID")
+    @Column(name = "shiftNo")
+    private Map<Employee, Integer> employeeShift = new HashMap<>(); 
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
