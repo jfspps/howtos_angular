@@ -323,6 +323,13 @@ export class JakartaJpaComponent implements OnInit {
     private Map<Employee, Integer> employeeShift = new HashMap<>(); 
   }`;
 
+  simpleEJB = `
+  @Stateless
+  public class SomeService {
+
+    // methods involving other beans
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

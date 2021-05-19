@@ -341,3 +341,33 @@
 <p>
     One can in theory use Embeddable types as keys, however, their use is not recommended. This is largely because embeddable types do not have their own tables, and are only persisted with the embedded entity. If the embedded entity is not in the database then the embeddable entities are also absent; as a result, the querying of embeddable types is not guaranteed.
 </p>
+
+<h5>Enterprise JavaBeans EJBs</h5>
+
+<p>
+    Components are self-contained units. Java EE gives a component driven APIs, known as EJBs, to help solve business applications. It provides a set of constructs which form an abstract layer and removes (encapsulates) the common tasks e.g. security and scaling amongst others. While historically, EJBs and JPA were interwoven, now more modern versions of EJB (to date, version 3) are separated but still complimentary to the JPA.
+</p>
+
+<p>
+    EJBs is largely an annotation driven API. A lot of defaults are set for the developer, and only need to be overridden when needed (in exceptional cases). EJB is aligned with Java EE's CDI and all dependencies are handled automatically by a "EJB container". EJB components have automatically managed lifecycles. They are scalable, secure and portable. All transactions are also handled in the background.
+</p>
+
+<p>
+    The "EJB component model" is the second part of the EJB architecture, the first being the EJB container. The latter is where the developer focuses on. Part of the component model is the <i>stateless session bean</i>, an EJB that is designed to complete a given task within the lifetime or cycle of a single method. It is very much like a request-scoped bean. To build a stateless session bean, annotate a POJO with the @Stateless annotation.
+</p>
+
+<pre>
+    <code [highlight]="simpleEJB" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    All methods defined in an EJB are exclusive. Each method does not assume or know about if other methods in the same EJB were invoked before or after its execution. This is because when the method is invoked, the container will take  one EJB from a predefined pool of EJBs, execute the method and then return the EJB to the pool once the method is finished. If it is invoked again, the container will pass another EJB instance (which may or may not be the same as that passed before) and then return the EJB again on completion. This is an example of a <i>stateless</i> bean. This also means that the methods defined in an EJB are isolated and do not rely on one another.
+</p>
+
+<p>
+    Stateless EJBs pop in and out of the container, running the method on a needs basis. This makes stateless EJBs scalable and memory efficient. They do not store the state of the system and are overall expendable units. This also marks the beginning and ending of a transaction (when an EJB is injected and when it is returned).
+</p>
+
+<p>
+    The complement of a stateless EJB is a <i>stateful</i> EJB. Annotate the POJO with @Stateful. Examples of this include a shopping cart. When methods are invoked, it consults the current state of the system and runs based on its state. The stateful EJB can be placed in passive mode, where it resides in the background without taking up vital resources. The state is unique to a client (no use sharing the same shopping cart).
+</p>
