@@ -407,3 +407,16 @@
 <p>
     Jakarta EE also provides message driven beans. This is covered later.
 </p>
+
+<h5>Transactions with the JPA</h5>
+
+<p>
+    Transactions group operations such that the operations only persist data to a database if all operations in the same group succeeded. If one or more operations failed for whatever reason then all operations are nullified or cancelled. The transaction is characterised by four properties (an acronym of ACID):
+</p>
+
+<ul>
+    <li>Atomicity - the transaction is broken up into its smallest, simplest operations</li>
+    <li>Consistency - the outcomes of the transaction following all atomic operations must be consistent with some expectation (requesting cash out of an ATM and then either receiving cash or no cash is consistent; receiving a bowl of fruit is not)</li>
+    <li>Isolation - changes within an individual transaction are not globally visible to other transactions in the application until the transaction is successful</li>
+    <li>Durability - changes resulting from a transaction endure or persists long after the transaction has completed</li>
+</ul>
