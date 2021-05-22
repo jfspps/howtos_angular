@@ -11,11 +11,11 @@
 <h5>Setting up the tables and entities</h5>
 
 <p>
-    The fundamental (atomic) unit of a JPA component is a POJO, with its class annotated with the @Entity. The @Id annotation is then applied to a field, of type Long, to ensure that each instance is unique with a unique Id.
+    The fundamental (atomic) unit of a JPA component is a POJO, with its class annotated with the <span class="annot">@Entity</span>. The <span class="annot">@Id</span> annotation is then applied to a field, of type Long, to ensure that each instance is unique with a unique Id.
 </p>
 
 <p>
-    To this point, the minimum needed to declare a JPA component is done. The name of the table is, without further intervention, the same as the class name. To use a different name, use the @Table(name = "SomeTableName") annotation. So far, the class would look like the following.
+    To this point, the minimum needed to declare a JPA component is done. The name of the table is, without further intervention, the same as the class name. To use a different name, use the <span class="annot">@Table(name = "SomeTableName")</span> annotation. So far, the class would look like the following.
 </p>
 
 <pre>
@@ -39,7 +39,7 @@
 </pre>
 
 <p>
-    To override fields in the child class, annotate the child class with @AttributeOverride.
+    To override fields in the child class, annotate the child class with <span class="annot">@AttributeOverride</span>.
 </p>
 
 <pre>
@@ -47,15 +47,15 @@
 </pre>
 
 <p>
-    Fields are mapped directly to columns with a column name that is similar to the field name (depends on the JPA implementation), and are by default known as basic fields (types). The optional annotation @Basic of a field, which follows this mapping approach, emphasises this in the code. The actual type stored in the JPA table depends on the implementation. For example, Java Strings are quite often mapped as VARCHAR types.
+    Fields are mapped directly to columns with a column name that is similar to the field name (depends on the JPA implementation), and are by default known as basic fields (types). The optional annotation <span class="annot">@Basic</span> of a field, which follows this mapping approach, emphasises this in the code. The actual type stored in the JPA table depends on the implementation. For example, Java Strings are quite often mapped as VARCHAR types.
 </p>
 
 <p>
-    To customise the JPA column mapping, use the @Column(name = "jpaColumnName") annotation for the desired field. There are other options available, including "length", "nullable" and "unique".
+    To customise the JPA column mapping, use the <span class="annot">@Column(name = "jpaColumnName")</span> annotation for the desired field. There are other options available, including "length", "nullable" and "unique".
 </p>
 
 <p>
-    To exclude the mapping of super class or child class field, use the @Transient annotation. In other words, the Java POJO will have a field that is never stored or known when consulting the JPA table. This might be useful if the POJO stores metadata that is not relevant to the database. Otherwise, without the @Transient annotation the field will automatically be mapped as a basic type.
+    To exclude the mapping of super class or child class field, use the <span class="annot">@Transient</span> annotation. In other words, the Java POJO will have a field that is never stored or known when consulting the JPA table. This might be useful if the POJO stores metadata that is not relevant to the database. Otherwise, without the <span class="annot">@Transient</span> annotation the field will automatically be mapped as a basic type.
 </p>
 
 <h5>Access types</h5>
@@ -65,7 +65,7 @@
 </p>
 
 <p>
-    Take the case when a provider extracts field values from the POJO's fields directly and stores them in the database. This direct mechanism is referred to as "Field Access" and is the default mechanism for all fields of a class, where at least one field not method (normally the @Id annotated field) is given a valid JPA annotation. More fundamentally, the runtime will use 'reflection' to access the field "income" above directly. It will not make use of any getter.
+    Take the case when a provider extracts field values from the POJO's fields directly and stores them in the database. This direct mechanism is referred to as "Field Access" and is the default mechanism for all fields of a class, where at least one field not method (normally the <span class="annot">@Id</span> annotated field) is given a valid JPA annotation. More fundamentally, the runtime will use 'reflection' to access the field "income" above directly. It will not make use of any getter.
 </p>
 
 <p>
@@ -73,7 +73,7 @@
 </p>
 
 <p>
-    "Property Access" is a mechanism where the provider uses getters and setters to access fields' values. The getters and setters must be public. To signal property access of the Id, for example, simply move the @Id annotation from its field to the getter.
+    "Property Access" is a mechanism where the provider uses getters and setters to access fields' values. The getters and setters must be public. To signal property access of the Id, for example, simply move the <span class="annot">@Id</span> annotation from its field to the getter.
 </p>
 
 <pre>
@@ -81,7 +81,7 @@
 </pre>
 
 <p>
-    Generally, field access tends to be easier to read and is applied more often than property access. It is also possible to follow a "Mixed Access" method which is essentially a mixture of Field and Property access types. This can be achieved by a combination of the @Access and @Transient annotations. This approach is quite rare and not described here.
+    Generally, field access tends to be easier to read and is applied more often than property access. It is also possible to follow a "Mixed Access" method which is essentially a mixture of Field and Property access types. This can be achieved by a combination of the <span class="annot">@Access</span> and <span class="annot">@Transient</span> annotations. This approach is quite rare and not described here.
 </p>
 
 <h5>Mapping types and Fetching</h5>
@@ -99,7 +99,7 @@
 </pre>
 
 <p>
-    The ordinals are, by default, stored to the database as integers. This is fine as long as the enumerated list never changes. If however the order changes or an enum is added/removed, then any database stored values will be mis-assigned. To overcome this, the enum can be mapped as a string (a VARCHAR) and use the literal of the enum instead of its ordinal value. In the enum field, use the @Enumerated(EnumType.STRING). Storing as a string tends to be the preferred method.
+    The ordinals are, by default, stored to the database as integers. This is fine as long as the enumerated list never changes. If however the order changes or an enum is added/removed, then any database stored values will be mis-assigned. To overcome this, the enum can be mapped as a string (a VARCHAR) and use the literal of the enum instead of its ordinal value. In the enum field, use the <span class="annot">@Enumerated(EnumType.STRING)</span>. Storing as a string tends to be the preferred method.
 </p>
 
 <pre>
@@ -107,11 +107,11 @@
 </pre>
 
 <p>
-    Large entities of variable length (arrays, lists etc.) are represented as CLOBs and BLOBs, that is, character large objects and binary large objects. A primitive array of Java char would be handled by a CLOB whereas a primitive array of Java byte would be handled by a BLOB. The annotation @Lob signals to the JPA provider to handle the Java array or list with large format file routines, optimised for the specific purpose.
+    Large entities of variable length (arrays, lists etc.) are represented as CLOBs and BLOBs, that is, character large objects and binary large objects. A primitive array of Java char would be handled by a CLOB whereas a primitive array of Java byte would be handled by a BLOB. The annotation <span class="annot">@Lob</span> signals to the JPA provider to handle the Java array or list with large format file routines, optimised for the specific purpose.
 </p>
 
 <p>
-    When dealing with large files, it is more optimal to retrieve data only when needed, typically through a getter. When an object (a database row) is retrieved from the database, all fields by default (where fields are "eagerly" fetched) are extracted and assigned to the properties of the object. To prevent the JPA provider from retrieving certain fields when a Java object is built with database fields, apply the @Basic(fetch = FetchType.LAZY) annotation to the fields that must be excluded. Only when the object getter (if the field is private) is called does the annotated field get extracted from the database and are said to be "lazily" fetched.
+    When dealing with large files, it is more optimal to retrieve data only when needed, typically through a getter. When an object (a database row) is retrieved from the database, all fields by default (where fields are "eagerly" fetched) are extracted and assigned to the properties of the object. To prevent the JPA provider from retrieving certain fields when a Java object is built with database fields, apply the <span class="annot">@Basic(fetch = FetchType.LAZY)</span> annotation to the fields that must be excluded. Only when the object getter (if the field is private) is called does the annotated field get extracted from the database and are said to be "lazily" fetched.
 </p>
 
 <p>
@@ -119,7 +119,7 @@
 </p>
 
 <p>
-    Inner classes or classes which are embedded into others (through composition) in Java usually have no purpose other than to serve the Java class they are embedded in. Instances of the outer class typically have fields which are the same type as the inner (embedded) class. To store the inner class, annotate the class to be embedded with @Embeddable and then annotate the field of the class which is embedded with @Embedded. This causes the JPA to save the embedded (inner) class with its own columns, into the 'main class'.
+    Inner classes or classes which are embedded into others (through composition) in Java usually have no purpose other than to serve the Java class they are embedded in. Instances of the outer class typically have fields which are the same type as the inner (embedded) class. To store the inner class, annotate the class to be embedded with <span class="annot">@Embeddable</span> and then annotate the field of the class which is embedded with <span class="annot">@Embedded</span>. This causes the JPA to save the embedded (inner) class with its own columns, into the 'main class'.
 </p>
 
 <pre>
@@ -133,15 +133,15 @@
 </p>
 
 <p>
-    Primary keys generation types vary. The annotation @GeneratedValue(strategy = GenerationType.AUTO) assigns responsibility of primary key generation to the JPA provider and is fine for development. For deployment, this is not recommended since more control is generally expected. The primary key is only set once the transaction (for example, an insertion) has been completed.
+    Primary keys generation types vary. The annotation <span class="annot">@GeneratedValue(strategy = GenerationType.AUTO)</span> assigns responsibility of primary key generation to the JPA provider and is fine for development. For deployment, this is not recommended since more control is generally expected. The primary key is only set once the transaction (for example, an insertion) has been completed.
 </p>
 
 <p>
-    The annotation @GeneratedValue(strategy = GenerationType.IDENTITY) directs supporting providers to generate unique primary keys in a primary key column. Not all implementations support a dedicated primary key column.
+    The annotation <span class="annot">@GeneratedValue(strategy = GenerationType.IDENTITY)</span> directs supporting providers to generate unique primary keys in a primary key column. Not all implementations support a dedicated primary key column.
 </p>
 
 <p>
-    Some database implementation enable (indeed, expect) custom sequences of integers to be constructed, using the SEQUENCE command. In these cases, the database does not have an automatic schema generator (requires administration). By default, a primary key is constructed as unit integers, that is, the next key is one integer greater than the previous. The SEQUENCE command can be used to define a different sequence. The application of the custom sequence can be directed using the annotations @SequenceGenerator in combination with @GeneratedValue.
+    Some database implementation enable (indeed, expect) custom sequences of integers to be constructed, using the SEQUENCE command. In these cases, the database does not have an automatic schema generator (requires administration). By default, a primary key is constructed as unit integers, that is, the next key is one integer greater than the previous. The SEQUENCE command can be used to define a different sequence. The application of the custom sequence can be directed using the annotations <span class="annot">@SequenceGenerator</span> in combination with <span class="annot">@GeneratedValue</span>.
 </p>
 
 <pre>
@@ -181,7 +181,7 @@
 </p>
 
 <p>
-    The annotations used are @ManyToOne and @OneToOne.
+    The annotations used are <span class="annot">@ManyToOne</span> and <span class="annot">@OneToOne</span>.
 </p>
 
 <pre>
@@ -193,7 +193,7 @@
 </p>
 
 <p>
-    By default, the join column name is normally "targetName_id". To customise the name of the join column, annotate the Department field with @JoinColumn(name = "departmentID"), see above.
+    By default, the join column name is normally "targetName_id". To customise the name of the join column, annotate the Department field with <span class="annot">@JoinColumn(name = "departmentID")</span>, see above.
 </p>
 
 <p>
@@ -205,7 +205,7 @@
 </pre>
 
 <p>
-    In the above case, Employee is the owner of the relationship. The @JoinColumn annotation can be applied to the PaySlip reference in the same way. In both one-to-one and many-to-one relationships, one can only traverse from one entity to the other in one direction, that is, from Employee to Department and from Employee to PaySlip. Such relationships are <i>unidirectional</i>.
+    In the above case, Employee is the owner of the relationship. The <span class="annot">@JoinColumn</span> annotation can be applied to the PaySlip reference in the same way. In both one-to-one and many-to-one relationships, one can only traverse from one entity to the other in one direction, that is, from Employee to Department and from Employee to PaySlip. Such relationships are <i>unidirectional</i>.
 </p>
 
 <p>
@@ -235,15 +235,15 @@
 </pre>
 
 <p>
-    Note that the @OneToMany annotation ensures that one can traverse from Department <i>to</i> Employee and ensure that the relationship is bidirectional. Without the @OneToMany annotation, the relationship would be unidirectional (from Employee to Department).
+    Note that the <span class="annot">@OneToMany</span> annotation ensures that one can traverse from Department <i>to</i> Employee and ensure that the relationship is bidirectional. Without the @OneToMany annotation, the relationship would be unidirectional (from Employee to Department).
 </p>
 
 <p>
-    A single entity on the one-side is unable to store the foreign keys of multiple entities from the many-side (a single cell in a row can only hold one value). To proceed, virtually all one-to-many relationships require a complimentary many-to-one declaration given on the one-side's target. That is, <b>one cannot have a @OneToMany annotation in Department without the @ManyToOne on the Employee side</b>. The converse though is not a requirement, that is, a @ManyToOne annotation in Employee can exist without the @OneToMany in Department. (Each Employee will only need to store one foreign key to one department.) If the @OneToMany annotation is omitted then the JPA provider will build a separate join table (explained shortly) to enable the one-side to store the foreign keys.
+    A single entity on the one-side is unable to store the foreign keys of multiple entities from the many-side (a single cell in a row can only hold one value). To proceed, virtually all one-to-many relationships require a complimentary many-to-one declaration given on the one-side's target. That is, <b>one cannot have a <span class="annot">@OneToMany</span> annotation in Department without the <span class="annot">@ManyToOne</span> on the Employee side</b>. The converse though is not a requirement, that is, a <span class="annot">@ManyToOne</span> annotation in Employee can exist without the <span class="annot">@OneToMany</span> in Department. (Each Employee will only need to store one foreign key to one department.) If the <span class="annot">@OneToMany</span> annotation is omitted then the JPA provider will build a separate join table (explained shortly) to enable the one-side to store the foreign keys.
 </p>
 
 <p>
-    The many-to-many relationship is signified by the @ManyToMany annotation. This brings in <i>join tables</i> which are separate tables that are solely purposed to store primary keys of the related entities.
+    The many-to-many relationship is signified by the <span class="annot">@ManyToMany</span> annotation. This brings in <i>join tables</i> which are separate tables that are solely purposed to store primary keys of the related entities.
 </p>
 
 <pre>
@@ -251,7 +251,7 @@
 </pre>
 
 <p>
-    The owned table (entity) is signified by a field with @ManyToMany(mappedBy = "ownerField") annotation.
+    The owned table (entity) is signified by a field with <span class="annot">@ManyToMany(mappedBy = "ownerField")</span> annotation.
 </p>
 
 <p>
@@ -265,7 +265,7 @@
 </p>
 
 <p>
-    To embed a Collection, annotate the field with @ElementCollection. The HelperClass objects are not JDK entities. Generally all non-JDK entities are flagged with @ElementCollection. This causes the provider to build a secondary table, where one column stores a reference to the Employee table and the remaining columns relate to the fields of the HelperClass.
+    To embed a Collection, annotate the field with <span class="annot">@ElementCollection</span>. The HelperClass objects are not JDK entities. Generally all non-JDK entities are flagged with <span class="annot">@ElementCollection</span>. This causes the provider to build a secondary table, where one column stores a reference to the Employee table and the remaining columns relate to the fields of the HelperClass.
 </p>
 
 <pre>
@@ -273,11 +273,11 @@
 </pre>
 
 <p>
-    The JPA handles the mapping and build of a separate table. The @CollectionTable overrides the defaults of the secondary table.
+    The JPA handles the mapping and build of a separate table. The <span class="annot">@CollectionTable</span> overrides the defaults of the secondary table.
 </p>
 
 <p>
-    Standard JDK entities can be stored along with the owning entity in their own column, as opposed to being stored in a separate table. To handle Collections of standard JDK entities, for example String, use a combination of @ElementCollection and optionally customise the name of the @Column(name = "collectionColumnName") annotations.
+    Standard JDK entities can be stored along with the owning entity in their own column, as opposed to being stored in a separate table. To handle Collections of standard JDK entities, for example String, use a combination of <span class="annot">@ElementCollection</span> and optionally customise the name of the <span class="annot">@Column(name = "collectionColumnName")</span> annotations.
 </p>
 
 <h5>Sorting Collections</h5>
@@ -287,7 +287,7 @@
 </p>
 
 <p>
-    By default, elements in a Java List (indeed any JDK entity) are ordered, ascending, by the primary key. This is symbolised by the optional annotation @OrderBy(). To order by a particular field of the persisted object can be applied with @OrderBy("fieldName asc, secondaryFieldName desc"). Here, the list is sorted by fieldName first, and then by secondaryFieldName. One can add more field names. The token asc and desc represent ascending (default) ordering and descending order, respectively.
+    By default, elements in a Java List (indeed any JDK entity) are ordered, ascending, by the primary key. This is symbolised by the optional annotation <span class="annot">@OrderBy()</span>. To order by a particular field of the persisted object can be applied with <span class="annot">@OrderBy("fieldName asc, secondaryFieldName desc")</span>. Here, the list is sorted by fieldName first, and then by secondaryFieldName. One can add more field names. The token asc and desc represent ascending (default) ordering and descending order, respectively.
 </p>
 
 <pre>
@@ -299,11 +299,11 @@
 </p>
 
 <p>
-    In cases where there are no orderable fields, an alternative sorting method is signalled by the @OrderColumn annotation. This creates a separate column in the database which mirrors the indices of the Collections List object. As such, the column is zero-based. The name of the column is by default "ClassName_order" and can be overridden with @OrderColumn(name = "indexColumnName") annotation option. The developer then needs to set the index of the List element as desired separately from the JPA provider. The JPA provider will simply order by index.
+    In cases where there are no orderable fields, an alternative sorting method is signalled by the <span class="annot">@OrderColumn</span> annotation. This creates a separate column in the database which mirrors the indices of the Collections List object. As such, the column is zero-based. The name of the column is by default "ClassName_order" and can be overridden with <span class="annot">@OrderColumn(name = "indexColumnName")</span> annotation option. The developer then needs to set the index of the List element as desired separately from the JPA provider. The JPA provider will simply order by index.
 </p>
 
 <p>
-    The persistence of Java Maps (assume that the key and value are JDK entities for now) are handled such that both the key and value are stored in their own columns in a separate table along with a reference to the entity in which they were declared. Use @ElementCollection and a few other annotations.
+    The persistence of Java Maps (assume that the key and value are JDK entities for now) are handled such that both the key and value are stored in their own columns in a separate table along with a reference to the entity in which they were declared. Use <span class="annot">@ElementCollection</span> and a few other annotations.
 </p>
 
 <pre>
@@ -349,7 +349,7 @@
 </p>
 
 <p>
-    EJBs is largely an annotation driven API. A lot of defaults are set for the developer, and only need to be overridden when needed (in exceptional cases). EJB is aligned with Java EE's CDI and all dependencies are handled automatically by a "EJB container" which specifically manages all forms of EJBs and mirrors much of fuctionality of the CDI. EJB components have automatically managed lifecycles. They are scalable, secure and portable. All transactions are also handled in the background.
+    EJBs is largely an annotation driven API. A lot of defaults are set for the developer, and only need to be overridden when needed (in exceptional cases). EJB is aligned with Java EE's CDI and all dependencies are handled automatically by a "EJB container" which specifically manages all forms of EJBs and mirrors much of functionality of the CDI. EJB components have automatically managed lifecycles. They are scalable, secure and portable. All transactions are also handled in the background.
 </p>
 
 <p>
@@ -363,7 +363,7 @@
 </ul>
 
 <p>
-    The <i>stateless session bean</i> is an EJB that is designed to complete a given task within the lifetime or cycle of a single method. It is very much like a request-scoped bean. To build a stateless session bean, annotate a POJO with the @Stateless annotation.
+    The <i>stateless session bean</i> is an EJB that is designed to complete a given task within the lifetime or cycle of a single method. It is very much like a request-scoped bean. To build a stateless session bean, annotate a POJO with the <span class="annot">@Stateless</span> annotation.
 </p>
 
 <pre>
@@ -379,11 +379,11 @@
 </p>
 
 <p>
-    The complement of a stateless EJB is a <i>stateful</i> EJB. Annotate the POJO with @Stateful. Examples of this include a shopping cart. When methods are invoked, it consults the current state of the system and runs based on its state. The stateful EJB can be placed in passive mode, where it resides in the background without taking up vital resources. It is not committed to a (stateless) pool. The state is unique to a client (no use sharing the same shopping cart).
+    The complement of a stateless EJB is a <i>stateful</i> EJB. Annotate the POJO with <span class="annot">@Stateful</span>. Examples of this include a shopping cart. When methods are invoked, it consults the current state of the system and runs based on its state. The stateful EJB can be placed in passive mode, where it resides in the background without taking up vital resources. It is not committed to a (stateless) pool. The state is unique to a client (no use sharing the same shopping cart).
 </p>
 
 <p>
-    The third type of EJBs are beans which are instantiated only once, throughout the application lifetime, and are known as <i>Singleton EJBs</i>. They are stateful and are generally used to share information or state across the entire application and furthermore its state is not handled elsewhere. Annotate the bean with @Singleton. To force the bean to run on startup (i.e. eagerly) then use @Startup annotation, otherwise it is instantiated lazily when it is needed (this is the default action).
+    The third type of EJBs are beans which are instantiated only once, throughout the application lifetime, and are known as <i>Singleton EJBs</i>. They are stateful and are generally used to share information or state across the entire application and furthermore its state is not handled elsewhere. Annotate the bean with <span class="annot">@Singleton</span>. To force the bean to run on startup (i.e. eagerly) then use <span class="annot">@Startup</span> annotation, otherwise it is instantiated lazily when it is needed (this is the default action).
 </p>
 
 <p>
@@ -391,8 +391,8 @@
 </p>
 
 <ul>
-    <li>@PostConstruct - annotates a void method which is invoked after an EJB is "created"</li>
-    <li>@PreDestroy - annotates a void method that is invoked before an EJB is destroyed</li>
+    <li><span class="annot">@PostConstruct</span> - annotates a void method which is invoked after an EJB is "created"</li>
+    <li><span class="annot">@PreDestroy</span> - annotates a void method that is invoked before an EJB is destroyed</li>
 </ul>
 
 <p>
@@ -400,8 +400,8 @@
 </p>
 
 <ul>
-    <li>@PrePassivate - invokes a void method before the bean is hibernated or put to sleep as it were</li>
-    <li>@PostActivate - invokes a void method right after the bean is returned from its passivated state</li>
+    <li><span class="annot">@PrePassivate</span> - invokes a void method before the bean is hibernated or put to sleep as it were</li>
+    <li><span class="annot">@PostActivate</span> - invokes a void method right after the bean is returned from its passivated state</li>
 </ul>
 
 <p>

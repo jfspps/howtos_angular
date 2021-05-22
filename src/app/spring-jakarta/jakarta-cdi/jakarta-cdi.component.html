@@ -49,7 +49,7 @@
 <h5>Lifecycle callbacks</h5>
 
 <p>
-    The @PostConstruct and @PreDestroy are applied to methods which will be executed, respectively, once the contextual instance is built and before it is destroyed. The access modifiers private, package-private (i.e. nothing declared), protected (visible to parent and child classes only) and public can be applied.
+    The <span class="annot">@PostConstruct</span> and <span class="annot">@PreDestroy</span> are applied to methods which will be executed, respectively, once the contextual instance is built and before it is destroyed. The access modifiers private, package-private (i.e. nothing declared), protected (visible to parent and child classes only) and public can be applied.
 </p>
 
 <h5>Managed beans and bean types</h5>
@@ -81,7 +81,7 @@
 </pre>
 
 <p>
-    The @Retention annotation is explained later. A separate custom interface annotation (CustomBean) is required for each different implementation of CommonInterface.** Inject a specific implementation of CommonInterface:
+    The <span class="annot">@Retention</span> annotation is explained later. A separate custom interface annotation (CustomBean) is required for each different implementation of CommonInterface.** Inject a specific implementation of CommonInterface:
 </p>
 
 <pre>
@@ -97,7 +97,7 @@
 </pre>
 
 <p>
-    The important part is pairing SomeClass with CustomBeanManager's value. This is done by setting the specific class with the given value. Note that the @annotationsPackagePath.CustomBean is no longer needed.
+    The important part is pairing SomeClass with CustomBeanManager's value. This is done by setting the specific class with the given value. Note that the <span class="annot">@annotationsPackagePath.CustomBean</span> is no longer needed.
 </p>
 
 <pre>
@@ -119,7 +119,7 @@
 </p>
 
 <p>
-    Any bean that is not assigned a scope is by default assigned the DependentScope (optionally, the bean can be annotated with @Dependent to signify this). The DependentScope is a class which defines the scope of a bean that is not a dependency of any particular context when instantiated. When it is injected into, say, Bean2, which is assigned a scope (so other than DependentScope) then the injected bean will inherit whatever scope Bean2 is assigned. This is why it is called DependentScope because the injected bean's scope depends on what other bean it is injected into.
+    Any bean that is not assigned a scope is by default assigned the DependentScope (optionally, the bean can be annotated with <span class="annot">@Dependent</span> to signify this). The DependentScope is a class which defines the scope of a bean that is not a dependency of any particular context when instantiated. When it is injected into, say, Bean2, which is assigned a scope (so other than DependentScope) then the injected bean will inherit whatever scope Bean2 is assigned. This is why it is called DependentScope because the injected bean's scope depends on what other bean it is injected into.
 </p>
 
 <p>
@@ -127,16 +127,16 @@
 </p>
 
 <ul>
-    <li>Request scoped (annotate bean with @RequestScoped): a context which creates and destroys beans based on HTTP requests</li>
-    <li>Session scoped (annotate bean with @SessionScoped): a context based on client-server sessions (conversations as such), beans are created on session startup and destroyed when a session is closed. Session contextual instances tend to run over long periods and consequently bound contextual instances can persist in memory for the same duration. To optimise memory use on the server, contextual instances are set into service when needed but then <i>passivated</i> by the container (placed into hibernation) until they are needed again.</li>
-    <li>Application scoped (annotate bean with @ApplicationScoped): lifecycle of the bean parallels the lifetime of the application. Consequently, only one contextual instance of the given type can exist and as such application scoped instances follow a Singleton pattern.</li>
-    <li>Conversation scoped (annotate with @ConversationScoped): related to JSF API and can partly be viewed as Models in Spring. They have a lifetime shorter than the session and traverse along HTTP requests.</li>
+    <li>Request scoped (annotate bean with <span class="annot">@RequestScoped</span>): a context which creates and destroys beans based on HTTP requests</li>
+    <li>Session scoped (annotate bean with <span class="annot">@SessionScoped</span>): a context based on client-server sessions (conversations as such), beans are created on session startup and destroyed when a session is closed. Session contextual instances tend to run over long periods and consequently bound contextual instances can persist in memory for the same duration. To optimise memory use on the server, contextual instances are set into service when needed but then <i>passivated</i> by the container (placed into hibernation) until they are needed again.</li>
+    <li>Application scoped (annotate bean with <span class="annot">@ApplicationScoped</span>): lifecycle of the bean parallels the lifetime of the application. Consequently, only one contextual instance of the given type can exist and as such application scoped instances follow a Singleton pattern.</li>
+    <li>Conversation scoped (annotate with <span class="annot">@ConversationScoped</span>): related to JSF API and can partly be viewed as Models in Spring. They have a lifetime shorter than the session and traverse along HTTP requests.</li>
 </ul>
 
 <h5>CDI Producers</h5>
 
 <p>
-    Producers are non-void methods (annotated with @Produces) that convert Java classes, not normally managed or owned, into CDI managed beans. The method must return an object. The method parameters are optional but must be injectable. All are handled by the container.
+    Producers are non-void methods (annotated with <span class="annot">@Produces</span>) that convert Java classes, not normally managed or owned, into CDI managed beans. The method must return an object. The method parameters are optional but must be injectable. All are handled by the container.
 </p>
 
 <p>
@@ -184,7 +184,7 @@
 </pre>
 
 <p>
-    Methods or events can be executed to the contextual instance, produced from the Produces annotation, before the instance is destroyed. This can be achieved by using the @Disposes annotation.
+    Methods or events can be executed to the contextual instance, produced from the Produces annotation, before the instance is destroyed. This can be achieved by using the <span class="annot">@Disposes</span> annotation.
 </p>
 
 <pre>
@@ -248,7 +248,7 @@
 </pre>
 
 <p>
-    The custom annotation @SpecificEvent is given below.
+    The custom annotation <span class="annot">@SpecificEvent</span> is given below.
 </p>
 
 <pre>
@@ -256,7 +256,7 @@
 </pre>
 
 <p>
-    If there are multiple observers (methods) then the CDI will execute all in a random order. A specific order can be established by passing the @Priority(100) annotation. Passing lower integers into the @Priority() annotation causes the CDI to place more priority to the annotated observer.
+    If there are multiple observers (methods) then the CDI will execute all in a random order. A specific order can be established by passing the <span class="annot">@Priority(100)</span> annotation. Passing lower integers into the <span class="annot">@Priority()</span> annotation causes the CDI to place more priority to the annotated observer.
 </p>
 
 <pre>
