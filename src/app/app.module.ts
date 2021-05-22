@@ -67,6 +67,7 @@ import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedl
 import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
 import { JavaQueueComponent } from './javapage/java-queue/java-queue.component';
 import { JavaBinarytreeComponent } from './javapage/java-binarytree/java-binarytree.component';
+import { JavaSingletonComponent } from './javapage/java-singleton/java-singleton.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { JavaBinarytreeComponent } from './javapage/java-binarytree/java-binaryt
     JavaLinkedlistComponent,
     JavaStackComponent,
     JavaQueueComponent,
-    JavaBinarytreeComponent
+    JavaBinarytreeComponent,
+    JavaSingletonComponent
   ],
   imports: [
     BrowserModule,

@@ -61,6 +61,7 @@ import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedl
 import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
 import { JavaQueueComponent } from './javapage/java-queue/java-queue.component';
 import { JavaBinarytreeComponent } from './javapage/java-binarytree/java-binarytree.component';
+import { JavaSingletonComponent } from './javapage/java-singleton/java-singleton.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -85,7 +86,8 @@ const appRoutes: Routes = [
     { path: 'javaLinkedList', component: JavaLinkedlistComponent},
     { path: 'javaStack', component: JavaStackComponent},
     { path: 'javaQueue', component: JavaQueueComponent},
-    { path: 'javaBinaryTree', component: JavaBinarytreeComponent}
+    { path: 'javaBinaryTree', component: JavaBinarytreeComponent},
+    { path: 'javaSingleton', component: JavaSingletonComponent}
   ] },
 
   { path: 'androidJavaFX', component: AndroidJavaFxComponent, children: [
