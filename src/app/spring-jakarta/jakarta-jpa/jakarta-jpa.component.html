@@ -420,3 +420,96 @@
     <li>Isolation - changes within an individual transaction are not globally visible to other transactions in the application until the transaction is successful</li>
     <li>Durability - changes resulting from a transaction endure or persists long after the transaction has completed</li>
 </ul>
+
+<p>
+    There are two approaches to transaction management: bean management and container management, the latter of which is practised most widely and the default under the Java EE framework. Container management directs the application server to handle the transactions. Bean management requires the developer to manage transactions. 
+</p>
+
+<p>
+    Since container managed transactions are the default, then all methods are by default transactional. To signal bean management, use the <span class="annot">@TransactionManagement(TransactionManagementType.BEAN)</span> annotation for the given class or bean. This latter approach tends to go against the whole point of EJBs and is not discussed further here. The default would be <span class="annot">@TransactionManagement(TransactionManagementType.CONTAINER)</span>.
+</p>
+
+<p>
+    One can fine tune container managed transaction operations (by annotating the methods within a container managed transactional bean) with <span class="annot">@TransactionAttribute(TransactionAttributeType.OPTION)</span>, where OPTION = NEVER, OPTION = MANDATORY and OPTION = NOT_SUPPORTED, OPTION = REQUIRED amongst others. "Never" means never run this method as a transaction, "Mandatory" means that the method must be run in a transaction, "Not_supported" means this method does not support being run in a transaction (and an exception is raised if an attempt to do so occurs) and the default "Required" means a method should be invoked in a transaction (if there is no transaction, then one is created in the background). 
+</p>
+
+<h5>The persistence context and entity manager</h5>
+
+<p>
+    <i>Persistence units</i> are XML file configurations which group persistence entity classes as discrete units. The file "persistence.xml" is stored in /resources/META_INF. Within each persistence unit are settings, for example, data sources and transaction types.
+</p>
+
+<pre>
+    <code [highlight]="persistenceXML" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    A <i>persistence context</i> is a pool of managed entities (entities managed by the Entity Manager; more shortly). One can think of the persistence context as scratch space or a cache between the model layer and the viewer layer of an MVC framework. All classes that fall under a given persistence unit are managed in their own persistence context by the entity manager. Most of the time, the persistence context is hidden from the application and developer.
+</p>
+
+<p>
+    The <i>entity manager</i> operates on persistence contexts, of which there can be many. The entity manager itself, like all Java beans, is declared in its own class. If there are more than one persistence units available then it will be necessary to link the entity manager instance with the required persistence unit. If there is only one persistence unit then the CDI will link the entity manager instance automatically. 
+</p>
+
+<pre>
+    <code [highlight]="entityManagerClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The application container handles the lifetime of the entity manager. One then injects the entity manager into a class where the instance is required, without worrying about its lifecycle.
+</p>
+
+<p>
+    An CRUD-style example of a service example is given below (this example will not compile at present as there are other required annotations missing). The injected QueryService bean is also defined below. 
+</p>
+
+<pre>
+    <code [highlight]="CRUD_entityManager" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    When a new transaction begins, a persistence context is initialised. Changes to the database entities are not made to the database entries (rows) directly but are instead made to entities pulled (using find()) from the database to the persistence context. Once the transaction is committed, any entities in the persistence context are sent back to the database that have matching IDs, thus saving any changes. The transaction is then no longer in action and the persistence context is flushed.
+</p>
+
+<p>
+    The key EntityManager methods to note are persist(), find(), detach(), merge() and remove().
+</p>
+
+<ul>
+    <li>persist() - save the new entity (not already in the persistence context) to a given persistence context (and ultimately the database)</li>
+    <li>find() - find the entity on, usually by primary key, from the persistence context or the provider (more below)</li>
+    <li>detach() - remove the entity from the persistence context (usually sent to the viewer layer, e.g. JSF); this does not remove the entity from the database</li>
+    <li>merge() - the opposite of detach(), placing the object into the persistence context; this is also used to update entities once the transaction is committed</li>
+    <li>remove() - remove the entity from the persistence context and database</li>
+</ul>
+
+<p>
+    Recall that the entity manager operates on the persistence context. A few comments are in order.
+</p>
+
+<ul>
+    <li>An exception is thrown when persist() is performed on an entity that already exists in the database</li>
+    <li>The method find() first queries the persistence context and if the entity cannot be found it then queries the provider's database, and places anything found in to the persistence context</li>
+    <li>Detached entities are no longer part of the persistence context. Changes to the detached entity are not automatically applied to the corresponding entity on the database.</li>
+    <li>If the entity was found (using find()) on the persistence layer then it automatically becomes detached. Fields of an entity that are set to be loaded lazily can only be retrieved from the database while the entity resides in the persistence context. Hence, lazily loaded fields must be retrieved (if required later) before the entity is detached, either through detach() or find(). Any getter related to a lazily defined field (that has not already been accessed) that is executed on a detached entity will return undefined behaviour. To get around this, first extract the field data before detachment.</li>
+</ul>  
+
+<p>
+    When the transaction is committed, all entities in the persistence context will be transferred to the database. Subsequent calls to a operation will trigger a new transaction and a new persistence context.
+</p>
+
+<pre>
+    <code [highlight]="queryServiceClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Related entities can be made to persist automatically when the owning entity is persisted. For example, when an employee entity is saved (or furthermore, merged, detached, refreshed or removed), so too would their ParkingSpace entities. This automated form of operations is a referred to as <i>cascading</i>. 
+</p>
+
+<pre>
+    <code [highlight]="cascadingOps" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    In the above case, whenever an Employee entity is persisted, then its ParkingSpace entity is also persisted.
+</p>

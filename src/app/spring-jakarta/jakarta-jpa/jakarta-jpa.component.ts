@@ -10,7 +10,7 @@ export class JakartaJpaComponent implements OnInit {
 
   response: HighlightResult;
 
-  lang = ["java"];
+  lang = ["java", "xml"];
 
   constructor() { }
 
@@ -330,6 +330,131 @@ export class JakartaJpaComponent implements OnInit {
     // methods involving other beans
   }`;
 
+  persistenceXML = `
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence 
+  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+  <!-- Define persistence unit below -->
+  <persistence-unit name="my-persistence-unit">
+  </persistence-unit>
+
+</persistence>`;
+
+  entityManagerClass = `
+  public class AppProducers{
+
+    // use @PersistenceContext(unitName = "my-persistence-unit") 
+    // if there are >1 units
+
+    // Recall, the EntityManager is assumed as CDI managed bean with 
+    // @Produces and allows EntityManager instances to be injected
+
+    @Produces
+    @PersistenceContext
+    EntityManager entityManager;
+
+  }`;
+
+  CRUD_entityManager = `
+@Stateless
+public class PersistenceService {
+
+    @Inject
+    EntityManager entityManager;
+
+    // use the QueryService methods instead of redefining them here
+    @Inject
+    QueryService queryService;
+
+    public void saveDepartment(Department department) {
+        entityManager.persist(department);
+    }
+
+    public void removeParkingSpace(Long employeeId) {
+        Employee employee = queryService.findEmployeeById(employeeId);
+        ParkingSpace parkingSpace = employee.getParkingSpace();
+
+        // update employee before removing (one-to-one mapping in place)
+        employee.setParkingSpace(null);
+
+        entityManager.remove(parkingSpace);
+    }
+
+    public void saveEmployee(Employee employee, ParkingSpace parkingSpace) {
+        employee.setParkingSpace(parkingSpace);
+
+        // this will also persist the ParkingSpace entity (explained below)
+        entityManager.persist(employee);
+    }
+
+    public void updateDepartment(Department department) {
+        entityManager.merge(department);
+    }
+}`;
+
+queryServiceClass = `
+@Stateless
+public class QueryService {
+
+    @Inject
+    EntityManager entityManager;
+
+    @PostConstruct
+    private void init() {
+    }
+
+    @PreDestroy
+    private void destroy() {
+    }
+
+    public List<Department> getAllDepartments() {
+        return entityManager.createNamedQuery(
+          Department.GET_DEPARTMENT_LIST, Department.class).getResultList();
+    }
+
+    public List<String> getAllDepartmentNames() {
+        return entityManager.createNamedQuery(
+          Department.GET_DEPARTMENT_NAMES, String.class).getResultList();
+    }
+
+    public List<ParkingSpace> getAllAllocatedParkingSpaces() {
+        return entityManager.createNamedQuery(
+          Employee.GET_ALL_PARKING_SPACES, ParkingSpace.class).getResultList();
+    }
+
+    public Collection<Object[]> getEmployeeProjection() {
+        return entityManager.createNamedQuery(
+          Employee.EMPLOYEE_PROJECTION, Object[].class).getResultList();
+    }
+
+    public List<EmployeeDetails> getEmployeeDetails() {
+        return entityManager.createNamedQuery(
+          Employee.EMPLOYEE_CONSTRUCTOR_PROJ, EmployeeDetails.class).getResultList();
+    }
+
+    public Department findDepartmentById(Long id) {
+        return entityManager.find(Department.class, id);
+    }
+
+    public Employee findEmployeeById(Long id) {
+        return entityManager.find(Employee.class, id);
+    }
+}`;
+
+cascadingOps = `
+public class Employee extends AbstractEntity {
+
+  // other fields and methods
+
+  @OneToOne(
+    mappedBy = "employee", 
+    fetch = FetchType.LAZY, 
+    cascade = CascadeType.PERSIST)
+  private ParkingSpace parkingSpace;
+
+}`
   onHighlight(e) {
     this.response = {
       language: e.language,
