@@ -59,6 +59,7 @@ import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.co
 import { JavaArraylistComponent } from './javapage/java-arraylist/java-arraylist.component';
 import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedlist.component';
 import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
+import { JavaQueueComponent } from './javapage/java-queue/java-queue.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -81,7 +82,8 @@ const appRoutes: Routes = [
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaArrayList', component: JavaArraylistComponent},
     { path: 'javaLinkedList', component: JavaLinkedlistComponent},
-    { path: 'javaStack', component: JavaStackComponent}
+    { path: 'javaStack', component: JavaStackComponent},
+    { path: 'javaQueue', component: JavaQueueComponent}
   ] },
 
   { path: 'androidJavaFX', component: AndroidJavaFxComponent, children: [

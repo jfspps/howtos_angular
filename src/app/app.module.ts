@@ -65,6 +65,7 @@ import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.co
 import { JavaArraylistComponent } from './javapage/java-arraylist/java-arraylist.component';
 import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedlist.component';
 import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
+import { JavaQueueComponent } from './javapage/java-queue/java-queue.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
     JakartaJpaComponent,
     JavaArraylistComponent,
     JavaLinkedlistComponent,
-    JavaStackComponent
+    JavaStackComponent,
+    JavaQueueComponent
   ],
   imports: [
     BrowserModule,
