@@ -33,7 +33,6 @@ import { AndroidyoutubepageComponent } from './androidJavaFX/androidyoutubepage/
 import { AndroidflickrpageComponent } from './androidJavaFX/androidflickrpage/androidflickrpage.component';
 import { AndroidcontentproviderspageComponent } from './androidJavaFX/androidcontentproviderspage/androidcontentproviderspage.component';
 import { AndroidtasktimerpageComponent } from './androidJavaFX/androidtasktimerpage/androidtasktimerpage.component';
-import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaalgorithmspage.component';
 import { AppHeaderComponent } from './header/header.component';
 import { SpringjmspageComponent } from './spring-jakarta/springjmspage/springjmspage.component';
 import { DockerpageComponent } from './dockerpage/dockerpage.component';
@@ -63,6 +62,7 @@ import { AndroidJavaFxComponent } from './androidJavaFX/androidjavafx.component'
 import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.component';
 import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.component';
 import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.component';
+import { JavaArraylistComponent } from './javapage/java-arraylist/java-arraylist.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +96,6 @@ import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.co
     AndroidflickrpageComponent,
     AndroidcontentproviderspageComponent,
     AndroidtasktimerpageComponent,
-    JavaalgorithmspageComponent,
     AppHeaderComponent,
     SpringjmspageComponent,
     DockerpageComponent,
@@ -124,7 +123,8 @@ import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.co
     AndroidJavaFxComponent,
     JakartademoComponent,
     JakartaCDIComponent,
-    JakartaJpaComponent
+    JakartaJpaComponent,
+    JavaArraylistComponent
   ],
   imports: [
     BrowserModule,

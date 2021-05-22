@@ -19,7 +19,6 @@ import { AndroidflickrpageComponent } from './androidJavaFX/androidflickrpage/an
 import { AndroidrssreaderpageComponent } from './androidJavaFX/androidrssreaderpage/androidrssreaderpage.component';
 import { AndroidtasktimerpageComponent } from './androidJavaFX/androidtasktimerpage/androidtasktimerpage.component';
 import { AndroidyoutubepageComponent } from './androidJavaFX/androidyoutubepage/androidyoutubepage.component';
-import { JavaalgorithmspageComponent } from './javapage/javaalgorithmspage/javaalgorithmspage.component';
 import { JavaclientserverpageComponent } from './javapage/javaclientserverpage/javaclientserverpage.component';
 import { JavadesignpatternspageComponent } from './javapage/javadesignpatternspage/javadesignpatternspage.component';
 import { JavafxgradleComponent } from './androidJavaFX/javafxgradle/javafxgradle.component';
@@ -57,6 +56,7 @@ import { SpringJakartaComponent } from './spring-jakarta/spring-jakarta.componen
 import { JakartademoComponent } from './spring-jakarta/jakartademo/jakartademo.component';
 import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.component';
 import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.component';
+import { JavaArraylistComponent } from './javapage/java-arraylist/java-arraylist.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -77,7 +77,7 @@ const appRoutes: Routes = [
     { path: 'javaNIO_2', component: JavanioFilesyspageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
-    { path: 'javaAlgorithms', component: JavaalgorithmspageComponent}
+    { path: 'javaArrayList', component: JavaArraylistComponent}
   ] },
 
   { path: 'androidJavaFX', component: AndroidJavaFxComponent, children: [
