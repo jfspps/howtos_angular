@@ -66,6 +66,7 @@ import { JavaArraylistComponent } from './javapage/java-arraylist/java-arraylist
 import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedlist.component';
 import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
 import { JavaQueueComponent } from './javapage/java-queue/java-queue.component';
+import { JavaBinarytreeComponent } from './javapage/java-binarytree/java-binarytree.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { JavaQueueComponent } from './javapage/java-queue/java-queue.component';
     JavaArraylistComponent,
     JavaLinkedlistComponent,
     JavaStackComponent,
-    JavaQueueComponent
+    JavaQueueComponent,
+    JavaBinarytreeComponent
   ],
   imports: [
     BrowserModule,
