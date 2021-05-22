@@ -8,7 +8,6 @@ import { HighlightResult } from 'ngx-highlightjs';
 })
 export class JavaArraylistComponent implements OnInit {
 
-
   response: HighlightResult;
 
   lang = ["java"];
