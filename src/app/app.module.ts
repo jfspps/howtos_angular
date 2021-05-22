@@ -64,6 +64,7 @@ import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.co
 import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.component';
 import { JavaArraylistComponent } from './javapage/java-arraylist/java-arraylist.component';
 import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedlist.component';
+import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedl
     JakartaCDIComponent,
     JakartaJpaComponent,
     JavaArraylistComponent,
-    JavaLinkedlistComponent
+    JavaLinkedlistComponent,
+    JavaStackComponent
   ],
   imports: [
     BrowserModule,

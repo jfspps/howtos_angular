@@ -58,6 +58,7 @@ import { JakartaCDIComponent } from './spring-jakarta/jakarta-cdi/jakarta-cdi.co
 import { JakartaJpaComponent } from './spring-jakarta/jakarta-jpa/jakarta-jpa.component';
 import { JavaArraylistComponent } from './javapage/java-arraylist/java-arraylist.component';
 import { JavaLinkedlistComponent } from './javapage/java-linkedlist/java-linkedlist.component';
+import { JavaStackComponent } from './javapage/java-stack/java-stack.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -79,7 +80,8 @@ const appRoutes: Routes = [
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaArrayList', component: JavaArraylistComponent},
-    { path: 'javaLinkedList', component: JavaLinkedlistComponent}
+    { path: 'javaLinkedList', component: JavaLinkedlistComponent},
+    { path: 'javaStack', component: JavaStackComponent}
   ] },
 
   { path: 'androidJavaFX', component: AndroidJavaFxComponent, children: [
