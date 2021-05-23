@@ -7,3 +7,11 @@
 <pre>
     <code [highlight]="singleton" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<p>
+    The class of a singleton pattern typically uses a non-global constructor and does not permit inheritance. The singleton object can be accessed by a public method (i.e. getInstance()) which returns the object. The getInstance() method need not be static but should always be parameterless. Since the getInstance() method is public, it means that the singleton is globally accessible.
+</p>
+
+<p>
+    This pattern, to some, is considered an ‘anti-pattern’. Singletons are global objects and if they represent mutable entities or can change readily then this becomes more difficult to manage when classes which depend on the singleton need a specifically configured singleton. Having global variables (not global constants) is generally bad practice since it may lead to unexpected/undefined results or behaviour.
+</p>

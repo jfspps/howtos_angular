@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HighlightResult } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-javadesignpatternspage',
@@ -7,9 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JavadesignpatternspageComponent implements OnInit {
 
+  response: HighlightResult;
+
+  lang = ["java"];
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  dependencyInjection = `
+  // instead of 
+  method(){
+    ... 
+    new Object 
+    ...
+  } 
+  
+  // use 
+  method(Object object){
+    ...
+  }
+  `;
+
+  onHighlight(e) {
+    this.response = {
+      language: e.language,
+      relevance: e.relevance,
+      second_best: '{...}',
+      top: '{...}',
+      value: '{...}'
+    }
+  }
 }

@@ -20,24 +20,27 @@ export class JavaSingletonComponent implements OnInit {
   singleton = `
   public class SomeClass {
 
-    // create the instance here instead of in the getter;
-    // the optional "volatile" ensures that threads which attempt to access 
+    // "volatile" ensures that threads which attempt to access 
     // INSTANCE do so through the main() stack only, thereby 
     // getting the most up-to-date object (Java VM 1.5+ only)
-    private static volatile SomeClass instance = new SomeClass();
+    private static volatile SomeClass instance = null;
 
     private SomeClass() {
         //empty constructor
     }
 
     /**
-     * Grants access to SomeClass methods
+     * Grant access to SomeClass methods through the getter
+     * (static is optional)
      */
     public static SomeClass getInstance() {
+        if (instance == null){
+          instance = new SomeClass();
+        }
         return instance;
     }
 
-    // other methods and fields
+    // other methods
   }
   `;
 
