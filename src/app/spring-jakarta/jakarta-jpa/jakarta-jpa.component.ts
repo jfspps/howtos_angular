@@ -454,7 +454,80 @@ public class Employee extends AbstractEntity {
     cascade = CascadeType.PERSIST)
   private ParkingSpace parkingSpace;
 
-}`
+}`;
+
+persistenceXMLoptions = `
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence 
+  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+  <!-- Define persistence unit below -->
+  <persistence-unit name="my-persistence-unit" transaction-type="JTA">
+
+    <provider>
+      <!-- Override the default application server JPA provider -->
+    </provider>
+
+    <jta-data-source>
+      java:app/path/To/DB
+    </jta-data-source>
+
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+    <properties>
+      <!-- Set the application deployment properties -->
+
+      <property name="javax.persistence.schema-generation.database.action" 
+        value="drop-and-create" />
+
+      <!-- Handle scripts (if value="drop" then the create-target is not expected etc.) -->
+      <property name="javax.persistence.schema-generation.scripts.action"
+        value="drop-and-create"/>
+
+      <property name="javax.persistence.schema-generation.scripts.drop-target"
+        value="file:///c:/scripts/dropped.ddl"/>
+
+      <property name="javax.persistence.schema-generation.scripts.create-target"
+        value="file:///c:/scripts/created.ddl"/>
+
+    </properties>
+
+  </persistence-unit>
+
+</persistence>`;
+
+datasourceAnnot = `
+@DataSourceDefinition(
+  name = "java:app/pathTo/theDB",
+  className = "org.apache.derby.jdbc.ClientDriver",
+  url = "jdbc:derby://localhost:1976/theDB",
+  user = "usernameHere",
+  password = "pwd")
+@Stateless
+public class SomeService {
+
+  @Inject
+  EntityManager entityManager;
+
+  // other methods and fields
+
+}`;
+
+datasourceXML = `
+<web-app ...>
+
+    <data-source>
+        <name>java:app/pathTo/theDB</name>
+        <class-name>org.apache.derby.jdbc.ClientDriver</class-name>
+        <url>jdbc:derby://localhost:1976/theDB</url>
+        <user>usernameHere</user>
+        <password>pwd</password>
+    </data-source>
+
+</web-app>
+    `;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

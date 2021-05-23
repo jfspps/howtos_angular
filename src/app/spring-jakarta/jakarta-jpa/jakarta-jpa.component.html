@@ -513,3 +513,57 @@
 <p>
     In the above case, whenever an Employee entity is persisted, then its ParkingSpace entity is also persisted.
 </p>
+
+<h5>Configuring the persistence unit</h5>
+
+<p>
+    The XML to the persistence unit can be configured to runtime properties according to the requirements. Normally there is only one unit in a given XMl configuration (persistence.xml).
+</p>
+
+<p>
+    The name (in this case, "my-persistence-unit") is the unique identifier of the persistence unit.
+</p>
+
+<pre>
+    <code [highlight]="persistenceXML" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The transaction type defines the type of transaction used by the entity manager. The JTA is the Java Transactions API and is the default (and most commonly applied). This then directs the container to handle the transactions in the background and is generally recommended overall. (To manually handle transactions, use RESOURCE_LOCAL.)
+</p>
+
+<p>
+   To set the persistence provider, use the provider tags. Different application servers apply their own default provider and so if the provider tag is absent, then the default set by the application server is assumed. Payara server ships with EclipseLink, for example.
+</p>
+
+<pre>
+    <code [highlight]="persistenceXMLoptions" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The JTA datasource tag (optional) defines the configuration (usernames, passwords etc.) need to allow the application server to connect to the database. The datasource itself can take the form of an annotation <span class="annot">@DataSourceDefinition()</span> and list the required settings for a class which requires access to the database. The name given in the "jta-data-source" tag references the name attribute of the <span class="annot">@DataSourceDefinition()</span> annotation.
+</p>
+
+<pre>
+    <code [highlight]="datasourceAnnot" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The datasource can also be set more globally (and arguably more concisely) in the web.xml file (usually located in the same directory as beans.xml: /main/webapp/WEB_INF/).
+</p>
+
+<pre>
+    <code [highlight]="datasourceXML" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To define non-JTA datasources, use "non-jta-data-source" tag instead of "jta-data-source". Post Java EE 7, if both JTA and non-JTA tags are omitted from the XML configuration then the application will use an in-memory database.
+</p>
+
+<p>
+    Classes not marked as JPA classes (i.e. not JPA annotated) are not scanned or included in the given persistence unit if the "exclude-unlisted-classes" tag is set to true. If the tag is set to false, then all classes (regardless if annotated as JPA classes or not) are scanned and included.
+</p>
+
+<p>
+    Finally, deployment properties are given by the "properties" tag. A commonly set property relates to schema generation (given above) handled by the JPA provider. The other schema generation options are "none" (the default, equivalent to having no "property" tag), "create" and "drop". Scripts can also be managed with the scripts property. A dropped script and a new script (both optional) can be applied.
+</p>
