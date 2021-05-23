@@ -470,7 +470,7 @@ persistenceXMLoptions = `
     </provider>
 
     <jta-data-source>
-      java:app/path/To/DB
+      java:app/pathTo/theDB
     </jta-data-source>
 
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
