@@ -1,0 +1,45 @@
+<h5>The Factory method pattern</h5>
+
+<p>
+    The Factory method pattern, as the name implies, provides a way of building multiple instances of different types without knowing precisely how the objects are created. Quite often, one builds a singleton Factory method implementation and then uses the method to build other objects as needed.
+</p>
+
+<p>
+    First, start with an abstract class that defines a generic message.
+</p>
+
+<pre>
+    <code [highlight]="Message" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Then provide more specific extensions of the abstract Message class.
+</p>
+
+<pre>
+    <code [highlight]="MessageExt" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The abstract Factory class would instantiate the abstract Message class.
+</p>
+
+<pre>
+    <code [highlight]="AbstractFactory" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Then extend the abstract Factory method for all relevant concrete classes.
+</p>
+
+<pre>
+    <code [highlight]="ConcreteFactory" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The client then requests specific instances as follows, passing a new concrete class and applying polymorphism in place of MessageCreator and Message.
+</p>
+
+<pre>
+    <code [highlight]="theClient" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

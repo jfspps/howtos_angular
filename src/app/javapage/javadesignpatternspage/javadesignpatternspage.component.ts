@@ -21,7 +21,7 @@ export class JavadesignpatternspageComponent implements OnInit {
   // instead of 
   method(){
     ... 
-    new Object 
+    Object object = new Object();
     ...
   } 
   
