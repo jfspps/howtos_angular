@@ -1,7 +1,7 @@
 <h5>The Factory method pattern</h5>
 
 <p>
-    The Factory method pattern, as the name implies, provides a way of building multiple instances of different types without knowing precisely how the objects are created. Quite often, one builds a singleton Factory method implementation and then uses the method to build other objects as needed.
+    The Factory method pattern, as the name implies, provides a way of building multiple instances of different types without knowing precisely how the objects are created. Quite often, one builds a singleton Factory method implementation and then uses the same method to build other objects as needed.
 </p>
 
 <p>
@@ -37,7 +37,7 @@
 </pre>
 
 <p>
-    The client then requests specific instances as follows, passing a new concrete class and applying polymorphism in place of MessageCreator and Message.
+    The client then requests specific instances as follows, passing a new concrete class instance and applying polymorphism in place of MessageCreator and Message.
 </p>
 
 <pre>

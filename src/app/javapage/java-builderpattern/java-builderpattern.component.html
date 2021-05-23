@@ -1,0 +1,22 @@
+<h5>The Builder pattern</h5>
+
+<p>
+    The Builder pattern provides a way of building objects while setting some or all of the attributes/fields of the instance. The resultant code is generally cleaner and more concise than having to use a constructor and individual setters manually. A more commonly implemented form of the builder class, in which the class it instantiates is an inner class, is shown here. Alternatively, classes that would be instanced can be declared as separate, external classes, see <a href="https://github.com/jfspps/JavaDesignPatterns/blob/main/docs/BuilderPattern.md" target="_blank">here</a> for more details.
+</p>
+
+<p>
+    The builder class UserDTOBuilder can only handle UserDTO objects. A DTO is a data-transfer object and can be considered a reduced form of a database entity which retains the info sought after but omits sensitive or unnecessary database/backend metadata.
+</p>
+
+<pre>
+    <code [highlight]="InnerBuilder" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The client would then execute the builder method (either through a director or directly) as follows. Note that as a result of the defined DTO, not all attributes are transferred.
+</p>
+
+
+<pre>
+    <code [highlight]="theClient" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

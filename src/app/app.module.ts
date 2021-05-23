@@ -69,6 +69,7 @@ import { JavaQueueComponent } from './javapage/java-queue/java-queue.component';
 import { JavaBinarytreeComponent } from './javapage/java-binarytree/java-binarytree.component';
 import { JavaSingletonComponent } from './javapage/java-singleton/java-singleton.component';
 import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-factorymethod.component';
+import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java-builderpattern.component';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-f
     JavaQueueComponent,
     JavaBinarytreeComponent,
     JavaSingletonComponent,
-    JavaFactorymethodComponent
+    JavaFactorymethodComponent,
+    JavaBuilderpatternComponent
   ],
   imports: [
     BrowserModule,
