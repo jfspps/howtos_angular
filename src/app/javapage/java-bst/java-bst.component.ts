@@ -24,10 +24,6 @@ export class JavaBstComponent implements OnInit {
         super(data);
     }
 
-    // in a binary search method, the central element will reside 
-    // at the root with all left-hand elements on the left branch 
-    // and all right-hand elements on the right branch
-
     public BinarySearchTree buildBinarySearchTree(Integer[] sortedArray) {
         if (sortedArray.length == 1){
             return new BinarySearchTree(sortedArray[0]);
@@ -64,9 +60,12 @@ export class JavaBstComponent implements OnInit {
             return null;
     }
 
-    // level is zero-based to coincide with ArrayList and denotes which 
-    // level is being processed
-    // time complexity is O(n), where n = number of nodes + null nodes
+    /**
+     * Builds a linked list of each level in the BST
+     * level is zero-based to coincide with ArrayList and denotes which 
+     * level is being processed; when calling initially, set level to 0
+     * time complexity is O(n), where n = number of nodes + null nodes
+     * /
     public ArrayList<LinkedList<BinaryTree<Integer>>> createLevelLinkedList(
             BinaryTree<Integer> node, 
             ArrayList<LinkedList<BinaryTree<Integer>>> levelList,
