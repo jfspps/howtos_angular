@@ -1,9 +1,21 @@
 <h5>Custom binary tree</h5>
 
 <p>
-    An implementation of the Java binary tree, with common methods. The class taken from my Spring demo is <a href="https://github.com/jfspps/AlgorithmsInJava/blob/main/ADTsAlgoServices/src/main/java/com/algo_data/treesAndGraphs/BinaryTree.java" target="_blank">here</a> and unit test <a href="https://github.com/jfspps/AlgorithmsInJava/blob/main/ADTsAlgoServices/src/test/java/com/algo_data/treesAndGraphs/BinaryTreeTest.java" target="_blank">here</a>.
+    An implementation of a Java binary tree, with common methods. The class taken from my Spring demo is <a href="https://github.com/jfspps/AlgorithmsInJava/blob/main/ADTsAlgoServices/src/main/java/com/algo_data/treesAndGraphs/BinaryTree.java" target="_blank">here</a> and unit test <a href="https://github.com/jfspps/AlgorithmsInJava/blob/main/ADTsAlgoServices/src/test/java/com/algo_data/treesAndGraphs/BinaryTreeTest.java" target="_blank">here</a>.
+</p>
+
+<p>
+    Methods for in-order, pre-order and post-order traversal are also given. Notice here that the level-order traversal of a tree (which uses a queue to store, in order, future nodes to be processed) scans all child nodes before moving to the next level. Thus, the level-order algorithm forms the basis of a <i>breadth-first search</i>.
+</p>
+
+<p>
+    A check to see if the binary tree is actually a binary search tree (such that the left child &lt; parent &lt; right child) is given towards the end of the class.
 </p>
 
 <pre>
     <code [highlight]="javaBinaryTree" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<p>
+    The binary search tree referenced above is given <a routerLink="/java/javaBinarySearchTree">here</a>.
+</p>

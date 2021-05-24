@@ -64,6 +64,7 @@ import { JavaBinarytreeComponent } from './javapage/java-binarytree/java-binaryt
 import { JavaSingletonComponent } from './javapage/java-singleton/java-singleton.component';
 import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-factorymethod.component';
 import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java-builderpattern.component';
+import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -89,6 +90,7 @@ const appRoutes: Routes = [
     { path: 'javaStack', component: JavaStackComponent},
     { path: 'javaQueue', component: JavaQueueComponent},
     { path: 'javaBinaryTree', component: JavaBinarytreeComponent},
+    { path: 'javaBinarySearchTree', component: JavaBstComponent},
     { path: 'javaSingleton', component: JavaSingletonComponent},
     { path: 'javaFactoryMethod', component: JavaFactorymethodComponent},
     { path: 'javaBuilder', component: JavaBuilderpatternComponent}

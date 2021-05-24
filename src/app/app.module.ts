@@ -70,6 +70,7 @@ import { JavaBinarytreeComponent } from './javapage/java-binarytree/java-binaryt
 import { JavaSingletonComponent } from './javapage/java-singleton/java-singleton.component';
 import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-factorymethod.component';
 import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java-builderpattern.component';
+import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java
     JavaBinarytreeComponent,
     JavaSingletonComponent,
     JavaFactorymethodComponent,
-    JavaBuilderpatternComponent
+    JavaBuilderpatternComponent,
+    JavaBstComponent
   ],
   imports: [
     BrowserModule,
