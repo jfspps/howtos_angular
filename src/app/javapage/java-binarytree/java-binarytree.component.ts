@@ -233,7 +233,7 @@ export class JavaBinarytreeComponent implements OnInit {
 
     /**
      * Determines if the given binary tree is a binary search tree 
-     * (left-child < root < right-child).
+     * (left-child <= root <= right-child).
      * Data assumed to be of type Integer.
      * @param tree
      * @param list

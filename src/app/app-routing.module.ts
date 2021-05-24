@@ -65,6 +65,7 @@ import { JavaSingletonComponent } from './javapage/java-singleton/java-singleton
 import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-factorymethod.component';
 import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java-builderpattern.component';
 import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
+import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and-bfs.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -93,7 +94,8 @@ const appRoutes: Routes = [
     { path: 'javaBinarySearchTree', component: JavaBstComponent},
     { path: 'javaSingleton', component: JavaSingletonComponent},
     { path: 'javaFactoryMethod', component: JavaFactorymethodComponent},
-    { path: 'javaBuilder', component: JavaBuilderpatternComponent}
+    { path: 'javaBuilder', component: JavaBuilderpatternComponent},
+    { path: 'javaDFSandBFS', component: JavaDfsAndBfsComponent}
   ] },
 
   { path: 'androidJavaFX', component: AndroidJavaFxComponent, children: [

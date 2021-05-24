@@ -71,6 +71,7 @@ import { JavaSingletonComponent } from './javapage/java-singleton/java-singleton
 import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-factorymethod.component';
 import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java-builderpattern.component';
 import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
+import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and-bfs.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
     JavaSingletonComponent,
     JavaFactorymethodComponent,
     JavaBuilderpatternComponent,
-    JavaBstComponent
+    JavaBstComponent,
+    JavaDfsAndBfsComponent
   ],
   imports: [
     BrowserModule,
