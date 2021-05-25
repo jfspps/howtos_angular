@@ -73,6 +73,7 @@ import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java
 import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
 import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and-bfs.component';
 import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabstractclass/javainterfaceabstractclass.component';
+import { JavaBubbleselectionComponent } from './javapage/java-bubbleselection/java-bubbleselection.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabs
     JavaBuilderpatternComponent,
     JavaBstComponent,
     JavaDfsAndBfsComponent,
-    JavainterfaceabstractclassComponent
+    JavainterfaceabstractclassComponent,
+    JavaBubbleselectionComponent
   ],
   imports: [
     BrowserModule,

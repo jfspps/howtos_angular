@@ -67,6 +67,7 @@ import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java
 import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
 import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and-bfs.component';
 import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabstractclass/javainterfaceabstractclass.component';
+import { JavaBubbleselectionComponent } from './javapage/java-bubbleselection/java-bubbleselection.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -97,7 +98,8 @@ const appRoutes: Routes = [
     { path: 'javaSingleton', component: JavaSingletonComponent},
     { path: 'javaFactoryMethod', component: JavaFactorymethodComponent},
     { path: 'javaBuilder', component: JavaBuilderpatternComponent},
-    { path: 'javaDFSandBFS', component: JavaDfsAndBfsComponent}
+    { path: 'javaDFSandBFS', component: JavaDfsAndBfsComponent},
+    { path: 'javaBubbleSelection', component: JavaBubbleselectionComponent}
   ] },
 
   { path: 'androidJavaFX', component: AndroidJavaFxComponent, children: [
