@@ -1,0 +1,34 @@
+<h5>Abstract classes and interfaces</h5>
+
+<p>
+    When to use an abstract class and when to use interfaces is sometimes not always clear since they both appear to offer the same features. Neither abstract classes nor interfaces can be instantiated. This summary outlines the differences.
+</p>
+
+<h5>Abstract classes</h5>
+
+<p>
+    Overall, abstract classes provide a common/default definition of some (not all) methods which can be tailored through subclassing. Abstract classes tend to be applied (implemented) by other classes all of which are closely related re. methods or fields involved. Some of the key properties:
+</p>
+
+<ul>
+    <li>Can contain a mix of method declarations and method implementations</li>
+    <li>Fields can be non-static, non-final, <span class="commands">static</span> or <span class="commands">final</span></li>
+    <li>Concrete methods can be <span class="commands">public</span>, <span class="commands">protected</span>, package private or <span class="commands">private</span></li>
+    <li>Can implement multiple interfaces but can only extend one class</li>
+    <li>Any subclass must provide the implementation for abstract methods (subclasses are otherwise also <span class="commands">abstract</span>)</li>
+</ul>
+
+<h5>Interfaces</h5>
+
+<p>
+    Interfaces are more commonly applied when the classes that implement them are unrelated. There are no fields, only method declarations*, all of which are <span class="commands">public</span> and <span class="commands">abstract</span> by default. Such flexibility is a core part of interfaces, they state what should be provided but not how. There are a few Java 8 and 9 changes to note*:
+</p>
+
+<ul>
+    <li>Java 8 interfaces can include <span class="commands">default</span> and <span class="commands">static</span> method implementations</li>
+    <li>Java 9 interfaces can contain <span class="commands">private</span> methods and <span class="commands">private static</span> methods, though these can only be used by other methods in the same interface. That is, <span class="commands">private</span> methods of Java 9 interfaces are helper methods.</li>
+</ul>
+
+<p>
+    Typical examples of interfaces are the Collections List interface, implemented by ArrayList and LinkedList. The JDBC API is another example, where JDBC drivers function as the implementation.
+</p>

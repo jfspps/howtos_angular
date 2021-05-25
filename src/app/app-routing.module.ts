@@ -66,11 +66,13 @@ import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-f
 import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java-builderpattern.component';
 import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
 import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and-bfs.component';
+import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabstractclass/javainterfaceabstractclass.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
   { path: 'java', component: JavapageComponent, children: [
+    { path: 'javaAbstractInterface', component: JavainterfaceabstractclassComponent},
     { path: 'javaLambdas', component: JavalambdaspageComponent},
     { path: 'javaStatic', component: JavastaticpageComponent},
     { path: 'javaSortCollections', component: JavasortcollectionspageComponent},

@@ -72,6 +72,7 @@ import { JavaFactorymethodComponent } from './javapage/java-factorymethod/java-f
 import { JavaBuilderpatternComponent } from './javapage/java-builderpattern/java-builderpattern.component';
 import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
 import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and-bfs.component';
+import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabstractclass/javainterfaceabstractclass.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +143,8 @@ import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and
     JavaFactorymethodComponent,
     JavaBuilderpatternComponent,
     JavaBstComponent,
-    JavaDfsAndBfsComponent
+    JavaDfsAndBfsComponent,
+    JavainterfaceabstractclassComponent
   ],
   imports: [
     BrowserModule,
