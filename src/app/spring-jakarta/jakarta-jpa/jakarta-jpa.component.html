@@ -567,3 +567,29 @@
 <p>
     Finally, deployment properties are given by the "properties" tag. A commonly set property relates to schema generation (given above) handled by the JPA provider. The other schema generation options are "none" (the default, equivalent to having no "property" tag), "create" and "drop". Scripts can also be managed with the scripts property. A dropped script and a new script (both optional) can be applied.
 </p>
+
+<h5>The Java Persistence Query Language JPQL</h5>
+
+<p>
+    The JPQL is a Java String based language which resembles much of SQL. JPQL is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
+</p>
+
+<p>
+    A <span class="annot">@NamedQuery(name = "someName", query = "JPQL_expression")</span> annotation can be used to define the expression and are compiled with the entity class. They are immutable. The name of the particular query is identified by the name property and query expression is given by the query property. A simple example would be <span class="annot">@NamedQuery(name = "", query = "select d from ClassName d")</span>. The mandatory token "d" is an alias to the ClassName entity, so "select d" (without a WHERE clause) attempts to select and return a list of objects as a whole. All eagerly fetched fields associated with the object will also be retrieved and made available.
+</p>
+
+<p>
+    JPA 2.2 allows for multiple annotations, as long as the name properties are different. The name property can optionally be substituted with static fields (private static final String fields of the entity class). Legacy code will use <span class="annot">@NamedQueries()</span>.
+</p>
+
+<p>
+    When data is returned from the database following a JPQL query, the default constructor and annotated fields are used to build the instance. This is why a default, no-arguments constructor is required with all JPA entity classes.
+</p>
+
+<p>
+    With the query written, the output is passed to the Entity manager. 
+</p>
+
+<pre>
+    <code [highlight]="jpqlExpression" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

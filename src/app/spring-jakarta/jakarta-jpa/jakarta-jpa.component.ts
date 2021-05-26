@@ -394,7 +394,7 @@ public class PersistenceService {
     }
 }`;
 
-queryServiceClass = `
+  queryServiceClass = `
 @Stateless
 public class QueryService {
 
@@ -443,7 +443,7 @@ public class QueryService {
     }
 }`;
 
-cascadingOps = `
+  cascadingOps = `
 public class Employee extends AbstractEntity {
 
   // other fields and methods
@@ -456,7 +456,7 @@ public class Employee extends AbstractEntity {
 
 }`;
 
-persistenceXMLoptions = `
+  persistenceXMLoptions = `
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence 
@@ -497,7 +497,7 @@ persistenceXMLoptions = `
 
 </persistence>`;
 
-datasourceAnnot = `
+  datasourceAnnot = `
 @DataSourceDefinition(
   name = "java:app/pathTo/theDB",
   className = "org.apache.derby.jdbc.ClientDriver",
@@ -514,7 +514,7 @@ public class SomeService {
 
 }`;
 
-datasourceXML = `
+  datasourceXML = `
 <web-app ...>
 
     <data-source>
@@ -527,6 +527,22 @@ datasourceXML = `
 
 </web-app>
     `;
+
+  jpqlExpression = `
+  @NamedQuery(name = "someName", query = "select d from SomeClass d")
+  public class SomeServiceClass {
+
+    @Inject
+    EntityManager entityManager;
+
+    // other methods
+
+    public List<SomeClass> getAllEntities() {
+      // this initially builds a TypedQuery<> and then its results list
+      return entityManager.createNamedQuery("someName", SomeClass.class).getResultList();
+    }
+  }
+  `;
 
   onHighlight(e) {
     this.response = {
