@@ -607,5 +607,31 @@
 </pre>
 
 <p>
-    Note here that the query is made from the point of view of SomeClass, not CustomObject.
+    Note here that the query is made from the point of view of SomeClass, not CustomObject. It is also possible to extract multiple fields from a custom entity by separating the reqeusted fields with commas. For example, <span class="annot">@NamedQuery(name = SomeClass.GET_OBJ_name, query = "select d.customObject.name, d.customObject.date from SomeClass d")</span>. The return type in this case is <span class="commands">Collection&lt;Object[]&gt;</span>, where each field (of the same type) is stored in its own Collection element. The entity manager call would be:
+</p>
+
+<pre>
+    <code [highlight]="jpqlCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    An alternative to combined path expressions are constructor expressions. This is implemented first by preparing for a new POJO which contains the fields that are needed. View it as a data-transfer object, DTO. The return type is then the POJO with <span class="annot">@NamedQuery(name = "DTO", query = "select new packagePath.POJO(d.field1, d.field2, d.field3) from ClassName d")</span> declared in the original (non-DTO) class. 
+</p>
+
+<pre>
+    <code [highlight]="dtoOnstructorExpression" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    In this case, the all-args constructor of POJO is used as the return to the query.
+</p>
+
+<pre>
+    <code [highlight]="jpqlCollection2" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>More optional JPQL expressions</h5>
+
+<p>
+    The <span class="commands">select</span> and <span class="commands">from</span> keywords are mandatory for all JPQL expressions.
 </p>

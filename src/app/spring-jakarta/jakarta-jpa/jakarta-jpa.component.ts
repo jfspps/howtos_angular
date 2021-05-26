@@ -612,6 +612,38 @@ public class SomeService {
     }
   }`;
 
+  jpqlCollection = `
+  public Collection<Object[]> getMixedFields() {
+    return entityManager.createNamedQuery(SomeClass.IDENTIFIER, Object[].class).getResultList();
+  }`;
+
+
+  dtoOnstructorExpression = `
+  // essentially, pass d fields to a new POJO entity
+  @NamedQuery(name = "DTO", 
+    query = "select new packagePath.POJO(d.field1, d.field2, d.field3) from SomeClass d")
+  @Access(AccessType.FIELD)
+  public class SomeClass {
+
+    // fields and methods
+
+  }
+
+  // in a different package
+
+  public class POJO {
+    private String field1;
+    private String field2;
+    private Object field3;
+
+    // all-args constructor, no-args constructor, setters and getters
+  }`;
+
+  jpqlCollection2 = `
+  public List<POJO> getPOJO() {
+    return entityManager.createNamedQuery("DTO", POJO.class).getResultList();
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
