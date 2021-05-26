@@ -65,7 +65,7 @@ export class JavaBstComponent implements OnInit {
      * level is zero-based to coincide with ArrayList and denotes which 
      * level is being processed; when calling initially, set level to 0
      * time complexity is O(n), where n = number of nodes + null nodes
-     * /
+     **/
     public ArrayList<LinkedList<BinaryTree<Integer>>> createLevelLinkedList(
             BinaryTree<Integer> node, 
             ArrayList<LinkedList<BinaryTree<Integer>>> levelList,
