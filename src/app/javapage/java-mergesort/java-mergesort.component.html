@@ -1,0 +1,13 @@
+<p>Merge sort</p>
+
+<p>
+    The method continually divides an array in half until there are two singleton arrays. The helper method <span class="commands">mergeArrays()</span> then proceeds to copy across all elements from "array" to the working array ("array" will retain sorted elements on each iteration). Then it copies the element with the lowest value from the pair and update the index (the working lower or upper) accordingly. This repeats until the lower or upper pointers reaches the current array boundary. If the upper indexed elements were sent to the front, then all remaining lower indexed elements (which would have higher value) are copied across. Time complexity is O(n (log[2]n)).
+</p>
+
+<p>
+    The code can be found in my Spring demo <a href="https://github.com/jfspps/AlgorithmsInJava/blob/main/ADTsAlgoServices/src/main/java/com/algo_data/sortingMethods/MergeSort.java" target="_blank">here</a>, along with a <a href="https://github.com/jfspps/AlgorithmsInJava/blob/main/ADTsAlgoServices/src/test/java/com/algo_data/sortingMethods/MergeSortTest.java" target="_blank">unit test</a>. A more visual demonstration is outlined and explained <a href="https://jfspps.github.io/Data-Structures-and-Algorithms/26_Sorting_methods.html" target="_blank">here</a>.
+</p>
+
+<pre>
+    <code [highlight]="mergeSort" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

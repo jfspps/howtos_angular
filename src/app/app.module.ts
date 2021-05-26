@@ -74,6 +74,8 @@ import { JavaBstComponent } from './javapage/java-bst/java-bst.component';
 import { JavaDfsAndBfsComponent } from './javapage/java-dfs-and-bfs/java-dfs-and-bfs.component';
 import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabstractclass/javainterfaceabstractclass.component';
 import { JavaBubbleselectionComponent } from './javapage/java-bubbleselection/java-bubbleselection.component';
+import { JavaMergesortComponent } from './javapage/java-mergesort/java-mergesort.component';
+import { JavaQuicksortComponent } from './javapage/java-quicksort/java-quicksort.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +148,9 @@ import { JavaBubbleselectionComponent } from './javapage/java-bubbleselection/ja
     JavaBstComponent,
     JavaDfsAndBfsComponent,
     JavainterfaceabstractclassComponent,
-    JavaBubbleselectionComponent
+    JavaBubbleselectionComponent,
+    JavaMergesortComponent,
+    JavaQuicksortComponent
   ],
   imports: [
     BrowserModule,
