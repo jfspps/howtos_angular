@@ -571,7 +571,7 @@
 <h5>The Java Persistence Query Language JPQL</h5>
 
 <p>
-    The JPQL is a Java String based language which resembles much of SQL. JPQL is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
+    The JPQL is an API for a Java String based language which resembles much of SQL. JPQL queries on objects/entities in contrast to SQL which queries tables. JPQL can be applied to different SQL vendors and is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
 </p>
 
 <p>
@@ -579,7 +579,7 @@
 </p>
 
 <p>
-    JPA 2.2 allows for multiple annotations, as long as the name properties are different. The name property can optionally be substituted with static fields (private static final String fields of the entity class). Legacy code will use <span class="annot">@NamedQueries()</span>.
+    JPA 2.2 allows for multiple annotations, as long as the name properties are different. The name property can optionally be substituted with static fields (public static final String fields of the entity class). Legacy code will use <span class="annot">@NamedQueries()</span>.
 </p>
 
 <p>
@@ -593,3 +593,19 @@
 <pre>
     <code [highlight]="jpqlExpression" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<p>
+    To access a particular field of the entity (of the defined type), use the path expression: <span class="annot">@NamedQuery(name = SomeClass.GET_NAME, query = "select d.className from SomeClass d")</span>. In this case, the return type is String.
+</p>
+
+<p>
+    To retrieve entities which are not simple Java types (custom Beans) is also performed similarly. The type is effectively cast as appropriate. Furthermore, one could retrieve the field within the entity e.g. <span class="annot">@NamedQuery(name = SomeClass.GET_OBJ_name, query = "select d.customObject.name from SomeClass d")</span>, where customObject is a separate entity that has a relationship with SomeClass entities. The custom class' fields can be lazily loaded.
+</p>
+
+<pre>
+    <code [highlight]="jpqlExpressionObject" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note here that the query is made from the point of view of SomeClass, not CustomObject.
+</p>

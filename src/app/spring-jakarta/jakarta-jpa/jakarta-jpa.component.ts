@@ -529,7 +529,23 @@ public class SomeService {
     `;
 
   jpqlExpression = `
-  @NamedQuery(name = "someName", query = "select d from SomeClass d")
+  @NamedQuery(name = SomeClass.GET_ITEM_LIST, query = "select d from SomeClass d")
+  @NamedQuery(name = SomeClass.GET_NAME, query = "select d.className from SomeClass d")
+  @Access(AccessType.FIELD)
+  public class SomeClass {
+
+    public static final String GET_ITEM_LIST = "SomeClass.getList";
+    public static final String GET_NAME = "SomeClass.getName";
+
+    @NotEmpty(message = "This must be set to something")
+    private String className;
+
+    // other fields and methods, and no-args constructor
+
+  }
+
+  // somewhere-else
+
   public class SomeServiceClass {
 
     @Inject
@@ -539,10 +555,62 @@ public class SomeService {
 
     public List<SomeClass> getAllEntities() {
       // this initially builds a TypedQuery<> and then its results list
-      return entityManager.createNamedQuery("someName", SomeClass.class).getResultList();
+      return entityManager
+        .createNamedQuery(SomeClass.GET_ITEM_LIST, SomeClass.class)
+        .getResultList();
     }
+  }`;
+
+  jpqlExpressionObject = `
+  @NamedQuery(name = SomeClass.GET_ITEM_LIST, query = "select d from SomeClass d")
+  @NamedQuery(name = SomeClass.GET_NAME, query = "select d.className from SomeClass d")
+  @NamedQuery(name = SomeClass.GET_OBJ_name, 
+    query = "select d.customObject.name from SomeClass d")
+  @Access(AccessType.FIELD)
+  public class SomeClass {
+
+    public static final String GET_ITEM_LIST = "SomeClass.getList";
+    public static final String GET_NAME = "SomeClass.getName";
+    public static final String GET_OBJ_name = "SomeClass.getObjName";
+
+    @NotEmpty(message = "This must be set to something")
+    private String className;
+
+    // here customObject has its own field, "name" of type String
+    @OneToOne
+    private CustomObject customObject;
+
+    // other fields and methods, and no-args constructor
+
   }
-  `;
+  
+  // somewhere-else
+
+  public class SomeServiceClass {
+
+    @Inject
+    EntityManager entityManager;
+
+    // other methods
+
+    public List<SomeClass> getAllEntities() {
+      return entityManager
+        .createNamedQuery(SomeClass.GET_ITEM_LIST, SomeClass.class)
+        .getResultList();
+    }
+
+    public List<String> getAllClassNames() {
+      return entityManager
+        .createNamedQuery(SomeClass.GET_NAME, String.class)
+        .getResultList();
+    }
+
+    public List<String> getAllObjectName() {
+      return entityManager
+        .createNamedQuery(SomeClass.GET_OBJ_name, String.class)
+        .getResultList();
+    }
+  }`;
 
   onHighlight(e) {
     this.response = {
