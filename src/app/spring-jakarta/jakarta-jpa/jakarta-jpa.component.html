@@ -574,8 +574,10 @@
     The JPQL is an API for a Java String based language which resembles much of SQL. JPQL queries on objects/entities in contrast to SQL which queries tables. JPQL can be applied to different SQL vendors and is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
 </p>
 
+<h5>The mandatory expressions</h5>
+
 <p>
-    A <span class="annot">@NamedQuery(name = "someName", query = "JPQL_expression")</span> annotation can be used to define the expression and are compiled with the entity class. They are immutable. The name of the particular query is identified by the name property and query expression is given by the query property. A simple example would be <span class="annot">@NamedQuery(name = "", query = "select d from ClassName d")</span>. The mandatory token "d" is an alias to the ClassName entity, so "select d" (without a WHERE clause) attempts to select and return a list of objects as a whole. All eagerly fetched fields associated with the object will also be retrieved and made available.
+    A <span class="annot">@NamedQuery(name = "someName", query = "JPQL_expression")</span> annotation can be used to define the expression and are compiled with the entity class. They are immutable. The name of the particular query is identified by the name property and query expression is given by the query property. A simple example would be <span class="annot">@NamedQuery(name = "", query = "select d from ClassName d")</span>. The <span class="commands">select</span> and <span class="commands">from</span> keywords are mandatory for all JPQL expressions. The mandatory token "d" is an alias to the ClassName entity, so "select d" (without a WHERE clause) attempts to select and return a list of objects as a whole. All eagerly fetched fields associated with the object will also be retrieved and made available.
 </p>
 
 <p>
@@ -630,8 +632,18 @@
     <code [highlight]="jpqlCollection2" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
 
-<h5>More optional JPQL expressions</h5>
+<p>
+    More on the <span class="commands">from EntityClass alias</span> clause. The EntityClass, as shown, must be a JPA entity. The alias must be unique across the given expression. To extract from an entity referenced in the queried class (a collection) through a join expression use the following. 
+</p>
+
+<pre>
+    <code [highlight]="joinFrom" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
 
 <p>
-    The <span class="commands">select</span> and <span class="commands">from</span> keywords are mandatory for all JPQL expressions.
+    Optionally, one can prefix the collection alias with the "distinct" keyword to, like SQL, retrieve unique records.
+</p>
+
+<p>
+    Querying Java Maps. By default, queries compare the value of the map, not the key value.
 </p>

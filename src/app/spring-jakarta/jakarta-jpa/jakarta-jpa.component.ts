@@ -644,6 +644,24 @@ public class SomeService {
     return entityManager.createNamedQuery("DTO", POJO.class).getResultList();
   }`;
 
+  joinFrom = `
+  @NamedQuery(name  = "", query = "select cl from Variable v join v.classes cl")
+  // using the property "v.mapField", return entities from 
+  // the map, maps, which have matching properties
+  // to "v.mapfield" based on the value; then list their key and value
+  @NamedQuery(
+    name = "mapsQuery",
+    query = "select v.mapField, KEY(m), VALUE(m) from Variable v join v.maps m")
+  public Class Variable {
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<SomeOtherClass> classes = new HashSet<>();
+
+    @ElementCollection
+    @MapKeyEnumerated(EnumType.STRING)
+    private Map<SomeObject, String> maps = new HashMap<>();
+  }`
+
   onHighlight(e) {
     this.response = {
       language: e.language,
