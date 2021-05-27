@@ -17,6 +17,37 @@ export class JavasortcollectionspageComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    iterators = `
+    public IteratorDemo {
+        ArrayList<Integer> integers = new ArrayList<>();
+
+        // use add() to add elements to "integers"
+
+        Iterator<Integer> iterator = integers.iterator();
+
+        ListIterator<Integer> listIterator = integers.listIterator();
+
+        // for iterator and listIterator, check if there is another element with hasNext()
+        // use next() to return the current element and immediately 
+        // advance the pointer one place
+
+        Integer currentInt;
+
+        while (iterator.hasNext()){
+            currentInt = iterator.next();
+            // do something with currentInt
+        }
+
+        // for listIterator only, check if there was a previous element with hasPrevious()
+        // use previous() to return the current element and immediately 
+        // bring back the pointer one place
+
+        while (listIterator.hasPrevious()){
+            currentInt = iterator.previous();
+            // do something with currentInt
+        }
+    }`
+
     compareTo = `@Override
   public int compareTo(Seat seat) {
       // seatNumber is of String type and so this return uses String's

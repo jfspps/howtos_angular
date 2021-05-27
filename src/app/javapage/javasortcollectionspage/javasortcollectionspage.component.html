@@ -8,6 +8,16 @@
     The Collection interface is an extension of Iterable, an interface that allows for the foreach loop. Sub-interfaces of Collection include Deque, List, Queue, and Set. These sub-interfaces are implemented by, as relevant, the Collections class (contrast to the Collection interface) along with the Deque, List, Queue, and Set classes. Furthermore, these classes have other other subclasses.
 </p>
 
+<h5>Foreach, Iterator and ListIterator</h5>
+
+<p>
+    Both the foreach loop and Iterator interfaces allow one to traverse a collection. The foreach each loop can only traverse in one direction and only retrieve the contents of a collection. Alternatively, the Iterator interface or its extension, the ListIterator interface, provide navigation of a collection. The Iterator interface provides a way to traverse the collection in one direction and allows for elements to be removed. The ListIterator interface extends Iterator and allows for bidirectional traversal as well as modification of the elements. All collections have an <span class="commands">iterator()</span> and <span class="commands">listIterator()</span> methods which returns an iterator/listIterator and is initially placed at the start of a collection.
+</p>
+
+<pre>
+    <code [highlight]="iterators" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
 <h5>The List interface</h5>
 
 <p>
