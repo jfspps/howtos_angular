@@ -645,5 +645,13 @@
 </p>
 
 <p>
-    Querying Java Maps. By default, queries compare the value of the map, not the key value.
+    Querying Java Maps. By default, queries compare the value of the map, not the key (demonstrated above). 
 </p>
+
+<p>
+    When an entity has been detached from the persistence context (when sent to the viewer layer for example) any lazily loaded fields not already loaded are inaccessible. The normal workaround is to set the field as eagerly loaded or to use the JPQL "fetch join" expression. The latter can be applied even when the entity is in a detached state. Note that this feature only relates to JPQL "join fetch" expression and not other routine Java getters. The field remains lazily loaded. This is demonstrated next.
+</p>
+
+<pre>
+    <code [highlight]="joinFetch" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

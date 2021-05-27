@@ -660,7 +660,17 @@ public class SomeService {
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
     private Map<SomeObject, String> maps = new HashMap<>();
-  }`
+  }`;
+
+  joinFetch = `
+  @NamedQuery(
+    name = "joinFetchDemo",
+    query = "select e from SomeClass e join fetch e.classes")
+  public Class Variable {
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<SomeOtherClass> classes = new HashSet<>();
+  }`;
 
   onHighlight(e) {
     this.response = {
