@@ -655,3 +655,51 @@
 <pre>
     <code [highlight]="joinFetch" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>The optional expressions</h5>
+
+<p>
+    The "where" expression is an example of an optional clause or expression. As with SQL, the "where" clause filters the data returned. The expression is added after the from or (if present) the join expression. Some typical examples are listed.
+</p>
+
+<ul>
+    <li><span class="commands"> where alias.property &gt; 155</span>: constant parameter</li>
+    <li><span class="commands">where alias.property &gt; ?1</span>: via a positional parameter, in this case position 1 (one-based) of a parameter list in a method call (below; this approach is quite rare)</li>
+    <li><span class="commands">where alias.property &gt; :value</span>: via a named parameter, where "value" is defined in the method parameter list (this approach is preferred and in some cases can minimise the number of SQL injection attacks)</li>
+</ul>
+
+<p>
+    The latter two expressions can be accomplished by the same method:
+</p>
+
+<pre>
+    <code [highlight]="paramWhere" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Similarly, the "between" and "and" expression can be used to set a range of values: <span class="commands">where alias.property between :lowerLimit and :upperLimit</span>. The EntityManager call would be:
+</p>
+
+<pre>
+    <code [highlight]="betweenAnd" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To compare string patterns, with wildcards, use the "like" clause. This example also shows an alternative way of defining and executing queries without using annotations. More specifics re. patterns are given <a href="https://openjpa.apache.org/builds/1.2.3/apache-openjpa/docs/jpa_langref.html#jpa_langref_like" target="_blank">here</a>.
+</p>
+
+<pre>
+    <code [highlight]="createQuery" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can also perform queries within queries, that is, subqueries. More deeply nested subqueries can also be designed though are not generally recommended. This particular example also shows how one record (again, from a TypedQuery&lt;&gt;) is returned, as opposed to a Collection, using <span class="commands">getSingleResult()</span>.
+</p>
+
+<pre>
+    <code [highlight]="createSubQuery" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that the method <span class="commands">getSingleResult()</span> is expecting a single entity. If no entity is found or more than one entity is found, then an exception (NoResultException or NoUniqueResultException) will be thrown. Therefore, this approach should only be applied when it is known that there is only one unique result.
+</p>

@@ -672,6 +672,37 @@ public class SomeService {
     private Set<SomeOtherClass> classes = new HashSet<>();
   }`;
 
+  paramWhere = `
+  public Collection<Objects> getAllObjects(Integer firstParam) {
+    return entityManager.createNamedQuery("queryName", Objects.class)
+      .setParameter("value", firstParam).getResultList();
+  }`;
+
+  betweenAnd = `
+  public Collection<Objects> getAllObjects(Integer firstParam, Integer secondParam) {
+    // the order of the parameters matters not
+    return entityManager.createNamedQuery("queryName", Objects.class)
+      .setParameter("lowerLimit", firstParam)
+      .setParameter("upperLimit", secondParam)
+      .getResultList();
+  }`;
+
+  createQuery = `
+  public Collection<Objects> filterByName(String pattern) {
+    return entityManager
+      .createQuery("select e from SomeClass where e.name LIKE :filter", SomeClass.class)
+      .setParameter("filter", pattern).getResultList();
+  }`;
+
+  createSubQuery = `
+  public Objects filterByQuantity() {
+    // max() is JQPL function (more later)
+    return entityManager
+      .createQuery(
+        "select e from SomeClass where e.quantity = (select max(an.someQuantity) from AnotherClass an)",
+      SomeClass.class).getSingleList();
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
