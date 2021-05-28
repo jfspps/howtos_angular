@@ -760,6 +760,20 @@ public class SomeService {
       .getResultList();
   }`;
 
+  having = `
+  public Collection<Object[]> getAllAbove(Integer minThreshold) {
+    // this concerns entities which have a collection, "collection"
+    // that itself has its own entities each with a "value" field;
+    // this then returns an entity that has an average above minThreshold
+    String query = "select d.name, avg(e.someValue) from SomeClass d " +
+    "join d.collection e where e.anotherCollection is empty " +
+    "group by d.name having avg(e.someValue) > :threshold";
+
+    return entityManager
+      .createQuery(query, Object[].class)
+      .setParameter("threshold", minThreshold).getResultList();
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

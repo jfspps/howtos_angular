@@ -751,3 +751,33 @@
 <pre>
     <code [highlight]="orderBy" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>JPQL aggregate functions</h5>
+
+<p>
+    Aggregate functions are database optimised functions which perform grouped tasks.
+</p>
+
+<p>
+    The <span class="commands">sum()</span> function sums a set of data. The Entity Manager query String would be something like <span class="commands">select d.name, sum(e.value) from SomeClass d join d.collection e group by d.name</span>, where "collection" is a (Collection type) field of SomeClass. This return a list of the name and the sum of the "collection" entities' "value" field, and sorts them in ascending order by name. 
+</p>
+
+<p>
+    The <span class="commands">avg()</span> and <span class="commands">count()</span> functions return the averaged result and number of rows (records), respectively. Both can be applied in a similar way to <span class="commands">sum()</span>.
+</p>
+
+<p>
+    The <span class="commands">max()</span> and <span class="commands">min()</span> functions return the largest and smallest values of a given field, respectively. Both can be applied as already outlined.
+</p>
+
+<p>
+    The final aggregate function discussed here is the "having" expression. This (like "group by") is used in conjunction with an aggregate function and filters returns based on the output of an aggregate function. 
+</p>
+
+<pre>
+    <code [highlight]="having" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    For the above snippet, recall that since the return type contains more than one field (a name and a computed average), the entity is returned as a collection of two Object arrays, one holding all name attributes and the other holding all computed averages. (A DTO could be applied instead if desired.)
+</p>
