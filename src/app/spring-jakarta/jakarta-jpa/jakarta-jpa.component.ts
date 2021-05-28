@@ -739,6 +739,27 @@ public class SomeService {
       .getResultList();
   }`;
 
+  orderBy = `
+  public Collection<Objects> sortByName(SomeObject member) {
+    String query_asc = "select e from SomeClass e where :check member of " + 
+      "e.someCollection order by e.someField.someName";
+
+    return entityManager
+      .createQuery(query_asc, SomeClass.class)
+      .setParameter("check", member).getResultList();
+  }
+  
+  public Collection<Objects> sortByName_AdjustedDesc() {
+    // here the parameter (column) e.someValue + 20 is given the alias "adjusted";
+    // the returned list is sorted by "adjusted"
+    String query_desc = "select e, e.someValue + 20 as adjusted from SomeClass e" + 
+      " order by adjusted desc";
+
+    return entityManager
+      .createQuery(query_desc, SomeClass.class)
+      .getResultList();
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

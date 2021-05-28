@@ -743,3 +743,11 @@
 <p>
     The "ANY" operator can be used in place of the "ALL" operator but unlike the "ALL" operator, it will only check for one (whichever is first returned in the subquery). The "SOME" operator is identical to "ANY" and is essentially an alias to "ANY".
 </p>
+
+<p>
+    The returned entities can be sorted using "ORDER BY". By default sorting method is ascending ("asc"). To override the default to set to descending, use "desc". To use more custom columns with aliases, use the "as" expression along with "order by"
+</p>
+
+<pre>
+    <code [highlight]="orderBy" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
