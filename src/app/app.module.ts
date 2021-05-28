@@ -76,6 +76,9 @@ import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabs
 import { JavaBubbleselectionComponent } from './javapage/java-bubbleselection/java-bubbleselection.component';
 import { JavaMergesortComponent } from './javapage/java-mergesort/java-mergesort.component';
 import { JavaQuicksortComponent } from './javapage/java-quicksort/java-quicksort.component';
+import { JakartaContainerbeansComponent } from './spring-jakarta/jakarta-containerbeans/jakarta-containerbeans.component';
+import { JakartaProducersComponent } from './spring-jakarta/jakarta-producers/jakarta-producers.component';
+import { JakartaEventsComponent } from './spring-jakarta/jakarta-events/jakarta-events.component';
 
 @NgModule({
   declarations: [
@@ -150,7 +153,10 @@ import { JavaQuicksortComponent } from './javapage/java-quicksort/java-quicksort
     JavainterfaceabstractclassComponent,
     JavaBubbleselectionComponent,
     JavaMergesortComponent,
-    JavaQuicksortComponent
+    JavaQuicksortComponent,
+    JakartaContainerbeansComponent,
+    JakartaProducersComponent,
+    JakartaEventsComponent
   ],
   imports: [
     BrowserModule,

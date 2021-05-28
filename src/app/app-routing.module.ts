@@ -70,6 +70,9 @@ import { JavainterfaceabstractclassComponent } from './javapage/javainterfaceabs
 import { JavaBubbleselectionComponent } from './javapage/java-bubbleselection/java-bubbleselection.component';
 import { JavaMergesortComponent } from './javapage/java-mergesort/java-mergesort.component';
 import { JavaQuicksortComponent } from './javapage/java-quicksort/java-quicksort.component';
+import { JakartaContainerbeansComponent } from './spring-jakarta/jakarta-containerbeans/jakarta-containerbeans.component';
+import { JakartaProducersComponent } from './spring-jakarta/jakarta-producers/jakarta-producers.component';
+import { JakartaEventsComponent } from './spring-jakarta/jakarta-events/jakarta-events.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -126,6 +129,9 @@ const appRoutes: Routes = [
     { path: 'springAndJMS', component: SpringjmspageComponent},
     { path: 'jakartaDemo', component: JakartademoComponent},
     { path: 'jakartaCDI', component: JakartaCDIComponent},
+    { path: 'jakartaContainerBean', component: JakartaContainerbeansComponent},
+    { path: 'jakartaProducers', component: JakartaProducersComponent},
+    { path: 'jakartaEvents', component: JakartaEventsComponent},
     { path: 'jakartaJPA', component: JakartaJpaComponent}
   ] },
 
