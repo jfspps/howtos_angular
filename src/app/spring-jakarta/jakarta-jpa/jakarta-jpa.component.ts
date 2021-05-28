@@ -537,6 +537,7 @@ public class SomeService {
     public static final String GET_ITEM_LIST = "SomeClass.getList";
     public static final String GET_NAME = "SomeClass.getName";
 
+    // this annotation is part of the Bean Validation API, discussed later
     @NotEmpty(message = "This must be set to something")
     private String className;
 
@@ -573,6 +574,7 @@ public class SomeService {
     public static final String GET_NAME = "SomeClass.getName";
     public static final String GET_OBJ_name = "SomeClass.getObjName";
 
+    // this annotation is part of the Bean Validation API, discussed later
     @NotEmpty(message = "This must be set to something")
     private String className;
 

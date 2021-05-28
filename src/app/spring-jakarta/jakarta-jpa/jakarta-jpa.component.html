@@ -795,3 +795,26 @@
 <p>
     Clearly, the Criteria API can be checked for type safety but can get quite verbose.
 </p>
+
+<h5>Validation</h5>
+
+<p>
+    Data should be validated right before it is persisted to a database. This can be achieved with the Bean Validation API, which is integrated with the JPA. The default provider for Bean Validation API is Hibernate (not EclipseLink) so the following subsection is aimed at Hibernate.
+</p>
+
+<p>
+    To verify the integrity of the beans (and consequently entities), one sets constraints on the bean fields as annotations. If the constraint is violated, then and exception is raised and the current transaction is not committed (causing all other invoked methods to be rolled back). A few are summarised below.
+</p>
+
+<ul>
+    <li><span class="annot">@NotEmpty(message = "this cannot be null or empty")</span>: field cannot be null or empty (the message parameter is optional)</li>
+    <li><span class="annot">@Past(message = "this must be set in the past"</span>: this ensures that the local date must be set in the past</li>
+    <li><span class="annot">@PastOrPresent(message = "must be set in the past or present")</span>: the annotated LocalDate field cannot be set in the future</li>
+    <li><span class="annot">@NotNull(message = "entity cannot be null")</span>: a somewhat legacy implementation of <span class="annot">@NotEmpty</span> except that it does not check for empty collections</li>
+    <li><span class="annot">@DecimalMax(value = "65", message = "Value must be less than or equal to 65")</span>: the field must not be greater than the stated value (65, for example)</li>
+    <li><span class="annot">@DecimalMin(value = "65", message = "Value must be greater than or equal to 65")</span>: the field must be less than or equal to the stated value</li>
+    <li><span class="annot">@Email(message = "Enter a valid email address")</span>: expects user@domain.com or similar</li>
+    <li><span class="annot">@NotBlank(message = "Value cannot be null or composed entirely of whitespace")</span>: as instructed, there must be at least one character present</li>
+    <li><span class="annot">@Pattern(regExp = "&#91;de&#93;&#91;FG&#93;", message = "string must contain the sequence deFG at least once")</span>: the given field must be recognised by the stated <a routerLink="/java/javaRegExp">regular expression</a></li>
+    <li><span class="annot">@Size(min = 3, max = 55, message = "Value must be greater than or equal to 3 and less than or equal to 55")</span>: a combination of min and max annotations; the default min value is zero if not stated</li>
+</ul>
