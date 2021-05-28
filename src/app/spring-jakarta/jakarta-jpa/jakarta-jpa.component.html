@@ -621,7 +621,7 @@
 </p>
 
 <pre>
-    <code [highlight]="dtoOnstructorExpression" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+    <code [highlight]="dtoConstructorExpression" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
 
 <p>
@@ -665,7 +665,7 @@
 <ul>
     <li><span class="commands"> where alias.property &gt; 155</span>: constant parameter</li>
     <li><span class="commands">where alias.property &gt; ?1</span>: via a positional parameter, in this case position 1 (one-based) of a parameter list in a method call (below; this approach is quite rare)</li>
-    <li><span class="commands">where alias.property &gt; :value</span>: via a named parameter, where "value" is defined in the method parameter list (this approach is preferred and in some cases can minimise the number of SQL injection attacks)</li>
+    <li><span class="commands">where alias.property &gt; :value</span>: via a named parameter, where "value" is defined in the method parameter list (this approach is preferred and in many cases can minimise the number of SQL injection attacks)</li>
 </ul>
 
 <p>
@@ -702,4 +702,44 @@
 
 <p>
     Note that the method <span class="commands">getSingleResult()</span> is expecting a single entity. If no entity is found or more than one entity is found, then an exception (NoResultException or NoUniqueResultException) will be thrown. Therefore, this approach should only be applied when it is known that there is only one unique result.
+</p>
+
+<p>
+    To ascertain if a single entity can be found in a given collection, use the "where" and "in" expressions. The following returns a list of SomeClass entities which have an "object" field set to (assume String) "open" or "closed". 
+</p>
+
+<pre>
+    <code [highlight]="whereIn" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    A subquery can be placed immediately after a "in" clause (instead of the literal form above). To negate "in", that is to check an entity is not present is given by "not in" instead of "in".
+</p>
+
+<p>
+    The Collection operators, "IS EMPTY" and "IS NOT EMPTY" operate on an entity's collection. These operations can be used to list entities which have collections as fields that are empty or not empty. These operations allow one to list such entities.
+</p>
+
+<pre>
+    <code [highlight]="notEmpty" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The "MEMBER OF" operator can be used to return entities where some object, passed as a parameter, is stored in one of the entity's collection field. See the following.
+</p>
+
+<pre>
+    <code [highlight]="memberOf" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The "AND" and "ALL" operators provide more functionality to the above expressions. The "AND" operator joins boolean conditions. The "ALL" operator compares all records that proceed it in the expression.
+</p>
+
+<pre>
+    <code [highlight]="andAll" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The "ANY" operator can be used in place of the "ALL" operator but unlike the "ALL" operator, it will only check for one (whichever is first returned in the subquery). The "SOME" operator is identical to "ANY" and is essentially an alias to "ANY".
 </p>

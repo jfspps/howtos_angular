@@ -618,7 +618,7 @@ public class SomeService {
   }`;
 
 
-  dtoOnstructorExpression = `
+  dtoConstructorExpression = `
   // essentially, pass d fields to a new POJO entity
   @NamedQuery(name = "DTO", 
     query = "select new packagePath.POJO(d.field1, d.field2, d.field3) from SomeClass d")
@@ -690,7 +690,7 @@ public class SomeService {
   createQuery = `
   public Collection<Objects> filterByName(String pattern) {
     return entityManager
-      .createQuery("select e from SomeClass where e.name LIKE :filter", SomeClass.class)
+      .createQuery("select e from SomeClass e where e.name LIKE :filter", SomeClass.class)
       .setParameter("filter", pattern).getResultList();
   }`;
 
@@ -699,8 +699,44 @@ public class SomeService {
     // max() is JQPL function (more later)
     return entityManager
       .createQuery(
-        "select e from SomeClass where e.quantity = (select max(an.someQuantity) from AnotherClass an)",
+        "select e from SomeClass e where e.quantity = (select max(an.someQuantity) from AnotherClass an)",
       SomeClass.class).getSingleList();
+  }`;
+
+  whereIn = `
+  public Collection<Objects> filterObjectByState() {
+    return entityManager
+      .createQuery("select e from SomeClass e where e.object.state in ('open', 'closed')", SomeClass.class)
+      .getResultList();
+  }`;
+
+
+  notEmpty = `
+  public Collection<Objects> filterObjectByState() {
+    // list all SomeClass entities which have a collection field "object" that is not empty
+    return entityManager
+      .createQuery("select e from SomeClass e where e.someCollection not empty", SomeClass.class)
+      .getResultList();
+  }`;
+
+  memberOf = `
+  public Collection<Objects> filterByName(SomeObject member) {
+    return entityManager
+      .createQuery("select e from SomeClass e where :check member of e.someCollection", SomeClass.class)
+      .setParameter("check", member).getResultList();
+  }`;
+
+  andAll = `
+  public Collection<Objects> getAll() {
+    // get all SomeClass entities with a non-empty someCollection collection and 
+    // whose "quantity" property is less than all "quantity" properties of someCollection
+    // entities (the subquery returns a list of quantities from someCollection entities)
+    String query = "select e from SomeClass e where e.someCollection not empty " + 
+      "and e.quantity < all (select s.quantity from e.someCollection s)";
+
+    return entityManager
+      .createQuery(query, SomeClass.class)
+      .getResultList();
   }`;
 
   onHighlight(e) {
