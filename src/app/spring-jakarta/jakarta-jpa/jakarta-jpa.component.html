@@ -571,7 +571,7 @@
 <h5>The Java Persistence Query Language JPQL</h5>
 
 <p>
-    The JPQL is an API for a Java String based language which resembles much of SQL. JPQL queries on objects/entities in contrast to SQL which queries tables. JPQL can be applied to different SQL vendors and is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
+    The JPQL is an API for a Java String based language which resembles much of SQL. JPQL queries on objects/entities in contrast to SQL which queries tables. JPQL can be applied to different SQL vendors. Since the types are defined (or implied) in the String literals, the compiler cannot check for type mismatches. In other words, JPQL is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
 </p>
 
 <h5>The mandatory expressions</h5>
@@ -780,4 +780,18 @@
 
 <p>
     For the above snippet, recall that since the return type contains more than one field (a name and a computed average), the entity is returned as a collection of two Object arrays, one holding all name attributes and the other holding all computed averages. (A DTO could be applied instead if desired.)
+</p>
+
+<h5>An example of the Criteria API</h5>
+
+<p>
+    As already mentioned, JPQL is not typesafe (checks cannot be performed at runtime on types defined in String literals) whereas Criteria API is typesafe. The following is a simple example which applied the Criteria API.
+</p>
+
+<pre>
+    <code [highlight]="criteriaAPI" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Clearly, the Criteria API can be checked for type safety but can get quite verbose.
 </p>

@@ -774,6 +774,22 @@ public class SomeService {
       .setParameter("threshold", minThreshold).getResultList();
   }`;
 
+  criteriaAPI = `
+  public Collection<SomeObject> queryMethod() {
+
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<SomeObject> cq = builder.createQuery(SomeObject.class);
+    Root<SomeObject> root = cq.from(SomeObject.class);
+
+    // equivalent to "select e from SomeObject e where e.name = 'findThisString'
+    
+    CriteriaQuery<SomeObject> query = cq
+      .select(root)
+      .where(builder.equal(root.get("name"), "findThisString"));
+
+    return entityManager.createQuery(query).getResultList;
+  }`
+
   onHighlight(e) {
     this.response = {
       language: e.language,
