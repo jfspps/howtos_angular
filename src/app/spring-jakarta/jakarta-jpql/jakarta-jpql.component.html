@@ -1,0 +1,227 @@
+<h5>The Java Persistence Query Language JPQL</h5>
+
+<p>
+    The JPQL is an API for a Java String based language which resembles much of SQL. JPQL queries on objects/entities in contrast to SQL which queries tables. JPQL can be applied to different SQL vendors. Since the types are defined (or implied) in the String literals, the compiler cannot check for type mismatches. In other words, JPQL is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
+</p>
+
+<h5>The mandatory expressions</h5>
+
+<p>
+    A <span class="annot">@NamedQuery(name = "someName", query = "JPQL_expression")</span> annotation can be used to define the expression and are compiled with the entity class. They are immutable. The name of the particular query is identified by the name property and query expression is given by the query property. A simple example would be <span class="annot">@NamedQuery(name = "", query = "select d from ClassName d")</span>. The <span class="commands">select</span> and <span class="commands">from</span> keywords are mandatory for all JPQL expressions. The mandatory token "d" is an alias to the ClassName entity, so "select d" (without a WHERE clause) attempts to select and return a list of objects as a whole. All eagerly fetched fields associated with the object will also be retrieved and made available.
+</p>
+
+<p>
+    JPA 2.2 allows for multiple annotations, as long as the name properties are different. The name property can optionally be substituted with static fields (public static final String fields of the entity class). Legacy code will use <span class="annot">@NamedQueries()</span>.
+</p>
+
+<p>
+    When data is returned from the database following a JPQL query, the default constructor and annotated fields are used to build the instance. This is why a default, no-arguments constructor is required with all JPA entity classes.
+</p>
+
+<p>
+    With the query written, the output is passed to the Entity manager. 
+</p>
+
+<pre>
+    <code [highlight]="jpqlExpression" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To access a particular field of the entity (of the defined type), use the path expression: <span class="annot">@NamedQuery(name = SomeClass.GET_NAME, query = "select d.className from SomeClass d")</span>. In this case, the return type is String.
+</p>
+
+<p>
+    To retrieve entities which are not simple Java types (custom Beans) is also performed similarly. The type is effectively cast as appropriate. Furthermore, one could retrieve the field within the entity e.g. <span class="annot">@NamedQuery(name = SomeClass.GET_OBJ_name, query = "select d.customObject.name from SomeClass d")</span>, where customObject is a separate entity that has a relationship with SomeClass entities. The custom class' fields can be lazily loaded.
+</p>
+
+<pre>
+    <code [highlight]="jpqlExpressionObject" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note here that the query is made from the point of view of SomeClass, not CustomObject. It is also possible to extract multiple fields from a custom entity by separating the reqeusted fields with commas. For example, <span class="annot">@NamedQuery(name = SomeClass.GET_OBJ_name, query = "select d.customObject.name, d.customObject.date from SomeClass d")</span>. The return type in this case is <span class="commands">Collection&lt;Object[]&gt;</span>, where each field (of the same type) is stored in its own Collection element. The entity manager call would be:
+</p>
+
+<pre>
+    <code [highlight]="jpqlCollection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    An alternative to combined path expressions are constructor expressions. This is implemented first by preparing for a new POJO which contains the fields that are needed. View it as a data-transfer object, DTO. The return type is then the POJO with <span class="annot">@NamedQuery(name = "DTO", query = "select new packagePath.POJO(d.field1, d.field2, d.field3) from ClassName d")</span> declared in the original (non-DTO) class. 
+</p>
+
+<pre>
+    <code [highlight]="dtoConstructorExpression" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    In this case, the all-args constructor of POJO is used as the return to the query.
+</p>
+
+<pre>
+    <code [highlight]="jpqlCollection2" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    More on the <span class="commands">from EntityClass alias</span> clause. The EntityClass, as shown, must be a JPA entity. The alias must be unique across the given expression. To extract from an entity referenced in the queried class (a collection) through a join expression use the following. 
+</p>
+
+<pre>
+    <code [highlight]="joinFrom" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Optionally, one can prefix the collection alias with the "distinct" keyword to, like SQL, retrieve unique records.
+</p>
+
+<p>
+    Querying Java Maps. By default, queries compare the value of the map, not the key (demonstrated above). 
+</p>
+
+<p>
+    When an entity has been detached from the persistence context (when sent to the viewer layer for example) any lazily loaded fields not already loaded are inaccessible. The normal workaround is to set the field as eagerly loaded or to use the JPQL "fetch join" expression. The latter can be applied even when the entity is in a detached state. Note that this feature only relates to JPQL "join fetch" expression and not other routine Java getters. The field remains lazily loaded. This is demonstrated next.
+</p>
+
+<pre>
+    <code [highlight]="joinFetch" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>The optional expressions</h5>
+
+<p>
+    The "where" expression is an example of an optional clause or expression. As with SQL, the "where" clause filters the data returned. The expression is added after the from or (if present) the join expression. Some typical examples are listed.
+</p>
+
+<ul>
+    <li><span class="commands"> where alias.property &gt; 155</span>: constant parameter</li>
+    <li><span class="commands">where alias.property &gt; ?1</span>: via a positional parameter, in this case position 1 (one-based) of a parameter list in a method call (below; this approach is quite rare)</li>
+    <li><span class="commands">where alias.property &gt; :value</span>: via a named parameter, where "value" is defined in the method parameter list (this approach is preferred and in many cases can minimise the number of SQL injection attacks)</li>
+</ul>
+
+<p>
+    The latter two expressions can be accomplished by the same method:
+</p>
+
+<pre>
+    <code [highlight]="paramWhere" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Similarly, the "between" and "and" expression can be used to set a range of values: <span class="commands">where alias.property between :lowerLimit and :upperLimit</span>. The EntityManager call would be:
+</p>
+
+<pre>
+    <code [highlight]="betweenAnd" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To compare string patterns, with wildcards, use the "like" clause. This example also shows an alternative way of defining and executing queries without using annotations. More specifics re. patterns are given <a href="https://openjpa.apache.org/builds/1.2.3/apache-openjpa/docs/jpa_langref.html#jpa_langref_like" target="_blank">here</a>.
+</p>
+
+<pre>
+    <code [highlight]="createQuery" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One can also perform queries within queries, that is, subqueries. More deeply nested subqueries can also be designed though are not generally recommended. This particular example also shows how one record (again, from a TypedQuery&lt;&gt;) is returned, as opposed to a Collection, using <span class="commands">getSingleResult()</span>.
+</p>
+
+<pre>
+    <code [highlight]="createSubQuery" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that the method <span class="commands">getSingleResult()</span> is expecting a single entity. If no entity is found or more than one entity is found, then an exception (NoResultException or NoUniqueResultException) will be thrown. Therefore, this approach should only be applied when it is known that there is only one unique result.
+</p>
+
+<p>
+    To ascertain if a single entity can be found in a given collection, use the "where" and "in" expressions. The following returns a list of SomeClass entities which have an "object" field set to (assume String) "open" or "closed". 
+</p>
+
+<pre>
+    <code [highlight]="whereIn" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    A subquery can be placed immediately after a "in" clause (instead of the literal form above). To negate "in", that is to check an entity is not present is given by "not in" instead of "in".
+</p>
+
+<p>
+    The Collection operators, "IS EMPTY" and "IS NOT EMPTY" operate on an entity's collection. These operations can be used to list entities which have collections as fields that are empty or not empty. These operations allow one to list such entities.
+</p>
+
+<pre>
+    <code [highlight]="notEmpty" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The "MEMBER OF" operator can be used to return entities where some object, passed as a parameter, is stored in one of the entity's collection field. See the following.
+</p>
+
+<pre>
+    <code [highlight]="memberOf" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The "AND" and "ALL" operators provide more functionality to the above expressions. The "AND" operator joins boolean conditions. The "ALL" operator compares all records that proceed it in the expression.
+</p>
+
+<pre>
+    <code [highlight]="andAll" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The "ANY" operator can be used in place of the "ALL" operator but unlike the "ALL" operator, it will only check for one (whichever is first returned in the subquery). The "SOME" operator is identical to "ANY" and is essentially an alias to "ANY".
+</p>
+
+<p>
+    The returned entities can be sorted using "ORDER BY". By default sorting method is ascending ("asc"). To override the default to set to descending, use "desc". To use more custom columns with aliases, use the "as" expression along with "order by"
+</p>
+
+<pre>
+    <code [highlight]="orderBy" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>JPQL aggregate functions</h5>
+
+<p>
+    Aggregate functions are database optimised functions which perform grouped tasks.
+</p>
+
+<p>
+    The <span class="commands">sum()</span> function sums a set of data. The Entity Manager query String would be something like <span class="commands">select d.name, sum(e.value) from SomeClass d join d.collection e group by d.name</span>, where "collection" is a (Collection type) field of SomeClass. This return a list of the name and the sum of the "collection" entities' "value" field, and sorts them in ascending order by name. 
+</p>
+
+<p>
+    The <span class="commands">avg()</span> and <span class="commands">count()</span> functions return the averaged result and number of rows (records), respectively. Both can be applied in a similar way to <span class="commands">sum()</span>.
+</p>
+
+<p>
+    The <span class="commands">max()</span> and <span class="commands">min()</span> functions return the largest and smallest values of a given field, respectively. Both can be applied as already outlined.
+</p>
+
+<p>
+    The final aggregate function discussed here is the "having" expression. This (like "group by") is used in conjunction with an aggregate function and filters returns based on the output of an aggregate function. 
+</p>
+
+<pre>
+    <code [highlight]="having" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    For the above snippet, recall that since the return type contains more than one field (a name and a computed average), the entity is returned as a collection of two Object arrays, one holding all name attributes and the other holding all computed averages. (A DTO could be applied instead if desired.)
+</p>
+
+<h5>An example of the Criteria API</h5>
+
+<p>
+    As already mentioned, JPQL is not typesafe (checks cannot be performed at runtime on types defined in String literals) whereas Criteria API is typesafe. The following is a simple example which applied the Criteria API.
+</p>
+
+<pre>
+    <code [highlight]="criteriaAPI" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Clearly, the Criteria API can be checked for type safety but can get quite verbose.
+</p>

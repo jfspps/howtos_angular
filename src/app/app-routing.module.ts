@@ -73,6 +73,13 @@ import { JavaQuicksortComponent } from './javapage/java-quicksort/java-quicksort
 import { JakartaContainerbeansComponent } from './spring-jakarta/jakarta-containerbeans/jakarta-containerbeans.component';
 import { JakartaProducersComponent } from './spring-jakarta/jakarta-producers/jakarta-producers.component';
 import { JakartaEventsComponent } from './spring-jakarta/jakarta-events/jakarta-events.component';
+import { JakartaAccessmappingtypesComponent } from './spring-jakarta/jakarta-accessmappingtypes/jakarta-accessmappingtypes.component';
+import { JakartaPkrelationalmappingComponent } from './spring-jakarta/jakarta-pkrelationalmapping/jakarta-pkrelationalmapping.component';
+import { JakartaSortingComponent } from './spring-jakarta/jakarta-sorting/jakarta-sorting.component';
+import { JakartaEjbsComponent } from './spring-jakarta/jakarta-ejbs/jakarta-ejbs.component';
+import { JakartaEntitymanagerComponent } from './spring-jakarta/jakarta-entitymanager/jakarta-entitymanager.component';
+import { JakartaJpqlComponent } from './spring-jakarta/jakarta-jpql/jakarta-jpql.component';
+import { JakartaJpaoutroComponent } from './spring-jakarta/jakarta-jpaoutro/jakarta-jpaoutro.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -132,7 +139,14 @@ const appRoutes: Routes = [
     { path: 'jakartaContainerBean', component: JakartaContainerbeansComponent},
     { path: 'jakartaProducers', component: JakartaProducersComponent},
     { path: 'jakartaEvents', component: JakartaEventsComponent},
-    { path: 'jakartaJPA', component: JakartaJpaComponent}
+    { path: 'jakartaJPA', component: JakartaJpaComponent},
+    { path: 'jakartaAccessMappingFetching', component: JakartaAccessmappingtypesComponent},
+    { path: 'jakartaPKsRelationalMapping', component: JakartaPkrelationalmappingComponent},
+    { path: 'jakartaSortingCollections', component: JakartaSortingComponent},
+    { path: 'jakartaEJBs', component: JakartaEjbsComponent},
+    { path: 'jakartaEntityManager', component: JakartaEntitymanagerComponent},
+    { path: 'jakartaJPQL', component: JakartaJpqlComponent},
+    { path: 'jakartaOutro', component: JakartaJpaoutroComponent}
   ] },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [

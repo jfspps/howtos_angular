@@ -79,6 +79,13 @@ import { JavaQuicksortComponent } from './javapage/java-quicksort/java-quicksort
 import { JakartaContainerbeansComponent } from './spring-jakarta/jakarta-containerbeans/jakarta-containerbeans.component';
 import { JakartaProducersComponent } from './spring-jakarta/jakarta-producers/jakarta-producers.component';
 import { JakartaEventsComponent } from './spring-jakarta/jakarta-events/jakarta-events.component';
+import { JakartaAccessmappingtypesComponent } from './spring-jakarta/jakarta-accessmappingtypes/jakarta-accessmappingtypes.component';
+import { JakartaPkrelationalmappingComponent } from './spring-jakarta/jakarta-pkrelationalmapping/jakarta-pkrelationalmapping.component';
+import { JakartaSortingComponent } from './spring-jakarta/jakarta-sorting/jakarta-sorting.component';
+import { JakartaEjbsComponent } from './spring-jakarta/jakarta-ejbs/jakarta-ejbs.component';
+import { JakartaEntitymanagerComponent } from './spring-jakarta/jakarta-entitymanager/jakarta-entitymanager.component';
+import { JakartaJpqlComponent } from './spring-jakarta/jakarta-jpql/jakarta-jpql.component';
+import { JakartaJpaoutroComponent } from './spring-jakarta/jakarta-jpaoutro/jakarta-jpaoutro.component';
 
 @NgModule({
   declarations: [
@@ -156,7 +163,14 @@ import { JakartaEventsComponent } from './spring-jakarta/jakarta-events/jakarta-
     JavaQuicksortComponent,
     JakartaContainerbeansComponent,
     JakartaProducersComponent,
-    JakartaEventsComponent
+    JakartaEventsComponent,
+    JakartaAccessmappingtypesComponent,
+    JakartaPkrelationalmappingComponent,
+    JakartaSortingComponent,
+    JakartaEjbsComponent,
+    JakartaEntitymanagerComponent,
+    JakartaJpqlComponent,
+    JakartaJpaoutroComponent
   ],
   imports: [
     BrowserModule,
