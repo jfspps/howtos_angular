@@ -69,3 +69,25 @@
 <p>
     To associate the entity with the above listeners (clearly the first listener should only be applied to Customer class), annotate the bean with <span class="annot">@EntityListener(&#123;CustomerListener.class, AbstractEntityListener.class&#125;)</span> for example. Edit the array parameter as needed.
 </p>
+
+<h5>Native Queries</h5>
+
+<p>
+    Native queries provides some of the provider specific queries which are not normally available to the standard JPQL through the interaction with JPA entities. Native queries supplement the JPQL by allowing one to use native SQL.
+</p>
+
+<p>
+    The annotation is <span class="annot">@NamedNativeQuery(name = "someNativeQuery", query = "select * from SomeEntity", resultClass = SomeEntity.class)</span>. The SQL query is passed as the query parameter and overall, this native query is referred to as a <i>named native query</i>. The native query can be passed to a service class methods (via a EntityManager instance) with <span class="commands">createNamedQuery()</span> in very much the same way as named queries (which use <span class="annot">@NamedQuery()</span>). All SQL queries are available though some thought about the provider used (this approach may also render the application less database agnostic).
+</p>
+
+<p>
+    It is also possible to implement <i>dynamic native queries</i> in the same way as dynamic queries by defining a method that returns a Collection. Note in both cases that the terminating semicolon is needed in the string. Also note that native SQL queries work on SQL tables directly, not Java entities.
+</p>
+
+<pre>
+    <code [highlight]="dynamicNativeQuery" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    With native queries, the return type is not TypedQuery but instead an "untyped" Query (part of EntityManager class). It may be necessary to annotate the method to suppress compiler warnings (see snippet above).
+</p>

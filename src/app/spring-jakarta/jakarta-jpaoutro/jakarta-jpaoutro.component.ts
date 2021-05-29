@@ -49,6 +49,18 @@ export class JakartaJpaoutroComponent implements OnInit {
     }
   }`;
 
+  dynamicNativeQuery = `
+  // it may be necessary to add annotate here since the compiler returns
+  // a Query not a TypedQuery
+  @SuppressWarnings("unchecked")
+  public Collection<SomeClass> findAllObjects() {
+    String nativeSQLstring = "SELECT DISTINCT * FROM SomeClass ORDER BY someColumn";
+
+    return entityManager
+      .createNativeQuery(nativeSQLstring, SomeClass.class)
+      .getResultList();
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

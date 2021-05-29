@@ -4,7 +4,7 @@
     The JPQL is an API for a Java String based language which resembles much of SQL. JPQL queries on objects/entities in contrast to SQL which queries tables. JPQL can be applied to different SQL vendors. Since the types are defined (or implied) in the String literals, the compiler cannot check for type mismatches. In other words, JPQL is not typesafe. An alternative to JPQL is the Criteria API, which is typesafe but generally more verbose than JPQL.
 </p>
 
-<h5>The mandatory expressions</h5>
+<h5>Named and Dynamic queries of mandatory expressions</h5>
 
 <p>
     A <span class="annot">@NamedQuery(name = "someName", query = "JPQL_expression")</span> annotation can be used to define the expression and are compiled with the entity class. They are immutable. The name of the particular query is identified by the name property and query expression is given by the query property. A simple example would be <span class="annot">@NamedQuery(name = "", query = "select d from ClassName d")</span>. The <span class="commands">select</span> and <span class="commands">from</span> keywords are mandatory for all JPQL expressions. The mandatory token "d" is an alias to the ClassName entity, so "select d" (without a WHERE clause) attempts to select and return a list of objects as a whole. All eagerly fetched fields associated with the object will also be retrieved and made available.
@@ -19,7 +19,7 @@
 </p>
 
 <p>
-    With the query written, the output is passed to the Entity manager. 
+    With the query written, the output is passed to the Entity manager. This is an example of a <i>named query</i> because the query has a unique name.
 </p>
 
 <pre>
@@ -39,7 +39,7 @@
 </pre>
 
 <p>
-    Note here that the query is made from the point of view of SomeClass, not CustomObject. It is also possible to extract multiple fields from a custom entity by separating the reqeusted fields with commas. For example, <span class="annot">@NamedQuery(name = SomeClass.GET_OBJ_name, query = "select d.customObject.name, d.customObject.date from SomeClass d")</span>. The return type in this case is <span class="commands">Collection&lt;Object[]&gt;</span>, where each field (of the same type) is stored in its own Collection element. The entity manager call would be:
+    Note here that the query is made from the point of view of SomeClass, not CustomObject. It is also possible to extract multiple fields from a custom entity by separating the reqeusted fields with commas. For example, <span class="annot">@NamedQuery(name = SomeClass.GET_OBJ_name, query = "select d.customObject.name, d.customObject.date from SomeClass d")</span>. The return type in this case is <span class="commands">Collection&lt;Object[]&gt;</span>, where each field (of the same type) is stored in its own Collection element. This also introduces <i>dynamic queries</i> which, in contrast to named queries, are not initially identified by a name. They can be called by function. The entity manager call would be:
 </p>
 
 <pre>
