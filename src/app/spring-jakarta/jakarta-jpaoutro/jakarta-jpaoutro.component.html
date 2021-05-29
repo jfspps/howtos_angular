@@ -91,3 +91,22 @@
 <p>
     With native queries, the return type is not TypedQuery but instead an "untyped" Query (part of EntityManager class). It may be necessary to annotate the method to suppress compiler warnings (see snippet above).
 </p>
+
+<h5>Overriding equals() and hashCode()</h5>
+
+<p>
+    Generally, it is recommended that one override the <span class="commands">equals()</span> and <span class="commands">hashCode()</span> methods when managing JPA beans. Doing so grants more control about how objects are compared and how it rejects new entities that already exist in the database. Another brief exploration of the implications of <span class="commands">equals()</span> and <span class="commands">hashCode()</span> were discussed in the <a routerLink="/java/javaSortCollections">Collections framework</a> notes. The Set interface, for examples, relies on <span class="commands">equals()</span> and <span class="commands">hashCode()</span> methods. In short, <span class="commands">equals()</span> checks if two Java objects are the same by comparing their hash code, through <span class="commands">hashCode()</span>. If the hash code is not set and overridden properly then <span class="commands">equals()</span> will probably return false positives or negatives.
+</p>
+
+<p>
+    It is worth highlighting that the id of an entity is not normally decided before the <span class="commands">equals()</span> method is called. The new Java object may be undergoing validation etc. and is only assigned an id by the provider once the object has satisfied the prerequisites. Hence, the id cannot be used to determine if two new Java objects (or one new Java object and one entity with an id) are the same or not. The id field is intended for the database, nothing else.
+</p>
+
+<p>
+    One would need to choose fields which can help distinguish between objects. Also be aware that the case of the String should be made the same, since different providers may not treat string literals in the same way. Something like the following would work.
+</p>
+
+
+<pre>
+    <code [highlight]="equalsHashCode" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

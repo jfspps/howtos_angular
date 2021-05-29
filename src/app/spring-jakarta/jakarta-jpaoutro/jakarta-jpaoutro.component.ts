@@ -54,11 +54,30 @@ export class JakartaJpaoutroComponent implements OnInit {
   // a Query not a TypedQuery
   @SuppressWarnings("unchecked")
   public Collection<SomeClass> findAllObjects() {
-    String nativeSQLstring = "SELECT DISTINCT * FROM SomeClass ORDER BY someColumn";
+    String nativeSQLstring = "SELECT DISTINCT * FROM tableName ORDER BY someColumn";
 
     return entityManager
       .createNativeQuery(nativeSQLstring, SomeClass.class)
       .getResultList();
+  }`;
+
+  equalsHashCode = `
+  @Override
+  public boolean equals(Object o) {
+      if (this == o) return true;
+
+      // could use "if (o instanceOf SomeClass) { ... }"
+      if (o == null || getClass() != o.getClass()) return false;
+
+      SomeClass other = (SomeClass) o;
+      return Objects.equals(
+        this.getUniqueIdentifier().toUpperCase(), that.getUniqueIdentifier().toUpperCase());
+  }
+
+  @Override
+  public int hashCode() {
+
+      return Objects.hash(getUniqueIdentifier().toUpperCase());
   }`;
 
   onHighlight(e) {
