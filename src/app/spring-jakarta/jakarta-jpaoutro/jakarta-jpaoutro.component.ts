@@ -17,6 +17,38 @@ export class JakartaJpaoutroComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  entityListener = `
+  public class CustomerListener {
+
+    @PrePersist
+    public void doSomethingBeforePersist(Customer customer){
+      customer.setCreatedDate(LocalDateTime.now());
+      // do other stuff to Customer entity as required
+    }
+
+    @PreUpdate
+    public void doSomethingBeforeUpdating(Customer customer){
+      customer.setUpdatedDate(LocalDateTime.now());
+      // do other stuff if needed
+    }
+  }`;
+
+  generalEntityListener = `
+  public class AbstractEntityListener {
+
+    @PrePersist
+    public void doSomethingBeforePersist(AbstractEntity entity){
+      entity.setCreatedDate(LocalDateTime.now());
+      // do other stuff to Customer entity as required
+    }
+
+    @PreUpdate
+    public void doSomethingBeforeUpdating(AbstractEntity entity){
+      entity.setUpdatedDate(LocalDateTime.now());
+      // do other stuff if needed
+    }
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

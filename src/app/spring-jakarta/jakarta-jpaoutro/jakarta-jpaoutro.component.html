@@ -20,3 +20,52 @@
     <li><span class="annot">@Pattern(regExp = "&#91;de&#93;&#91;FG&#93;", message = "string must contain the sequence deFG at least once")</span>: the given field must be recognised by the stated <a routerLink="/java/javaRegExp">regular expression</a></li>
     <li><span class="annot">@Size(min = 3, max = 55, message = "Value must be greater than or equal to 3 and less than or equal to 55")</span>: a combination of min and max annotations; the default min value is zero if not stated</li>
 </ul>
+
+<h5>Entity lifecycle callbacks</h5>
+
+<p>
+    There are a number lifecycle points which are available and enable custom functions to be executed. CDI contextual instance callbacks were briefly introduced <a routerLink="/springJakarta/jakartaContainerBean">here</a>. For JPA entities, the custom methods are also annotated and then invoked at the required stage.
+</p>
+
+<ul>
+    <li><span class="annot">@PrePersist</span>: invoked prior to persistence to the database; can be private or public etc., but must parameterless and void</li>
+    <li><span class="annot">@PostPersist</span>: invoked after persistence (note that this in relation to the individual entity not the transaction as a whole, so this annotated method would still run even if the transaction fails)</li>
+</ul>
+
+<p>
+    There are other fairly self-explanatory annotations which are somewhat JPA provider dependent. These include <span class="annot">@PreUpdate</span>, <span class="annot">@PostUpdate</span> and <span class="annot">@PostLoad</span>.
+</p>
+
+<p>
+    Note the above annotations can, in principle, be applied to the same method.
+</p>
+
+<h5>Entity listeners</h5>
+
+<p>
+    Entity listeners provide another way of implementing lifecycle callbacks, including a more general implementation of the callback function. This approach can be cleaner in some cases and focuses solely on entity callbacks.
+</p>
+
+<p>
+    For example, a method can be annotated with a specific callback or callbacks. Instead of invoking the specific method, one can build and invoke a more general method instead. For example, many entities will have their own logging callback which logs metadata once an entity has been persisted to the database. If for some reason that a more general logging callback is required then it is possible to isolate (or withdraw) the specific callback and instead invoke a more general one. This is achieved through entity listeners.
+</p>
+
+<p>
+    To implement entity listeners, build a new class with methods that have the same method signature.
+</p>
+
+<pre>
+    <code [highlight]="entityListener" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The first snippet above shows how the specific callback would be implemented, the second snippet below shows how a more general callback would be applied.
+</p>
+
+<pre>
+    <code [highlight]="generalEntityListener" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    To associate the entity with the above listeners (clearly the first listener should only be applied to Customer class), annotate the bean with <span class="annot">@EntityListener(&#123;CustomerListener.class, AbstractEntityListener.class&#125;)</span> for example. Edit the array parameter as needed.
+</p>
