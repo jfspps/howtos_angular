@@ -35,7 +35,39 @@ export class JakartaJaxrsintroComponent implements OnInit {
     public String getResponse() {
       return "over here";
     }
-  }`
+  }`;
+
+  contentType = `
+  @Path("somewhere")
+  public class SomeResource {
+
+    @Inject
+    SomeService someService;
+
+    @GET
+    @Path("overHere")
+    @Produces("application/json")
+    public List<SomeClass> getResponse() {
+
+      return someService.getSomeClassResource();
+    }
+  }`;
+
+  consumes = `
+  @Path("somewhere")
+  @Consumes("application/json")
+  public class SomeResource {
+
+    @Inject
+    SomeService someService;
+
+    @POST
+    @Path("overThere")
+    public void getResponse(SomeClass payload) {
+
+      someService.save(payload);
+    }
+  }`;
 
   onHighlight(e) {
     this.response = {
