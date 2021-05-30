@@ -80,6 +80,7 @@ import { JakartaEjbsComponent } from './spring-jakarta/jakarta-ejbs/jakarta-ejbs
 import { JakartaEntitymanagerComponent } from './spring-jakarta/jakarta-entitymanager/jakarta-entitymanager.component';
 import { JakartaJpqlComponent } from './spring-jakarta/jakarta-jpql/jakarta-jpql.component';
 import { JakartaJpaoutroComponent } from './spring-jakarta/jakarta-jpaoutro/jakarta-jpaoutro.component';
+import { JakartaJaxrsintroComponent } from './spring-jakarta/jakarta-jaxrsintro/jakarta-jaxrsintro.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -146,7 +147,8 @@ const appRoutes: Routes = [
     { path: 'jakartaEJBs', component: JakartaEjbsComponent},
     { path: 'jakartaEntityManager', component: JakartaEntitymanagerComponent},
     { path: 'jakartaJPQL', component: JakartaJpqlComponent},
-    { path: 'jakartaOutro', component: JakartaJpaoutroComponent}
+    { path: 'jakartaOutro', component: JakartaJpaoutroComponent},
+    { path: 'jakartaJAXRSIntro', component: JakartaJaxrsintroComponent}
   ] },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [

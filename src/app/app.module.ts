@@ -86,6 +86,7 @@ import { JakartaEjbsComponent } from './spring-jakarta/jakarta-ejbs/jakarta-ejbs
 import { JakartaEntitymanagerComponent } from './spring-jakarta/jakarta-entitymanager/jakarta-entitymanager.component';
 import { JakartaJpqlComponent } from './spring-jakarta/jakarta-jpql/jakarta-jpql.component';
 import { JakartaJpaoutroComponent } from './spring-jakarta/jakarta-jpaoutro/jakarta-jpaoutro.component';
+import { JakartaJaxrsintroComponent } from './spring-jakarta/jakarta-jaxrsintro/jakarta-jaxrsintro.component';
 
 @NgModule({
   declarations: [
@@ -170,7 +171,8 @@ import { JakartaJpaoutroComponent } from './spring-jakarta/jakarta-jpaoutro/jaka
     JakartaEjbsComponent,
     JakartaEntitymanagerComponent,
     JakartaJpqlComponent,
-    JakartaJpaoutroComponent
+    JakartaJpaoutroComponent,
+    JakartaJaxrsintroComponent
   ],
   imports: [
     BrowserModule,

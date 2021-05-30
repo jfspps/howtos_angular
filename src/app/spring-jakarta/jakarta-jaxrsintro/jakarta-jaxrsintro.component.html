@@ -1,0 +1,52 @@
+<h5>Jakarta RESTful Web Services</h5>
+
+<p>
+    JAX-RS is an API that is part of the Java EE standard (previously known as Java API for RESTful Web Services), and uses interfaces and annotations to support the construction of RESTful Web Services. It is not necessary to include other dependencies when the <span class="commands">javaee-api</span> is imported.
+</p>
+
+<p>
+    The REST architecture is specification within a set of constraints. For example, the client (be it Angular, React, Vue etc.) must be separated from the server (.NET, Python, Spring, Java etc.), and are independent units. There are a few other constraints:
+</p>
+
+<ul>
+    <li>The client-server requests are all stateless. Each request is treated independently of all other requests and do not depend on the ongoing execution of other requests.</li>
+    <li>The client and server should cache resources to help with performance and scalability</li>
+    <li>The client should have general interface that can access resources on the server. The server must in turn expose a general uniform interface from which the client can access resources.</li>
+    <li>The server should be built around a layered system and is required as a part of a load balancer related to scaling</li>
+</ul>
+
+<h5>JAX-RS configuration classes</h5>
+
+<p>
+    Classes (representing different REST API versions, for example) which extend <span class="commands">javax.ws.rs.core.Application</span> constitute the definition of the web service. The class is annotated with <span class="annot">@ApplicationPath("api/v1")</span> (the resources route "api/v1" can be changed). With Spring REST, one could use the <span class="annot">@RestController</span> and <span class="annot">@RequestMapping("/api/v1")</span> annotations on a simple POJO. All other REST endpoint paths or routes will be based on whatever is set in place of "api/v1".
+</p>
+
+<h5>JAX-RS paths and request methods</h5>
+
+<p>
+    With Spring REST, one would define a <span class="annot">@RestController</span> annotated class to define the route path "/api/v1" and/or "sub-paths" needed. This is also the case with Java EE, where a class, which represents a particular resource, is annotated with <span class="annot">@Path("somePath")</span> (there is only one parameter, value, expected). This annotation <i>exposes</i> resources (files, records, data etc. managed in part by Java classes) through RESTful resource points.
+</p>
+
+<p>
+    Once the <span class="annot">@Path("somePath")</span> annotation is applied to the resource class, one exposes at least one resource related method by defining the path needed to invoke the method. (Note that the prefixing/postfixing forward-slash characters used to break up the URL is inserted automatically in Java EE: "api/v1" is fine, "/api/v1/" is not expected.) An experienced Spring REST developer should be able to follow the snippet below.
+</p>
+
+
+<pre>
+    <code [highlight]="simpleResourceMethod" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The HTTP request methods are the usual standards:
+</p>
+
+<ul>
+    <li><span class="annot">@GET</span>: GET methods are used to retrieve resources from the server without making changes to the resource on the server</li>
+    <li><span class="annot">@POST</span>: POST methods are used to create new resources, using a payload or body. Repeated POST requests lead to the construction of more new resources</li>
+    <li><span class="annot">@PUT</span>: PUT methods are used to update changes to a resource that already exists on the server. Repeated PUT requests will only change one resource and will not build new resources.</li>
+    <li><span class="annot">@DELETE</span>: DELETE methods instruct the server to remove resources from the server. Repeated DELETE requests will not lead to further change to the resource or other resources.</li>
+</ul>
+
+<p>
+    GET, PUT and DELETE are <i>idempotent</i> methods: they can be called multiple times and the return or result is always the same. The state of the resource following the first call will not make further changes to the resource or server. 
+</p>
