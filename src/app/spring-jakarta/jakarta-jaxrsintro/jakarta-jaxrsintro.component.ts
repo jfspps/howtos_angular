@@ -23,7 +23,7 @@ export class JakartaJaxrsintroComponent implements OnInit {
 
     @Path("{parameter}")
     @GET
-    public Response returnParameter(@PathParam("parameter")) String entered){
+    public Response returnParameter(@PathParam("parameter") String entered){
       String returnString = "Parameter recieved: " + entered;
 
       return Response.ok(returnString).build();
@@ -61,6 +61,8 @@ export class JakartaJaxrsintroComponent implements OnInit {
     @Inject
     SomeService someService;
 
+    // this assumes that the client sends a json in the body
+    // with the expected fields for SomeClass
     @POST
     @Path("overThere")
     public void getResponse(SomeClass payload) {
@@ -68,6 +70,57 @@ export class JakartaJaxrsintroComponent implements OnInit {
       someService.save(payload);
     }
   }`;
+
+  pathParam =   `
+  @Path("somewhere")
+  public class SomeResource {
+
+    @Path("{parameter}")
+    @GET
+    public Response returnParameter(@PathParam("parameter") String entered){
+      String returnString = "Parameter recieved: " + entered;
+
+      return Response.ok(returnString).build();
+    }
+  }`;
+
+  pathParam2 =   `
+  @Path("somewhere")
+  public class SomeResource {
+
+    @Path("{ID: ^[0-9]+$}")
+    @GET
+    public Response returnObject(@PathParam("ID") Long id){
+      return someService.getObjectById(id);
+    }
+  }`;
+
+  defaultParam =   `
+  @Path("somewhere")
+  public class SomeResource {
+
+    @Path("{ID: ^[0-9]+$}")
+    @GET
+    public Response returnObject(@PathParam("ID") @DefaultValue("0") Long id){
+
+      // if the URL is wrong then the default value of 0 is sent (which is null 
+      // since all JPA indices are one-based not zero-based)
+      return someService.getObjectById(id);
+    }
+  }`;
+
+  queryParam =   `
+  @Path("somewhere")
+  public class SomeResource {
+
+    // sending "api/v1/somewhere/someObject/has?ID=1" would work
+    @Path("someObject/has")
+    @GET
+    public Response returnObject(@QueryParam("ID") @DefaultValue("0") Long id){
+      return someService.getObjectById(id);
+    }
+  }`;
+
 
   onHighlight(e) {
     this.response = {

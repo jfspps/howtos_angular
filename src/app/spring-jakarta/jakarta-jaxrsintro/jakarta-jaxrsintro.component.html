@@ -95,3 +95,39 @@
 <pre>
     <code [highlight]="consumes" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<p>
+    Path parameters via the URL can be passed directly to an exposed method. The annotation <span class="annot">@PathParam()</span> instructs the container to inject the URL String passed. The example below would be sent as "api/v1/somewhere/printMe". Here the literal "printMe" would be passed to <span class="commands">returnParameter()</span>. Other types (Long, Integer etc.) can also be injected directly.
+</p>
+
+<pre>
+    <code [highlight]="pathParam" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Validation of the parameter is clearly needed. One needs to restrict the parameter format using regular expressions. The client will receive a malformed URL exception if the expected parameter formatting is not sent.
+</p>
+
+<pre>
+    <code [highlight]="pathParam2" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    If a default parameter value is needed (and the client should not always receive an error page) then use the <span class="annot">@DefaultValue()</span> annotation.
+</p>
+
+<pre>
+    <code [highlight]="defaultParam" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p> 
+    Note that the URL need not always conform to the normal "path/subpath1/path/subPath2" styled URL. It is possible to pass neighbouring subpaths as "path/&#123;ID}/edit/&#123;username&#125;&#123;serialNumber}.&#123;domain}/something/&#64;&#123;value}".
+</p>
+
+<p>
+    Query parameters (e.g. "api/v1/somePath/someEntity?ID=25") proceed the "?" character. With JAX-RS, the query parameter is managed by the <span class="annot">@QueryParam("ID")</span> annotation. The next example shows this more clearly. A default value for the query parameter can also be set. Multiple query parameters can be set up and used.
+</p>
+
+<pre>
+    <code [highlight]="queryParam" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
