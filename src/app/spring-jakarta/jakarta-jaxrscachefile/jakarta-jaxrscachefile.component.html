@@ -1,0 +1,17 @@
+<h5>Caching</h5>
+
+<p>
+    Data usually has to pass between the client and server via a number of entities (Content Delivery Networks CDNs, proxies (intermediary servers), etc.) and each point can cache data. The process is quite involved.
+</p>
+
+<p>
+    If the client is required to cache data then it would need to know if what it currently holds is still valid or up to date. The client would have to receive notice from the web service.
+</p>
+
+<p>
+    The example below shows how an HTTP header "entity tag" (or ETag) is initialised and used to inform the client about the current state (version) of cached data.
+</p>
+
+<pre>
+    <code [highlight]="caching" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
