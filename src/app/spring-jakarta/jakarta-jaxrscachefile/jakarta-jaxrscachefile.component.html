@@ -15,3 +15,25 @@
 <pre>
     <code [highlight]="caching" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
+
+<h5>Content negotiation</h5>
+
+<p>
+    Since some clients and web services support differently formatted payloads (plain text, XML, JSON etc.) a hierarchy of the formats available is normally provided so that if one entity cannot consume or produce a given format then it will defer to the next available format. The other entity will then attempt to satisfy the format. In this context, the client and server are said to negotiate regarding the content exchanged and is the basis of "content negotiation". The goal is to enable a web service to provide data to clients with differing requirements.
+</p>
+
+<p>
+    There are various ways of setting the precedence of the content type, some are based on the given order of a list of formats and others are based on a "q" value (q = 0 having lowest precedence and q = 1 having the highest precedence). Further details are not discussed here.
+</p>
+
+<p>
+    The choices available are stored in the HTTP "Accept" request header and so with JAX-RS, the header of the request is queried by the web service when responding. In the example below, the web service offers two options: JSON and XML.
+</p>
+
+<pre>
+    <code [highlight]="contentNegotiation" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that option 1 is more hard-coded and limits the client to XML or JSON. Option 2 is usually more flexible and may expose more media types that are not previously known to the developer. 
+</p>

@@ -18,13 +18,16 @@ export class JakartaJaxrscachefileComponent implements OnInit {
   }
 
   caching = `
+  @Path("users")
+  @Produces("application/json")
+  @Consumes("application/json")
   public class SomeClass {
 
     @Inject
     SomeService someService;
   
     @GET
-    @Path("user")
+    @Path("user/{id}")
     public Response getUserById(@PathParam("id") @DefaultValue("0") Long id,
          @Context Request request) {
       User user = someService.findById(id);
@@ -39,17 +42,18 @@ export class JakartaJaxrscachefileComponent implements OnInit {
       // version of the User
       EntityTag tag = new EntityTag(UUID.randomUUID().toString());
 
-      // this tests, via the (injected) Request, if the client data is valid
-      // i.e. do the client and server tags match? If the tag points to a null
-      // space (an old record) then resBuilder will be null
+      // this tests, via the (injected) Request, if the client cached data is valid
+      // i.e. do the client and server tags match? If the tag "points" to a null
+      // space (a deleted record) then resBuilder will be null
       Response.ResponseBuilder resBuilder = request.evaluatePreconditions(tag);
 
-      // redirect execution if the cached data is invalid
+      // if the cached data is still valid
       if (resBuilder != null){
         resBuilder.cacheControl(cacheControl);
         return resBuilder.build();
       }
 
+      // cached data has expired;
       // send the latest to the client with the caching requirements
       resBuilder = Response.ok(user);
       return resBuilder
@@ -57,7 +61,55 @@ export class JakartaJaxrscachefileComponent implements OnInit {
           .cacheControl(cacheControl)
           .build();
     }
-  }`
+  }`;
+
+  contentNegotiation = `
+  
+  @Path("users")
+  @Consumes("application/json")
+  public class SomeClass {
+
+    @Inject
+    SomeService someService;
+  
+    // option 1: evaluate the client's Accept request header
+    @GET
+    @Path("user/{id}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getUserById(@PathParam("id") @DefaultValue("0") Long id) {
+
+      // JAX-RS then evaluates the Accept request header and returns the preferred format
+      // based on the q value, for example; without a q value, the server is free to chose
+      // the format
+
+    }
+
+    // option 2: evaluate the HTTP request header in the method block
+    @GET
+    @Path("usersOnFile")
+    public Response getUsers(@Context HttpHeaders headers) {
+
+      // headers is automatically sorted in order of decreasing 
+      // priority, so the following retrieves the most desired
+      // content media type
+      MediaType mediaType = headers.getAcceptableMediaTypes().get(0);
+     
+      return Response.ok(someService.getUsers(), mediaType).status(Response.Status.OK).build();
+    }
+
+    // option 3: allow for cases when the client does not have a preference
+    @GET
+    @Path("usersOnFile_NoPref")
+    // set the server's preferences (quality of source factor, "qs")
+    @Produces({"application/json; qs=0.9", "application/xml; qs=0.7"})
+    public Response getUsers() {
+
+      // the web service would return JSON without client's preferences;
+      // if the client does have a preference then the response would also 
+      // depend on the client
+
+    }
+  }`;
 
   onHighlight(e) {
     this.response = {
