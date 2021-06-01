@@ -5,13 +5,39 @@
 </p>
 
 <p>
-    Previously, the return values of the resource methods were Java objects. Instead of this, one can return a Response, which facilitates the return of metadata. The POST method returns the URI of the new resource in the HTTP header. The <span class="annot">@Context</span> annotation is used to inject classes/objects residing in the context.
+    Previously, the return values of the resource methods were Java objects. Instead of this, one can return a Response, while facilitating the return of the metadata. The HTTP response body will contain the JSON array. The POST method returns the URI of the new resource in the HTTP header. The <span class="annot">@Context</span> annotation is used to inject classes/objects residing in the context.
 </p>
 
 <pre>
     <code [highlight]="responseObject" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
 
+<h5>Exception Mappers</h5>
+
 <p>
-    The response (as JSON) will be accompanied by the given metadata.
+    When the client pushes a payload to the web service, its data should be validated. The JPA validates data with the Bean Validation API. JAX-RS also uses the same API to validate payloads and ensures that the data adheres to the constraints set in the model. The web service also sends a response to the client to inform the client of the status of the request.
+</p>
+
+<p>
+    Any violation of the constraints are handled by the JAX-RS "exception mappers". The API maps exceptions to HTTP responses e.g. any bean violations on the server are mapped to a specific HTTP response. The implementation of exception mappers is normally defined in its own class, annotated with the <span class="annot">@Provider</span> to inform JAX-RS that this class should be made available to the container.
+</p>
+
+<pre>
+    <code [highlight]="exceptionMapper" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    As set out, the web service will return a JSON array as a response body, listing the bean field constraints that were violated and a message explaining what the problem was (as defined in the <a routerLink="/springJakarta/jakartaOutro">bean validation</a>).
+</p>
+
+<p>
+    Currently, the payload is validated during the JPA transaction, that is, when <span class="commands">someService.save()</span> is run. The validation is taking place at the persistence (service) level. To validate before the persistence layer (quite often a preferred approach, freeing up the entity manager) at the resource layer, apply the <span class="annot">@Valid</span> annotation to the injected instance.
+</p>
+
+<pre>
+    <code [highlight]="validateAtResourceLevel" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Validating at the resource level does, however, return a different JSON response body. The messages are the same however the field names are more formal.
 </p>
