@@ -63,5 +63,9 @@
 <h5>Other injection parameters</h5>
 
 <p>
-    
+    The HTTP header contains much metadata and can be accessed by methods annotated with <span class="annot">@HeaderParam()</span>. For example the referer (the entity or user that makes the request) URL stores the address of the page making the request. Lastly, one can extract HTTP header cookie values with <span class="annot">@CookieParam()</span>.
 </p>
+
+<pre>
+    <code [highlight]="headerParam" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

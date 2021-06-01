@@ -190,6 +190,28 @@ export class JakartaJaxrsresmapfieldsComponent implements OnInit {
   }
   `;
 
+  headerParam = `
+  public Response createSomething(@HeaderParam("Referer") String referer) {
+
+    // so something with the referer URL, referer, taken from the referer key
+    // of the HTTP header
+
+    // return the Response
+  }
+  
+  public Response createSomething(@Context HttpHeaders httpHeaders){
+
+    // httpHeaders contains all HTTP header metadata
+    // (this method is equivalent to the above)
+    httpHeaders.getHeaderString("Referer").get(0);
+  }
+  
+  public Response getCookieParam(@CookieParam("user") String user) {
+
+    // do something with user's cookie header parameter,
+    // then return Response
+  }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
