@@ -121,6 +121,75 @@ export class JakartaJaxrsresmapfieldsComponent implements OnInit {
   }
   `;
 
+  formFieldClass = `
+  @Path("users")
+  @Consumes("application/json")
+  @Produces("application/json")
+  public class FormData {
+
+    // the name parameter of the <input name = ""></input> element forms the 
+    // paramter name (clearly, all form field names must be unique) 
+    @POST
+    @Path("form")
+    @Consumes(MediaType.APPLICATION_FROM_URLENCODED)
+    public Response createNewUser(@FormParam("username") String username,
+        @FormParam("email") String email,
+        @FormParam("password") String password) {
+
+        // initialise a new User and commit to the database
+
+    }
+
+    // this one is more suited to forms with a large number of fields
+    @POST
+    @Path("formManyFields")
+    @Consumes(MediaType.APPLICATION_FROM_URLENCODED)
+    public Response createNewUser(MultiValuedMap<String, String> formMap) {
+
+      // formMap has all field entries (the key of the Map is the field name)
+      String username = formMap.getFirst("username");
+      String password = formMap.getFirst("password");
+      String email = formMap.getFirst("email");
+
+      // initialise a new User and commit to the database
+
+    }
+
+    // demonstrates the use of @BeanParam
+    @POST
+    @Path("formBean")
+    @Consumes(MediaType.APPLICATION_FROM_URLENCODED)
+    public Response createNewUser(@BeanParam User user) {
+
+      // JAX-RS will use the User class @FormParam annotated fields
+      // from the HTTP body sent by the client
+
+      // note that the injected User is already initialised with the
+      // form data sent
+    }
+
+  }
+
+  // given to demonstrate the use of @BeanParam only
+
+  @Entity
+  public class User extends AbstractEntity {
+
+    // constraints omitted for clarity
+
+    @FormParam("username")
+    private String username;
+
+    @FormParam("email")
+    private String email;
+
+    @FormParam("password")
+    private String password;
+
+    // ... public getters and setters ...
+  }
+  `;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
