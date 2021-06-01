@@ -1,0 +1,17 @@
+<h5>Response objects</h5>
+
+<p>
+    Successful web service transactions normally return feedback (essentially metadata) to the client (a message, a HTTP status code, URI to the newly created resource etc.). This is where a "response object" comes into use.
+</p>
+
+<p>
+    Previously, the return values of the resource methods were Java objects. Instead of this, one can return a Response, which facilitates the return of metadata. The POST method returns the URI of the new resource in the HTTP header. The <span class="annot">@Context</span> annotation is used to inject classes/objects residing in the context.
+</p>
+
+<pre>
+    <code [highlight]="responseObject" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The response (as JSON) will be accompanied by the given metadata.
+</p>
