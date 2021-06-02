@@ -1,0 +1,27 @@
+<h5>Loggers</h5>
+
+<p>
+   Logger producers were introduced in the <a routerLink="/springJakarta/jakartaProducers">CDI section</a>. Loggers are part of the java.utils package and can be injected into the resource class and allow the web service to send messages to a console or write logs to a file. To run loggers, simply inject an instance of Logger with <span class="annot">@Inject</span> into the (resource) class.
+</p>
+
+<pre>
+    <code [highlight]="logger" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Other third-party logging libraries in use are Simple Logging Facade for Java <a href="http://www.slf4j.org/" target="_blank">SLF4J</a> and <a href="https://logback.qos.ch/">Logback</a>, amongst others.
+</p>
+
+<h5>Cookies</h5>
+
+<p>
+    Cookies saved on the client can be used to store metadata pertaining to the recent and future requests and responses. For example, once a user has downloaded a file, the server can require the client to save a cookie with information related to the download transaction. The cookie information is sent as part of the response to the client. The client side will then build the cookie file and refer to it in future. Cookies are saved as name-value pairs.
+</p>
+
+<pre>
+    <code [highlight]="cookie" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Cookies has a maxAge property which defines the lifetime of a cookie. Expired cookies are discarded.
+</p>

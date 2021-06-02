@@ -83,6 +83,7 @@ import { JakartaJpaoutroComponent } from './spring-jakarta/jakarta-jpaoutro/jaka
 import { JakartaJaxrsintroComponent } from './spring-jakarta/jakarta-jaxrsintro/jakarta-jaxrsintro.component';
 import { JakartaJaxrsresmapfieldsComponent } from './spring-jakarta/jakarta-jaxrsresmapfields/jakarta-jaxrsresmapfields.component';
 import { JakartaJaxrscachefileComponent } from './spring-jakarta/jakarta-jaxrscachefile/jakarta-jaxrscachefile.component';
+import { JakartaJaxrsfilterComponent } from './spring-jakarta/jakarta-jaxrsfilter/jakarta-jaxrsfilter.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -152,7 +153,8 @@ const appRoutes: Routes = [
     { path: 'jakartaOutro', component: JakartaJpaoutroComponent},
     { path: 'jakartaJAXRSIntro', component: JakartaJaxrsintroComponent},
     { path: 'jakartaJAXRSResponsesMappersFields', component: JakartaJaxrsresmapfieldsComponent},
-    { path: 'jakartaJAXRSCaching', component: JakartaJaxrscachefileComponent}
+    { path: 'jakartaJAXRSCaching', component: JakartaJaxrscachefileComponent},
+    { path: 'jakartaJAXRSfilter', component: JakartaJaxrsfilterComponent}
   ] },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [
