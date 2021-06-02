@@ -111,6 +111,107 @@ export class JakartaJaxrscachefileComponent implements OnInit {
     }
   }`;
 
+  fileUpload = `
+  @Entity
+  public class User {
+    
+    @Id
+    private Long id;
+
+    // ... other fields ...
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] image;
+
+    // ... public getters and setters, and methods ...
+  }
+
+  @Path("users")
+  @Consumes("application/json")
+  public class SomeClass {
+
+    @Inject
+    SomeService someService;
+
+    @Inject
+    PersistenceService persistenceService;
+
+    // use something like "api/v1/users/upload?id=3"
+    @POST
+    @Path("upload")
+    @Consumes({MediaType.APPLICATION_OCTET_STREAM, "image/png", "image/jpeg", "image/jpg"})
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response uploadImageFile(File image, @QueryParam("id") @NotNull Long id){
+
+      User user = someService.findById(id);
+
+      try (Reader reader = new FileReader(image)) {
+          user.setImage(Files.readAllBytes(Paths.get(image.toURI())));
+
+          // assume that this either saves a new entity or updates a 
+          // currently existing one
+          persistenceService.save(user);
+
+          // the following code is not strictly necessary (could just return an "OK")
+          int totalsize = 0;
+          int count = 0;
+          final char[] buffer = new char[256];
+          while ((count = reader.read(buffer)) != -1) {
+              totalsize += count;
+          }
+          return Response.ok(totalsize).build();
+
+      } catch (IOException e) {
+          e.printStackTrace();
+          return Response.serverError().build();
+      }
+    }
+  }
+  `;
+
+  fileDownload = `
+  @Entity
+  public class User {
+    
+    @Id
+    private Long id;
+
+    // ... other fields ...
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] image;
+
+    // ... public getters and setters, and methods ...
+  }
+
+  @Path("users")
+  @Consumes("application/json")
+  public class SomeClass {
+
+    @Inject
+    SomeService someService;
+
+    // use something like "api/v1/users/download/mugShot.png?id=22"
+    @GET
+    @Path("download/{file}")
+    @Produces({MediaType.APPLICATION_OCTET_STREAM, "image/png", "image/jpeg", "image/jpg"})
+    public Response downloadImageFile(@QueryParam("id") @NotNull Long id,
+         @PathParam("file") String fileName){
+
+      User user = someService.findById(id);
+
+      if (user != null){
+        return Response.ok().entity(Files.write(Paths.get(fileName),
+             user.getImage()).toFile()).build();
+      }
+
+      return Response.noContent().build();
+    }
+  }
+  `;
+
   onHighlight(e) {
     this.response = {
       language: e.language,

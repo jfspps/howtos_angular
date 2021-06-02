@@ -37,3 +37,27 @@
 <p>
     Note that option 1 is more hard-coded and limits the client to XML or JSON. Option 2 is usually more flexible and may expose more media types that are not previously known to the developer. 
 </p>
+
+<h5>Uploading files to the server</h5>
+
+<p>
+    File uploading is outlined with an example below.
+</p>
+
+<pre>
+    <code [highlight]="fileUpload" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Downloading files from the server</h5>
+
+<p>
+    File downloading is outlined below. The <span class="annot">@Produces()</span> annotation is swapped for the <span class="annot">@Consumes()</span> annotation.
+</p>
+
+<pre>
+    <code [highlight]="fileDownload" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Depending on how the request for a download was made, the body of the response will contain the byte-array format of the image. For a web browser, this will normally trigger a download dialogue box.
+</p>
