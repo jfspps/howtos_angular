@@ -25,3 +25,55 @@
 <p>
     Cookies has a maxAge property which defines the lifetime of a cookie. Expired cookies are discarded.
 </p>
+
+<h5>Filters</h5>
+
+<p>
+    Filters are used to filter requests and responses. They intercept requests and responses just before they payload reaches its target and are quite powerful tools, particularly in the security domain. They can alter the data itself.
+</p>
+
+<p>
+    Regarding <b>request filters</b>, there are two types: "Pre-matching" (intercept before a URL is matched to the resource method) and "Post-matching" (intercept after a URL is matched with the resource method). In the latter case, the filter provides an opportunity for the web service to invoke methods or alter data before the body of the resource method is executed.
+</p>
+
+<p>
+    <b>Response filters</b> simply intercept payloads as they migrate from the web service to the client.
+</p>
+
+<h5>Static and dynamic container response filters</h5>
+
+<p>
+    The JAX-RS API defines the container request and response filter interfaces. To implement a response filter, for example, simply implement the ContainerResponseFilter interface. Then register the class with the container using <span class="annot">@Provider</span>.
+</p>
+
+<p>
+    Suppose that the web service requires the client to cache a response (from the server) for a given amount of time. This can be managed with its own class.
+</p>
+
+<pre>
+    <code [highlight]="cacheResponseFilter" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The above example is a <i>static</i> filter since it is always registered at runtime. In some cases, it may be preferable to register filters when they are needed, that is, dynamically as a <i>dynamic</i> filter. One can build a dynamic filter with a custom annotation that triggers the registration.
+</p>
+
+<pre>
+    <code [highlight]="maxAgeAnnot" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<pre>
+    <code [highlight]="dynamicResponseFilter" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    One then implements the JAX-RS DynamicFeature interface. The DynamicFeature interface defines the dynamic registration of (post-matching) filters at deployment and is itself registered with the JAX-RS runtime. Any custom response filters are registered individually on a needs basis through another custom implementation of DynamicFeature: DynamicFilterFeature. (Assume that DynamicFilterFeature is in the same package as the interface MaxAge.)
+</p>
+
+<pre>
+    <code [highlight]="dynamicFilterFeature" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    If a resource method (not class; typically a HTTP GET method) is annotated with <span class="annot">@MaxAge(age = 200)</span> for example, then the dynamic container response filter, DynamicFilter, will be registered and the annotation age parameter can be passed to the maxAge field of the cacheControl.
+</p>

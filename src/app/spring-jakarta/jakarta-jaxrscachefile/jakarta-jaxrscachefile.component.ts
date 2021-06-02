@@ -153,7 +153,8 @@ export class JakartaJaxrscachefileComponent implements OnInit {
           // currently existing one
           persistenceService.save(user);
 
-          // the following code is not strictly necessary (could just return an "OK")
+          // the following code is not strictly necessary - could just return an "OK" with
+          // Response.ok().status(Response.Status.OK).build();
           int totalsize = 0;
           int count = 0;
           final char[] buffer = new char[256];

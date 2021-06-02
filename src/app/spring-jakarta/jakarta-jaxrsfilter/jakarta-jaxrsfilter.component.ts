@@ -26,7 +26,18 @@ export class JakartaJaxrsfilterComponent implements OnInit {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
   }
-  `;
+  
+  // some other class
+  public class SomeClass implements Serializable {
+
+    @Inject
+    Logger logger;
+
+    public void logDemo(){
+      logger.log(Level.INFO, "This is an info message");
+      logger.log(Level.WARNING, "This is a warning message");
+    }
+  }`;
 
   cookie = `
   @Entity
@@ -74,6 +85,95 @@ export class JakartaJaxrsfilterComponent implements OnInit {
     }
   }
   `;
+
+  cacheResponseFilter = `
+  // register the filter with JAX-RS
+  @Provider
+  public class CacheResponseFilter implements ContainerResponseFilter {
+
+    // The requestContext will contain all info related to the request made
+    // (similar remarks for the responseContext) and is injected by the runtime
+    @Override
+    public void filter(ContainerRequestContext requestContext,
+       ContainerResponseContext responseContext) throws IOException {
+
+        // GET, POST, PUT or DELETE?
+        String methodType = requestContext.getMethod();
+
+        // e.g. "users" (not the full path "/api/v1/users")?
+        String uriPath = requestContext.getUriInfo().getPath();
+
+        // only change the response for a given URL and request method
+        if (methodType.equalsIgnoreCase("GET") && uriPath.equalsIgnoreCase("users")){
+
+          // cache response
+          CacheControl cacheControl = new CacheControl();
+          // cache for 200 secs
+          cacheControl.setMaxAge(200);
+          // only the client should cache (intermediaries should not cache)
+          cacheControl.setPrivate(true);
+
+          // edit the response (each entry is given first by a name and a value)
+          // the cacheControl will be embedded as an object
+          responseContext.getHeaders().add("Cache-Control", cacheControl);
+          // this is simply a String based name and value (like a cookie)
+          responseContext.getHeaders().add("Custom header message", "Surprise!");
+        }
+    }
+  }`;
+
+  maxAgeAnnot = `
+  @Retention(RetentionPolicy.RUNTIME)
+  @Target(ElementType.METHOD)
+  public @interface MaxAge {
+    int age();
+  }
+  `;
+
+  dynamicResponseFilter = `
+  public class DynamicFilter implements ContainerResponseFilter {
+
+    int age;
+
+    public DynamicFilter(int age){
+      this.age = age;
+    }
+
+    public DynamicFilter() {
+    }
+    
+    @Override
+    public void filter(ContainerRequestContext requestContext,
+       ContainerResponseContext responseContext) throws IOException {
+
+        if (requestContext.getMethod().equalsIgnoreCase("GET")){
+          CacheControl cacheControl = new CacheControl();
+          cacheControl.setMaxAge(age);
+          responseContext.getHeaders().add("Cache-Control", cacheControl);
+
+          // add other header fields as needed
+        }
+    }
+  }`;
+
+  dynamicFilterFeature = `
+  @Provider
+  public class DynamicFilterFeature implements DynamicFeature {
+
+    // the resourceInfo stores info related to the resource class and methods
+    @Override
+    public void configure(ResourceInfo resourceInfo, FeatureContext context){
+      
+      // from the calling resource method, retrieve its method's MaxAge annotation;
+      // if the resource method was not annotated then return null
+      MaxAge maxAgeAnnot = resourceInfo.getResourceMethod().getAnnotation(MaxAge.class);
+
+      if (maxAgeAnnot != null){
+        DynamicFilter dynamicFilter = new DynamicFilter(maxAgeAnnot.age());
+        context.register(dynamicFilter);
+      }
+    }
+  }`;
 
   onHighlight(e) {
     this.response = {
