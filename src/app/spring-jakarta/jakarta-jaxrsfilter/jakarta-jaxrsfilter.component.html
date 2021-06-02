@@ -77,3 +77,23 @@
 <p>
     If a resource method (not class; typically a HTTP GET method) is annotated with <span class="annot">@MaxAge(age = 200)</span> for example, then the dynamic container response filter, DynamicFilter, will be registered and the annotation age parameter can be passed to the maxAge field of the cacheControl.
 </p>
+
+<h5>Pre-matching container request filters</h5>
+
+<p>
+    The following example modifies a HTTP request method, effectively overriding what is defined on the server. Assume that the client is not allowed to send an HTTP DELETE method. In this case, one implements the JAX-RS ContainerRequestFilter interface. One then registers the filter statically and annotates with class with <span class="annot">@PreMatching</span> to intercept the payload before the resource method is matched to the URL.
+</p>
+
+<pre>
+    <code [highlight]="preMatchRequestFilter" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The client could then send any HTTP method since with all requests trigger the pre-matching request filter. The web service will then log the original request and then look for a field with name="X-Http-Method-Override". If the value is set with a valid HTTP method type (GET, POST, etc.) then the method with the matching method type and path are invoked. The choices are value="PUT" and value="DELETE", as shown in the above snippet.
+</p>
+
+<h5>Post-matching container request filters</h5>
+
+<p>
+    Authentication of a client can be implemented through a post-matching request filter. Once the URL has been mapped, the web service can verify the identity of the client. Authentication in Jakarta EE is best handled with <a href="https://jwt.io/" target="_blank">JSON Web Tokens JWT</a> standard and is presented in the next section.
+</p>

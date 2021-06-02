@@ -175,6 +175,62 @@ export class JakartaJaxrsfilterComponent implements OnInit {
     }
   }`;
 
+  preMatchRequestFilter = `
+  @Provider
+  @PreMatching
+  public class PreMatchRequestFilter implements ContainerRequestFilter {
+
+    @Inject
+    Logger logger;
+
+    @Override
+    public void filter(ContainerRequestContext requestContext) throws IOException {
+
+      logger.log(Level.INFO, "Original HTTP method: " + requestContext.getMethod());
+      String httpMethod = requestContext.getHeaderString("X-Http-Method-Override");
+
+      if (httpMethod != null && !httpMethod.isEmpty()){
+        logger.log(Level.INFO, "Http method received: " + httpMethod);
+        requestContext.setMethod(httpMethod);
+      }
+    }
+  }
+  
+  // in the resource class
+  @Path("users")
+  @Produces("application/json")
+  @Consumes("application/json")
+  public class UserResource {
+  
+      @Inject
+      Logger logger;
+  
+      @Inject
+      SomeService someService;
+  
+      // ... other resource methods ...  
+
+      // here, contacts in User
+      @PUT
+      @Path("{id: \\d+}")
+      @Consumes(MediaType.APPLICATION_FROM_URLENCODED)
+      public Response updateUserContacts(@PathParam("id") @NotNull Long id,
+        @FormParam("contacts") String contacts) {
+
+          someService.updateContacts(someService.findById(id), contacts);
+          return Response.ok().build();
+      }
+  
+      @DELETE
+      @Path("{id: \\d+}")
+      public Response removeUserContacts(@PathParam("id") @NotNull Long id) {
+          
+        someService.removeContacts(someService.findById(id));
+        return Response.ok().build();
+      }
+  }
+  `;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
