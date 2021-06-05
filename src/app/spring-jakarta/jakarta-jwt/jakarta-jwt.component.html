@@ -1,0 +1,21 @@
+<h5>Security in JAX-RS</h5>
+
+<p>
+    Java security is more commonly handled by the exchange of matching "JSON web tokens" between the client and web service. The standard is referred to as JSON Web Tokens, or JWT. There are many implementations of JWT for a range of languages (other than Java) and platforms. The example shown here will use the <a href="https://github.com/jwtk/jjwt" target="_blank">Java JSON Web Token</a> or JJWT API. The JJWT will be implemented through post-matching filters in JAX-RS.
+</p>
+
+<p>
+    This section will also introduce the <a href="https://shiro.apache.org/" target="_blank">Apache Shiro</a> API with JAX-RS.
+</p>
+
+<p>
+    The Maven dependencies for JJWT are <a href="https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt/" target="_blank">here</a> and for Apache Shiro are <a href="https://mvnrepository.com/artifact/org.apache.shiro/shiro-core" target="_blank">here</a>. (For more on dependency scope, see the official <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope" target="_blank">docs</a>.) Apache Shiro will require Simple Logging Facade for Java <a href="http://www.slf4j.org/" target="_blank">SLF4J</a>.
+</p>
+
+<pre>
+    <code [highlight]="mavenRepo" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Overall, one annotates the relevant resource methods with <span class="annot">@Secure</span> to indicate which methods require HTTP authorisation header. To gain access, the client would normally login (via a HTTP body Content type: URL-Encoded Form) and receive a token from the service. The JWT is a "bearer string", essentially, an encoded string. The client would then send the token for subsequent requests through a "Bearer Token" (normally bearer token is set to "Without Authentication"; there are several other standards available including <a href="https://oauth.net/">OAuth</a>) as part of the HTTP header (not the body) that points to the token (so the user may not need to login again). 
+</p>

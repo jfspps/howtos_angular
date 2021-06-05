@@ -90,6 +90,7 @@ import { JakartaJaxrsintroComponent } from './spring-jakarta/jakarta-jaxrsintro/
 import { JakartaJaxrsresmapfieldsComponent } from './spring-jakarta/jakarta-jaxrsresmapfields/jakarta-jaxrsresmapfields.component';
 import { JakartaJaxrscachefileComponent } from './spring-jakarta/jakarta-jaxrscachefile/jakarta-jaxrscachefile.component';
 import { JakartaJaxrsfilterComponent } from './spring-jakarta/jakarta-jaxrsfilter/jakarta-jaxrsfilter.component';
+import { JakartaJwtComponent } from './spring-jakarta/jakarta-jwt/jakarta-jwt.component';
 
 @NgModule({
   declarations: [
@@ -178,7 +179,8 @@ import { JakartaJaxrsfilterComponent } from './spring-jakarta/jakarta-jaxrsfilte
     JakartaJaxrsintroComponent,
     JakartaJaxrsresmapfieldsComponent,
     JakartaJaxrscachefileComponent,
-    JakartaJaxrsfilterComponent
+    JakartaJaxrsfilterComponent,
+    JakartaJwtComponent
   ],
   imports: [
     BrowserModule,
