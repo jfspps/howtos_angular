@@ -9,6 +9,10 @@
 </p>
 
 <p>
+    Before continuing, it is advisable to refer to the <a href="https://jwt.io/introduction" target="_blank">JWT Introduction</a> and understand the basic components of a JWT: the header, the payload and the signature. 
+</p>
+
+<p>
     The Maven dependencies for JJWT are <a href="https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt/" target="_blank">here</a> and for Apache Shiro are <a href="https://mvnrepository.com/artifact/org.apache.shiro/shiro-core" target="_blank">here</a>. (For more on dependency scope, see the official <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope" target="_blank">docs</a>.) Apache Shiro will require Simple Logging Facade for Java <a href="http://www.slf4j.org/" target="_blank">SLF4J</a>.
 </p>
 
@@ -17,5 +21,77 @@
 </pre>
 
 <p>
-    Overall, one annotates the relevant resource methods with <span class="annot">@Secure</span> to indicate which methods require HTTP authorisation header. To gain access, the client would normally login (via a HTTP body Content type: URL-Encoded Form) and receive a token from the service. The JWT is a "bearer string", essentially, an encoded string. The client would then send the token for subsequent requests through a "Bearer Token" (normally bearer token is set to "Without Authentication"; there are several other standards available including <a href="https://oauth.net/">OAuth</a>) as part of the HTTP header (not the body) that points to the token (so the user may not need to login again). 
+    Overall, one annotates the relevant resource methods with <span class="annot">@Secure</span> to indicate which methods require a HTTP authorisation header (this is a custom annotation, explained later in this section). To gain access, the client would normally login (via a HTTP body Content type: URL-Encoded Form) and receive a token from the service. The JWT is a "bearer string", essentially, an encoded string. The client would then send the token for subsequent requests through a "Bearer Token" (normally bearer token is set to "Without Authentication"; there are several other standards available including <a href="https://oauth.net/">OAuth</a>) as part of the HTTP header (not the body). The user would usually not need to log in again, assuming the web token has not expired. 
 </p>
+
+<h5>The model and JPA persistence and query services</h5>
+
+<p>
+    For demonstration purposes, the User bean will have a email, password and "salt" (related to encryption) String fields.
+</p>
+
+<pre>
+    <code [highlight]="userClass" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The persistence service is a stateless EJB which handles JPA entities.
+</p>
+
+<pre>
+    <code [highlight]="persistenceService" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The QueryService is another stateless EJB and manages the JPA queries. 
+</p>
+
+<pre>
+    <code [highlight]="queryService" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Password encryption with Apache Shiro</h5>
+
+<p>
+    Passwords must always be hashed and never stored as plain Strings. The SecurityUtil class encrypts passwords in a hashed form. This is where Apache Shiro comes in. The API provides, amongst other things, password hashing techniques.
+</p>
+
+<pre>
+    <code [highlight]="securityUtil" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The salt field (a randomly generated sequence of bytes) is generated before a plain String password is hashed. The salt acts as a key which enables a another plain password to be hashed in the same way. When the user needs to log in again, the system will need salt field so that future passwords submitted can be compared to the persisted hashed password. Note that salt related methods are private and can only be invoked through the public methods. Additionally, the hashed password is never decrypted to a plain password.
+</p>
+
+<h5>The JAX-RS "controller" layer</h5>
+
+<p>
+    With the User model and security services prepared, one then proceeds to build the User resource class and methods. This represents the controller (web service) layer and through HTTP methods, invokes the PersistenceService methods (which in turn makes use of the SecurityUtil class methods). It also contains the main point of this section, which is the generation of a JSON web token, via the method <span class="commands">getToken()</span>. Note that the web token is unique to a particular URL and hence a particular resource method. In this case, the User's email is used to build a JWT "key" or "secret", an attribute that would be known by the client and web service (since they both know the email). The key is needed to build the signature.
+</p>
+
+<pre>
+    <code [highlight]="userResource" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    When the user fails to get authenticated (via POST method "/api/v1/users/login") then a SecurityException is thrown. This exception is mapped to a HTTP response, as defined below.
+</p>
+
+<pre>
+    <code [highlight]="securityExceptionMapper" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>The post-matching request filter and @Secure</h5>
+
+<p>
+    With the user authenticated, they can then invoke all resource methods that are annotated with <span class="annot">@Secure</span>. First, the request filter is defined in its own class, given next. This also introduces a new annotation, <span class="annot">@Priority(Priorities.AUTHENTICATION)</span>. This prioritises the SecurityFilter over all other filters (the lower the number, the higher the priority; AUTHENTICATION = 1000). Hence, this filter filters traffic before other filters, which makes sense since it defines the authentication layer as it were. 
+</p>
+
+<p>
+    The <span class="annot">@Secure</span> is a "name-binding" annotation. Name-bind associates an annotation with a filter (a class which implements a JAX-RS filter interface). Any method which uses the same annotation, that is <span class="annot">@Secure</span> is then referred to SecurityFilter and hence requires authentication. It does not mean (as with resource methods) that this class, SecurityFilter, or its methods require authentication or require a HTTP authorisation header. The <span class="annot">@Secure</span> class level annotation is essentially a reference for all resource methods.
+</p>
+
+<pre>
+    <code [highlight]="securityFilter" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
