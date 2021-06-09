@@ -16,10 +16,10 @@
     The request was made on one thread (currentThread). One then usually sets the timeout in case the AsyncResponse's resume() method (i.e. expensiveMethod() did not return on time) is not called. The alternative method, shown above, uses a CompletableFuture interface that is part of Java SE's Concurrent package.
 </p>
 
-<h5>Customising the (default) JSON-B API</h5>
+<h5>Java API for JSON Binding JSON-B</h5>
 
 <p>
-    Without further change to the current JSON responses applied thus far, all are managed by the JSON-B API. This works both ways, with consumption and production of JSON strings.
+    Without further change to the current JSON responses applied thus far, all are managed by the JSON-B (JSON Binding) API. This works both ways, with consumption and production of JSON strings.
 </p>
 
 <p>
@@ -34,4 +34,30 @@
 
 <p>
     There are many other customisations available and are documented in the JSON-B <a href="https://javaee.github.io/jsonb-spec/" target="_blank">repository</a>.
+</p>
+
+<h5>Java API for JSON Processing JSON-P</h5>
+
+<p>
+    Set some context first. Hypermedia is an extension of HyperText and allows for the presentation of audio, video and hyperlinks in addition to hypertext, in the HTTP response body. A standard, known as <i>Hypermedia as the Engine of Application State</i> (HATEOAS) is a REST architecture where the client interacts with a web service dynamically, that is, a response from the web service actually provides info or directions about what other resources are <i>currently</i> available. Previously, a client would have to make individual HTTP requests for resources with (statically) predefined HTTP URLs. Furthermore, the client would have to be made compatible with the server at build-time in order to access resources. Dynamic interaction is one in which a client makes a single request without knowing anything-else about the server. The web service would then reply with a response, which itself contain more information about what else is available. Clearly, this response needs to be handled with care and not risk exposing resources to all clients all the time.
+</p>
+
+<p>
+    A server returns URLs in the body of the response as a JSON feed (instead of the header) and the client would then be able to parse and call said URLs. Which actions or URLs are available are dependent on the state of the resource ("Engine of Application State"), which is managed by the web service. If the web service deems that the request URLs are not available, then it is possible to direct the service to not include them in the body of the response. Overall, the interaction of the client and server is dynamic and not set at build-time.
+</p>
+
+<p>
+    The Java API for JSON Processing <a href="https://javaee.github.io/jsonp/" target="_blank">JSON-P</a> is a more low-level API (compared to JSON-B) can provide some of the hypermedia functionality, in the following example, with links to persistent entities.
+</p>
+
+<p>
+    The JSON-P responses take the form of key-value pairs, in which the key value is always a Java String. The following resource method builds a new User object and then returns a JSON-P hypermedia response, complete with hyperlinks.
+</p>
+
+<pre>
+    <code [highlight]="jsonP" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The response returned by the service will contain URLs for all other Users, the path to the newly built User and their department. The client can then process the JSON feed and make further requests based on the return.
 </p>

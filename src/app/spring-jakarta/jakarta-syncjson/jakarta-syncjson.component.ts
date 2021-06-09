@@ -96,6 +96,49 @@ export class JakartaSyncjsonComponent implements OnInit {
   }
   `;
 
+  jsonP = `
+  @Produces("application/json")
+  @POST //api/v1/users POST Request
+  @Path("users")
+    public Response createUser(@Valid User user) {
+      persistenceService.saveUser(user);
+
+      URI uri = uriInfo
+                  .getAbsolutePathBuilder()
+                  .path(user.getId().toString())
+                  .build();
+
+      // resource path to all other users
+      URI otherUsers = uriInfo
+                  .getBaseUriBuilder()
+                  .path(UserResource.class)
+                  .path(UserResource.class, "getUsers")
+                  .build();
+
+      URI dept = uriInfo
+                  .getBaseUriBuilder()
+                  .path(DepartmentResource.class)
+                  .path(DepartmentResource.class, "getDepartmentById")
+                  .resolveTemplate("id", user.getDepartment().getId())
+                  .build();
+
+      // this is the "JSON-P" builder
+      JsonObjectBuilder links = Json.createObjectBuilder()
+                                  .add("_links", Json.createArrayBuilder()
+                                  .add(Json.createObjectBuilder()
+                                  .add("_otherUsers", otherUsers.toString())
+                                  .add("_self", uri.toString())
+                                  .add("_selfDept", dept.toString())
+                                  .build()));
+
+      jaxRsClient.postUserToSSE(user);
+
+      return Response
+                .ok(links.build().toString())
+                .status(Response.Status.CREATED)
+                .build();
+    }`;
+
   onHighlight(e) {
     this.response = {
       language: e.language,
