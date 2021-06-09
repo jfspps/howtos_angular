@@ -61,3 +61,25 @@
 <p>
     The response returned by the service will contain URLs for all other Users, the path to the newly built User and their department. The client can then process the JSON feed and make further requests based on the return.
 </p>
+
+<h5>The JAX-RS Client API</h5>
+
+<p>
+    The client-side API of JAX-RS provides web services the ability to build instances of clients within a web service. The client lifetime is usually brief and can be used to (temporarily) access other web services via REST calls. The following example attempts to find out which sites, where an email address was applied, have been breached. This is achieved by sending a request from the JAX-RS Client instance to <a href="https://haveibeenpwned.com/" target="_blank">haveibeenpwned.com</a> (at the time of writing, the specific endpoint request is documented <a href="https://haveibeenpwned.com/API/v3#BreachesForAccount" target="_blank">here</a>).
+</p>
+
+<pre>
+    <code [highlight]="clients" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The above snippet shows how the JSON arrays are built in a non-reactive and reactive way. A client (external to the web service) can invoke the request, through the web service (that is, client -> web service(JAX-RS client -> haveibeenpwned) return to --> client), using the following resource class.
+</p>
+
+<pre>
+    <code [highlight]="clientResource" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The (external) client will eventually receive a JSON array of all the web sites that have been breached (and when) that have stored the given email address at some point in time.
+</p>

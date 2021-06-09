@@ -131,6 +131,7 @@ export class JakartaSyncjsonComponent implements OnInit {
                                   .add("_selfDept", dept.toString())
                                   .build()));
 
+      // SSE - server sent event (JAX-RS clients discussed below)
       jaxRsClient.postUserToSSE(user);
 
       return Response
@@ -138,6 +139,142 @@ export class JakartaSyncjsonComponent implements OnInit {
                 .status(Response.Status.CREATED)
                 .build();
     }`;
+
+    clients = `
+@RequestScoped
+public class JaxRsClient {
+
+    // the JAX-RS Client
+    private Client client;
+
+    WebTarget webTarget;
+
+    // check for breaches to an API (pass email as the parameter)
+    // https://haveibeenpwned.com/api/v3/breachedaccount/{account}
+    private final String haveIBeenPawned = "https://haveibeenpwned.com/api/v3/breachedaccount";
+
+    @PostConstruct
+    private void init() {
+      // build the short-lived client in the web service
+        client = ClientBuilder
+                    .newBuilder()
+                    .connectTimeout(7, TimeUnit.SECONDS)
+                    .readTimeout(3, TimeUnit.SECONDS)
+                    .build();
+
+        // set the client's target (pass the root path)
+        webTarget = client.target(haveIBeenPawned);
+    }
+
+    @PreDestroy
+    private void destroy() {
+        if (client != null) {
+            //Be sure to close to prevent resource leakage
+            client.close();
+        }
+    }
+
+    // synchronous JAX-RS method
+    public int checkBreaches(String email) {
+
+        // build a JSON from the breach response
+        JsonArray jsonValues = webTarget
+                                .path("{account}")
+                                // send the email address
+                                .resolveTemplate("account", email)
+                                // prepare for a plain text response
+                                .request(MediaType.TEXT_PLAIN)
+                                // get() is HTTP GET; convert response to JSONArray
+                                .get(JsonArray.class);              
+
+        parseJsonArray(jsonValues);
+        return jsonValues.size();
+    }
+
+    public JsonArray getBreaches(String email) {
+        return webTarget
+                .path("{account}")
+                .resolveTemplate("account", email)
+                .request(MediaType.TEXT_PLAIN)
+                .get(JsonArray.class);                
+    }
+
+    // asynchronous (reactive) JAX-RS method
+    public void checkBreachesRx(String email) {
+        CompletionStage<Response> responseCompletionStage =
+                                     webTarget.path("{account}")
+                                              .resolveTemplate("account", email)
+                                              .request()
+                                              .rx()     // reactive stream
+                                              .get();
+
+        responseCompletionStage
+                .thenApply(response -> response.readEntity(JsonArray.class))
+                .thenAccept(this::parseJsonArray);
+    }
+
+    // used to print JSON array to the console
+    private void parseJsonArray(JsonArray jsonArray) {
+        for (JsonValue jsonValue : jsonArray) {
+            JsonObject jsonObject = jsonValue.asJsonObject();
+
+            // return the string value stored for the given string keys
+            // (see haveIbeenPwned docs for more info)
+            String domain = jsonObject.getString("Domain");
+            String breachDate = jsonObject.getString("BreachDate");
+
+            System.out.println("Breach name is " + domain);
+            System.out.println("Breach date is " + breachDate + "\\n");
+        }
+        System.out.println("Breach size is " + jsonArray.size());
+    }
+
+    public void postUserToSSE(User user) {
+        String json = JsonbBuilder.create().toJson(user);
+
+        int status = client
+                        .target("http://localhost:8080/someClass/api/v1/sse-path")
+                        .request(MediaType.TEXT_PLAIN)
+                        .post(Entity.text(json))
+                        .getStatus();
+
+        System.out.println("Status received " + status);
+        System.out.println(json);
+    }
+}`;
+
+clientResource = `
+@Path("programmatic")
+@Produces(MediaType.APPLICATION_JSON)
+public class JaxRsClientResource {
+
+    @Inject
+    JaxRsClient jaxRsClient;
+
+    @Path("breach/{email}")
+    @GET
+    public Response checkBreaches(@PathParam("email") @NotEmpty String email) {
+
+        JsonArray breachesFound = jaxRsClient.getBreaches(email);
+        List<JsonObject> jsonObjects = new ArrayList<>();
+
+        if (breachesFound.size() > 0) {
+            for (JsonValue jsonValue : breachesFound) {
+                JsonObject jsonObject = jsonValue.asJsonObject();
+
+                jsonObjects.add(Json.createObjectBuilder()
+                                    .add("breach_domain", jsonObject.getString("Domain"))
+                                    .add("breach_date", jsonObject.getString("BreachDate"))
+                                    .build()
+                );
+            }
+            return Response.ok(jsonObjects).build();
+        }
+
+        return Response.ok("No breaches found for email " + email).build();
+    }
+}
+`;
 
   onHighlight(e) {
     this.response = {
