@@ -1,13 +1,12 @@
-<h5>Asynchronous resources</h5>
+<h5>Executing resource methods asynchronously</h5>
 
 <p>
-    Running methods asynchronously to the web service. Suppose the same method can be applied to multiple clients, for example, multiple clients want to monitor their users' account and find out how it is credited and debited over a few years. Such a process, running alongside all other processes is costly. To give the resource method time to process one can suspend the response and then either wait for the method to complete (and respond accordingly) or respond with a timeout. The costly method will be made to run on its own thread.
+    Running methods asynchronously in the web service. Suppose the same method can be applied to multiple clients, for example, multiple clients want to monitor their users' account and find out how it is credited and debited over a few years. Such a process, running alongside all other processes is costly. To give the resource method time to process one can suspend the response and then either wait for the method to complete (and respond accordingly) or respond with a timeout. The costly method will be made to run on its own thread.
 </p>
 
 <p>
     To proceed, one can extend Java SE's ExecutorService with ManagedExecutorService (MES). The central piece is AsyncResponse's resume() method. One uses the MES to start a new thread (spawnedThread) and execute expensiveMethod(). When expensiveMethod() returns, AsyncResponse's resume() method then communicates with the client. If expensiveMethod() takes longer than the timeout threshold, then the client will receive a timeout notice.
 </p>
-
 
 <pre>
     <code [highlight]="runSuspended" (highlighted)="onHighlight($event)" [languages]="lang"></code>
@@ -15,4 +14,24 @@
 
 <p>
     The request was made on one thread (currentThread). One then usually sets the timeout in case the AsyncResponse's resume() method (i.e. expensiveMethod() did not return on time) is not called. The alternative method, shown above, uses a CompletableFuture interface that is part of Java SE's Concurrent package.
+</p>
+
+<h5>Customising the (default) JSON-B API</h5>
+
+<p>
+    Without further change to the current JSON responses applied thus far, all are managed by the JSON-B API. This works both ways, with consumption and production of JSON strings.
+</p>
+
+<p>
+    In a few (rare) cases, it may be expected that the <i>marshalling</i> (Java objects to JSON or XML) and <i>unmarshalling</i> (JSON or XML to Java objects) processes need to be customised. Generally, the former is part of <i>serialisation</i>, where Java objects are converted into byte streams required for network transfer. The latter stage is part of <i>deserialisation</i> where the byte stream from the network is converted back to a Java object. Consequently, entities are almost always based on beans that implement the Serializable interface. The customisation generally amounts to using more annotations, a few of which are listed below.
+</p>
+
+<ul>
+    <li><span class="annot">@JsonbDateFormat(value = "yyyy-MM-dd")</span>: use this to annotate LocalDate type fields of the entity</li>
+    <li><span class="annot">@JsonbTransient</span>: use this to annotate Collections (fields) that should not be marshalled to JSON (the entity type in the collection would be handled separately)</li>
+    <li><span class="annot">@JsonbPropertyOrder(PropertyOrderStrategy.LEXICOGRAPHICAL)</span>: use this to annotate the class (bean) and determine the order in which the JSON fields should appear (lexicographical or alphabetical, or in reverse with REVERSE)</li>
+</ul>
+
+<p>
+    There are many other customisations available and are documented in the JSON-B <a href="https://javaee.github.io/jsonb-spec/" target="_blank">repository</a>.
 </p>
