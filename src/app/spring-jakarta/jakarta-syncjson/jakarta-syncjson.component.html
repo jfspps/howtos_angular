@@ -1,1 +1,18 @@
 <h5>Asynchronous resources</h5>
+
+<p>
+    Running methods asynchronously to the web service. Suppose the same method can be applied to multiple clients, for example, multiple clients want to monitor their users' account and find out how it is credited and debited over a few years. Such a process, running alongside all other processes is costly. To give the resource method time to process one can suspend the response and then either wait for the method to complete (and respond accordingly) or respond with a timeout. The costly method will be made to run on its own thread.
+</p>
+
+<p>
+    To proceed, one can extend Java SE's ExecutorService with ManagedExecutorService (MES). The central piece is AsyncResponse's resume() method. One uses the MES to start a new thread (spawnedThread) and execute expensiveMethod(). When expensiveMethod() returns, AsyncResponse's resume() method then communicates with the client. If expensiveMethod() takes longer than the timeout threshold, then the client will receive a timeout notice.
+</p>
+
+
+<pre>
+    <code [highlight]="runSuspended" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The request was made on one thread (currentThread). One then usually sets the timeout in case the AsyncResponse's resume() method (i.e. expensiveMethod() did not return on time) is not called. The alternative method, shown above, uses a CompletableFuture interface that is part of Java SE's Concurrent package.
+</p>
