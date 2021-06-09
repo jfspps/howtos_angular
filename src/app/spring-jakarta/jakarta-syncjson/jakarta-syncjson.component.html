@@ -83,3 +83,33 @@
 <p>
     The (external) client will eventually receive a JSON array of all the web sites that have been breached (and when) that have stored the given email address at some point in time.
 </p>
+
+<h5>Server Sent Event SSE</h5>
+
+<p>
+    SSE is essentially a one-way (unidirectional) communication from the web service to a client. The server can push UTF-8 encoded text to the client. New messages are separated by the new line character "\n". A more advanced technology which is bidirectional are Web Sockets (discussed in the next section). Messaging allows servers to relay information to the client and also trigger events on the client (provided the text sent matches the prerequisite format).
+</p>
+
+<p>
+    The above example with the method <span class="commands">postUserToSSE()</span> will now explained. When a client has posted a new User entity, the method marshals the new User and returns a response to the client with the expected JSON-P hypermedia. Before the response is sent, the method <span class="commands">postUserToSSE()</span> sends the new User to the JAX-RS client (recall, the JAX-RS client resides within the web service and is primarily used to make requests from the service). The User is sent to the JAX-RS client, a portion is repeated below.
+</p>
+
+<pre>
+    <code [highlight]="postUserToSSE" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    This triggers the construction of another JSON-B string, via marshalling. The JAX-RS client is then directed to a URL target and is requesting a plain text response upon making a POST request, using the User's JSON-B feed. The request is actually made to the same web service that defines the JAX-RS client. The route is handled by the web services resource class, ServerSentEventResource, given below. The POST request invokes the broadCastUser() method, which then sends a one-way test stream (with the User's details) via SSE's broadcast() method (defined in the Java EE 8 API, not here) back to any connected client.
+</p>
+
+<pre>
+    <code [highlight]="SSE" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The ServerSentEventResource broadcastUser() then invokes the SseBroadcaster broadcast() method, sending a text message to all connected clients, before returning a HTTP status code to the JAX-RS client, which is then printed to the console. The JAX-RS client then prints the JSON-B string to the console as a final step.
+</p>
+
+<p>
+    Any client that sends a POST request with a URL encoded form invokes the ServerSentEventResource's ServerSentEventResource() method. This also triggers the SseBroadcaster broadcast() method, and so the connected client receives a text message.
+</p>

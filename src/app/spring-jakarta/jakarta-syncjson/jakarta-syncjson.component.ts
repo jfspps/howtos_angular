@@ -131,7 +131,7 @@ export class JakartaSyncjsonComponent implements OnInit {
                                   .add("_selfDept", dept.toString())
                                   .build()));
 
-      // SSE - server sent event (JAX-RS clients discussed below)
+      // SSE - server sent event (JAX-RS clients and SSE discussed below)
       jaxRsClient.postUserToSSE(user);
 
       return Response
@@ -275,6 +275,82 @@ public class JaxRsClientResource {
     }
 }
 `;
+
+postUserToSSE = `
+public void postUserToSSE(User user) {
+  String json = JsonbBuilder.create().toJson(user);
+
+  int status = client
+                  .target("http://localhost:8080/someClass/api/v1/sse-path")
+                  .request(MediaType.TEXT_PLAIN)
+                  .post(Entity.text(json))
+                  .getStatus();
+
+  System.out.println("Status received " + status);
+  System.out.println(json);
+}`;
+
+SSE = `
+@ApplicationScoped
+@Path("sse-path")
+public class ServerSentEventResource {
+
+    @Context
+    private Sse sse;
+
+    @Inject
+    private Logger logger;
+
+    private SseBroadcaster sseBroadcaster;
+    private SseEventSink eventSink;
+
+    @PostConstruct
+    private void init() {
+        sseBroadcaster = sse.newBroadcaster();
+    }
+
+    @GET
+    @Produces(MediaType.SERVER_SENT_EVENTS)
+    public void fetch(@Context SseEventSink sseEventSink) {
+        sseBroadcaster.register(sseEventSink);
+        this.eventSink = sseEventSink;
+
+        logger.log(Level.INFO,"SSE opened!" );
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response broadcastMessage(@FormParam("message") String message) {
+        OutboundSseEvent broadcastEvent = sse.newEvent(message);
+
+        // note that broadcast() is defined by SseBroadcaster, not this class
+        sseBroadcaster.broadcast(broadcastEvent);
+        return Response.noContent().build();
+    }
+
+    // invoked, ultimately, by postUserToSSE()
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response broadcastUser(String user) {
+        OutboundSseEvent broadcastEvent = sse
+                                          .newEventBuilder()
+                                          .name("user")
+                                          .data(user)
+                                          .mediaType(MediaType.TEXT_PLAIN_TYPE)
+                                          .build();
+
+        // note that broadcast() is defined by SseBroadcaster, not this class
+        sseBroadcaster.broadcast(broadcastEvent);
+        return Response.ok().status(Response.Status.OK).build();
+    }
+
+    @PreDestroy
+    private void destroy() {
+        if (eventSink != null) {
+            eventSink.close();
+        }
+    }
+}`;
 
   onHighlight(e) {
     this.response = {
