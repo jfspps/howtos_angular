@@ -86,6 +86,7 @@ import { JakartaJaxrscachefileComponent } from './spring-jakarta/jakarta-jaxrsca
 import { JakartaJaxrsfilterComponent } from './spring-jakarta/jakarta-jaxrsfilter/jakarta-jaxrsfilter.component';
 import { JakartaJwtComponent } from './spring-jakarta/jakarta-jwt/jakarta-jwt.component';
 import { JakartaSyncjsonComponent } from './spring-jakarta/jakarta-syncjson/jakarta-syncjson.component';
+import { JakartaWebsocketsComponent } from './spring-jakarta/jakarta-websockets/jakarta-websockets.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -158,7 +159,8 @@ const appRoutes: Routes = [
     { path: 'jakartaJAXRSCaching', component: JakartaJaxrscachefileComponent},
     { path: 'jakartaJAXRSfilter', component: JakartaJaxrsfilterComponent},
     { path: 'jakartaJAXRSjwt', component: JakartaJwtComponent},
-    { path: 'jakartaJAXRSsyncJSON', component: JakartaSyncjsonComponent}
+    { path: 'jakartaJAXRSsyncJSON', component: JakartaSyncjsonComponent},
+    { path: 'jakartaWebSockets', component: JakartaWebsocketsComponent}
   ] },
 
   { path: 'AngularDB', component: AngulardbpageComponent, children: [

@@ -1,0 +1,65 @@
+<h5>Web sockets</h5>
+
+<p>
+    Web sockets enable a server to send bidirectional messages to/from the client. Contrast to SSE, which are unidirectional from the server to the client.
+</p>
+
+<p>
+    To make a POJO a web socket endpoint, one can either use annotations or a more programmatic approach. The former is discussed first.
+</p>
+
+<p>
+    The class annotation is <span class="annot">@ServerEndpoint("somePath")</span> and is defined in the WebSocket server API. The methods should also annotated.
+</p>
+
+<pre>
+    <code [highlight]="annotWebSocket" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The programmatic approach is given below. This approach involves the extension of the Endpoint class.
+</p>
+
+<pre>
+    <code [highlight]="programmaticWebSocket" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Note that with the programmatic approach, there is not path info yet. This is handled by an implementation of the ServerApplicationConfig interface (along with two method overrides).
+</p>
+
+<pre>
+    <code [highlight]="serverConfig" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Path parameters (URI templates)</h5>
+
+<p>
+    It is also possible to implement paths with parameters (aka "URI templates") and then pass parameters with <span class="annot">@PathParam</span> (note that the annotation comes from the Web Sockets API, not the JAX-RS API). In the example below, the User's name is part of the message.
+</p>
+
+<pre>
+    <code [highlight]="pathParams" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>JSON encoders and decoders</h5>
+
+<p>
+    The Web sockets can send different data types over the web socket protocol as a JSON string.
+</p>
+
+<pre>
+    <code [highlight]="encoderDecoder" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The web socket server endpoint is managed by a separate class (using the annotation approach).
+</p>
+
+<pre>
+    <code [highlight]="encoderDecoderEndpoint" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The JAX-RS runtime is informed of the required encoders and decoders to use, with the annotation <span class="annot">@ServerEndpoint()</span> given to the endpoint class.
+</p>
