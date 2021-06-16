@@ -58,8 +58,10 @@
     JPA 2.2 introduced support for Java 8's java.time package. The JPA provider will normally use the corresponding Date type in the database. No special annotations are required. Prior version of the JPA required the use of specific annotations to get things going.
 </p>
 
+<h5>Embeddable classes</h5>
+
 <p>
-    Inner classes or classes which are embedded into others (through composition) in Java usually have no purpose other than to serve the Java class they are embedded in. Instances of the outer class typically have fields which are the same type as the inner (embedded) class. To store the inner class, annotate the class to be embedded with <span class="annot">@Embeddable</span> and then annotate the field of the class which is embedded with <span class="annot">@Embedded</span>. This causes the JPA to save the embedded (inner) class with its own columns, into the 'main class'.
+    Inner classes or classes which are embedded into others (through composition) in Java usually have no purpose other than to serve the Java class they are embedded in. Instances of the outer class typically have fields which are the same type as the inner (embedded) class. To store the inner class, annotate the class to be embedded with <span class="annot">@Embeddable</span> and then annotate the field of the class which is embedded with <span class="annot">@Embedded</span>. This causes the JPA to save the embedded (inner) class with its own columns, into the 'main class'. Note that an embeddable class should <b>not</b> be annotated with <span class="annot">@Entity</span> at the same time.
 </p>
 
 <pre>
