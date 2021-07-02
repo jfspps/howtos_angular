@@ -93,6 +93,7 @@ import { JakartaJaxrsfilterComponent } from './spring-jakarta/jakarta-jaxrsfilte
 import { JakartaJwtComponent } from './spring-jakarta/jakarta-jwt/jakarta-jwt.component';
 import { JakartaSyncjsonComponent } from './spring-jakarta/jakarta-syncjson/jakarta-syncjson.component';
 import { JakartaWebsocketsComponent } from './spring-jakarta/jakarta-websockets/jakarta-websockets.component';
+import { JavaDownloadStreamComponent } from './javapage/java-download-stream/java-download-stream.component';
 
 @NgModule({
   declarations: [
@@ -184,7 +185,8 @@ import { JakartaWebsocketsComponent } from './spring-jakarta/jakarta-websockets/
     JakartaJaxrsfilterComponent,
     JakartaJwtComponent,
     JakartaSyncjsonComponent,
-    JakartaWebsocketsComponent
+    JakartaWebsocketsComponent,
+    JavaDownloadStreamComponent
   ],
   imports: [
     BrowserModule,

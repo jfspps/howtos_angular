@@ -87,6 +87,7 @@ import { JakartaJaxrsfilterComponent } from './spring-jakarta/jakarta-jaxrsfilte
 import { JakartaJwtComponent } from './spring-jakarta/jakarta-jwt/jakarta-jwt.component';
 import { JakartaSyncjsonComponent } from './spring-jakarta/jakarta-syncjson/jakarta-syncjson.component';
 import { JakartaWebsocketsComponent } from './spring-jakarta/jakarta-websockets/jakarta-websockets.component';
+import { JavaDownloadStreamComponent } from './javapage/java-download-stream/java-download-stream.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -107,6 +108,7 @@ const appRoutes: Routes = [
     { path: 'javaNIO', component: JavaniopageComponent},
     { path: 'javaNIO_2', component: JavanioFilesyspageComponent},
     { path: 'javaClientServer', component: JavaclientserverpageComponent},
+    { path: 'javaDownloadStream', component: JavaDownloadStreamComponent},
     { path: 'javaDesignPatterns', component: JavadesignpatternspageComponent},
     { path: 'javaArrayList', component: JavaArraylistComponent},
     { path: 'javaLinkedList', component: JavaLinkedlistComponent},
