@@ -5,5 +5,89 @@
 </p>
 
 <p>
-    The GitHub repo for the server side app is <a href="https://github.com/jfspps/ServerDemo" target="_blank">here</a> and the repo for the client side app is <a href="https://github.com/jfspps/ClientDemo" target="_blank">here</a>.
+    The GitHub repo for the client side app is <a href="https://github.com/jfspps/ClientDemo" target="_blank">here</a> and the repo for the server side app is <a href="https://github.com/jfspps/ServerDemo" target="_blank">here</a>.
 </p>
+
+<h5>TCP compared to UDP</h5>
+
+<p>
+    TCP (Transmission Control Protocol) packets are sent from the client and confirmed by a response from the server. The packet does not contain information regarding the the client's address or port number used. UDP (User Datagram Protocol) datagrams, effectively UDP packets, do contain address and port info and are sent from the client without requiring confirmation or response from the server, by default. With UDP, the server has the option of sending a message back to the client using the location details provided.
+</p>
+
+<h5>High-level API involving URI and URL</h5>
+
+<p>
+    This part shows how a client would be constructed to query other services. URIs (uniform resource identifier) can be absolute or relative, whereas URLs (uniform resource locator) are always absolute. There are nine components (listed as part of <span class="commands">printComponents()</span> below) to a URI, as outlined <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier" target="_blank">here</a>. The main() class and helper method is given first, followed by a number of methods available.
+</p>
+
+<pre>
+    <code [highlight]="highLevel" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The following demonstrates querying URLs with URLConnection.
+</p>
+
+<pre>
+    <code [highlight]="URLConnection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The following demonstrates querying URLs with HttpURLConnection (there is an equivalent HttpsURLConnection class).
+</p>
+
+<pre>
+    <code [highlight]="HttpURLConnection" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The following demonstrates conversion of URLs to URIs and then processing with Java streams.
+</p>
+
+<pre>
+    <code [highlight]="streams" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The following demonstrates querying base and relative URIs.
+</p>
+
+<pre>
+    <code [highlight]="urlToUri" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Low-level API regarding TCP</h5>
+
+<p>
+    This part outlines how both a client and server, communicating across TCP, would operate. TCP connections (ServerSocket) are slower but more reliable and check for dropped packets. What follows is the implementation of the TCP client.
+</p>
+
+<pre>
+    <code [highlight]="tcpClient" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The TCP server is given next.
+</p>
+
+<pre>
+    <code [highlight]="tcpServer" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Low-level API regarding UDP</h5>
+
+<p>
+    UDP connections (DatagramSocket) are faster though they allow datagrams ('UDP packets') to drop and are normally used for VOIP or video streaming. The UDP client could be implemented as follows.
+</p>
+
+<pre>
+    <code [highlight]="udpClient" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Finally, the UDP server would look something like the following.
+</p>
+
+<pre>
+    <code [highlight]="udpServer" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
