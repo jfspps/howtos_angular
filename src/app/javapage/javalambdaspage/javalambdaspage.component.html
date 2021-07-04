@@ -1,7 +1,7 @@
 <h5>Java 8 lambda functions</h5>
 
 <p>
-    Lambda functions provide a more concise and arguably clearer execution of anonymous class methods. Lambda functions are composed of three main parts, the argument list, the arrow token and the body, as
+    Lambda functions (also known as <i>closures</i>) provide a more concise and arguably clearer execution of essentially unnamed, anonymous (class) methods. Lambda functions are composed of three main parts, the argument list, the arrow token and the body, as
 </p>
 
 <p><span class="commands">new newObject((argumentList) -&gt; functionBody())</span></p>
@@ -17,8 +17,8 @@
 <p>
     The curly braces are required for multiple statements. The compiler matches the argument list with a method defined
     by the object's interface (note here that the functionBody defines the method so a class is not relevant here).
-    Since interfaces can list overloaded functions, it is necessary to restrict interfaces to have only one method which needs defining.
-    Hence, lambda functions only work with functional interfaces.
+    Since interfaces can list overloaded functions, it is necessary to restrict interfaces to have only one abstract method which needs defining.
+    Such interfaces are known as functional interfaces and consequently lambda functions only apply to functional interfaces.
 </p>
 
 <p>
@@ -35,6 +35,24 @@
 
 <pre>
     <code [highlight]="lambdaFunc" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<h5>Functional interfaces and the <span class="commands">default</span> keyword</h5>
+
+<p>
+    Post Java 8, interfaces can also define default interface methods (with implementation) with the <span class="commands">default</span> keyword. This is in addition to <span class="commands">private</span> and <span class="commands">static</span> interface methods which can also be implemented. All other methods declared in the interface (among default, private and static methods) are assumed <i>abstract</i> methods or are implicitly abstract. A functional interface is an interface with only one abstract method. Lambda functions are defined in the context of the functional interface that they refer to and then executed elsewhere.
+</p> 
+
+<pre>
+    <code [highlight]="functionalInterfaceImpl" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The type given in the functional interface could be made generic and then defined later.
+</p>
+
+<pre>
+    <code [highlight]="genericFunctionalInterfaceImpl" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
 
 <h5>Return values</h5>
@@ -110,7 +128,7 @@
 <h5>The Predicate interface</h5>
 
 <p>
-    One can use the Predicate interface (representing a predicate, a boolean-valued function) to determine which elements from a foreach iteration are processed.
+    One can use the Predicate interface (representing a predicate, a boolean-valued function) to determine which elements from a foreach iteration are processed. The test is performed by Predicate's <span class="commands">test()</span> method.
 </p>
 
 <pre>
@@ -118,7 +136,7 @@
 </pre>
 
 <p>
-    Following the definition, one can print according to testValue.
+    Passing the definition as the third parameter, one can then print according to testValue.
 </p>
 
 <pre>
@@ -186,7 +204,7 @@
 </pre>
 
 <p>
-    Another way of building streams without using a Collection and linking them with Function interfaces is given below.
+    The above example passes a lambda function as a parameter (to <span class="commands">filter()</span>) and represents one of the more useful applications of lambda functions. Another way of building streams without using a Collection and linking them with Function interfaces is given below.
 </p>
 
 <pre>
@@ -194,13 +212,21 @@
 </pre>
 
 <p>
-    Some operations are intermediate, which take in and then return elements to/from the stream. Terminal operations do not return processed elements and are always found once at the end of the stream statement.
+    Some operations are intermediate, which take in and then return elements to/from the stream. Terminal operations, such as <span class="commands">count()</span>, do not return processed elements and are always found once at the end of the stream statement.
 </p>
+
+<p>
+    Finally, streams can be initiated with stream(), passing the Collection as a parameter.
+</p>
+
+<pre>
+    <code [highlight]="evenMoreStreams" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
 
 <h5>FlatMaps - Lists of Lists</h5>
 
 <p>
-    Streams can be composed of lists as elements, each of which can be streamed again. The snippet below effectively prints all employees from all departments.
+    Streams can be composed of lists as elements (that is, a stream outputs a list of lists), each of which can be streamed again. The snippet below effectively prints all employees from all departments.
 </p>
 
 <pre>
@@ -223,7 +249,6 @@
     It is also possible to print elements from a stream according to certain criteria with lambdas:
 </p>
 
-
 <pre>
     <code [highlight]="reduceStream" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
@@ -231,3 +256,31 @@
 <p>
     Reduce() is a BiFunction and returns the youngest employee. Reduce() is the terminal operation and returns an Optional, hence the need to 'unwrap' the Optional with ifPresent().
 </p>
+
+<h5>Method referencing</h5>
+
+<p>
+    Tied closely to streams, methods can be referred to either through static methods of a given class, non-static methods through an instance or via a constructor.
+</p>
+
+<ul>
+    <li>Static methods: <span class="commands">ClassName::staticMethodName</span></li>
+    <li>Non-static methods via instances: <span class="commands">instanceName::instanceMethodName</span></li>
+    <li>Constructor references: <span class="commands">ClassName::new</span></li>
+</ul>
+
+<p>
+    The following snippet shows how Role data transfer objects (DTOs) are built by calling the instance roleMapper's RoleToRoleDTO() method.
+</p>
+
+<pre>
+    <code [highlight]="instanceMethodRef" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The following snippet shows how a collection of any Object which extends GrantedAuthority are mapped to a new instance of SimpleGrantedAuthority.
+</p>
+
+<pre>
+    <code [highlight]="constructorReferences" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>

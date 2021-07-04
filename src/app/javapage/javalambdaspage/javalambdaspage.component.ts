@@ -17,6 +17,40 @@ export class JavalambdaspageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  functionalInterfaceImpl = `
+  interface FunctionalInt {
+    int someCalc();
+  }
+    
+  FunctionalInt anInt = () -> 10;
+  FunctionalInt aLargerInt = () -> 100_000;
+
+  // later in the execution
+
+  // tempInt is assigned the value 10
+  int tempInt = anInt.someCalc();
+
+  // tempInt is now assigned the value 100,000
+  tempInt = aLargerInt.someCalc();
+  `;
+
+  genericFunctionalInterfaceImpl = `
+  interface FunctionalInterface<T> {
+    T someMethod();
+  }
+    
+  FunctionalInterface<String> aReturn = () -> "10";
+  FunctionalInterface<Integer> anotherReturn = () -> 10;
+
+  // later in the execution
+
+  Integer tempInt = aReturn.someMethod();
+  String tempString = anotherReturn.someMethod();
+
+  // this would throw an error
+  Integer tempInt = anotherReturn.someMethod();
+  `;
+
   anonClass = `Collections.sort(objects, new Comparator<SomeClass>() {
     @Override
     public int compare(SomeClass object1, SomeClass object2) {
@@ -64,6 +98,7 @@ interface UpperConcat {
   }
 }
 
+// the functional interface
 interface Divider {
   public int theDivider(int num);
 }
@@ -107,6 +142,7 @@ class AClass {
   }
 }
 
+// the functional interface
 interface Divider {
   public int theDivider(int num);
 }
@@ -295,6 +331,10 @@ System.out.println(concatStream
         .peek(System.out::println)
         .count());`;
 
+  evenMoreStreams = `ArrayList<SomeClass> list = stream(someCollection)
+  .map(SomeClass::someStaticMethod)
+  .collect(Collectors.toList);`
+
 flatMap = `// departments is a List, which also contains a List of employees
 departments.stream()
 .flatMap(department -> department.getEmployees().stream())
@@ -312,6 +352,21 @@ reduceStream = `departments.stream()
 // e1 and e2 are employees, through a BiFunction, to return the youngest employee
 .reduce((e1, e2) -> e1.getAge() < e2.getAge() ? e1 : e2)
 .ifPresent(System.out::println);`;
+
+instanceMethodRef = `RoleMapper roleMapper = new RoleMapper();
+
+List<RoleDTO> roleDTOs = roleService
+  .findAll()
+  .stream()
+  .map(roleMapper::roleToRoleDTO)
+  .collect(Collectors.toList());`;
+
+constructorReferences = `@Override
+public Collection<? extends GrantedAuthority> getAuthorities() {
+    return stream(this.user.getAuthorities())
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+}`;
 
   onHighlight(e) {
     this.response = {
