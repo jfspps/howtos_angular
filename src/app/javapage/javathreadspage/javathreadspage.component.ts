@@ -73,11 +73,11 @@ export class JavathreadspageComponent implements OnInit {
 
   onHighlight(e) {
     this.response = {
-        language: e.language,
-        relevance: e.relevance,
-        second_best: '{...}',
-        top: '{...}',
-        value: '{...}'
+      language: e.language,
+      relevance: e.relevance,
+      second_best: '{...}',
+      top: '{...}',
+      value: '{...}'
     }
-}
+  }
 }

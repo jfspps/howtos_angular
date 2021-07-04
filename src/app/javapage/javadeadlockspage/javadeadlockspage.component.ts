@@ -14,7 +14,7 @@ export class JavadeadlockspageComponent implements OnInit {
 
   deadlock = `public class Main {
     
-    //locks are fundamental of all Java objects
+    // locks are fundamental of all Java objects
     public static Object lock1 = new Object();
     public static Object lock2 = new Object();
     
@@ -26,7 +26,7 @@ export class JavadeadlockspageComponent implements OnInit {
     private static class Thread1 extends Thread {
       
       public void run() {
-        //grab lock 1
+        // grab lock 1
         synchronized (lock1) {
           System.out.println("Thread 1 has lock 1");
           try {
@@ -36,7 +36,7 @@ export class JavadeadlockspageComponent implements OnInit {
           }
           System.out.println("Thread 1 waiting for lock 2");
           
-          //try to grab lock 2 (this is where the problems start)
+          // try to grab lock 2 (this is where the problems start)
           synchronized (lock2) {
             System.out.println("Thread 1 has lock 1 and lock 2");
           }
@@ -61,9 +61,9 @@ export class JavadeadlockspageComponent implements OnInit {
             }
             System.out.println("Thread 2 waiting for lock 1");
 
-            //try to grab lock 1 (this is where the problems start)
+            // try to grab lock 1 (this is where the problems start)
             synchronized (lock1) {
-              //written in the order the locks would have been obtained
+              // written in the order the locks would have been obtained
               System.out.println("Thread 2 has lock 2 and lock 1");
             }
             System.out.println("Thread 2 released lock 2");

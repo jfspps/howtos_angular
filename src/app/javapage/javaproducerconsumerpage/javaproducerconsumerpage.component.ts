@@ -29,20 +29,20 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     private String message;
     private boolean empty = true;
     
-    //different threads cannot execute read and write at 
-    //the same time on the same object (they can on different objects)
-    //as soon as one is called, the lock is handed to the calling method 
-    //and only allows the other thread execute if it finishes or when the thread runs 
-    //notify() or notifyAll()
+    // different threads cannot execute read and write at 
+    // the same time on the same object (they can on different objects);
+    // as soon as one is called, the lock is handed to the calling method 
+    // and only allows the other thread execute if it finishes or when the thread runs 
+    // notify() or notifyAll()
     
-    //*suppose that read() runs first, it is guaranteed to loop; it 
-    //allows write() in by calling wait().
-    //write() swaps the flag (it has joint access to empty), then goes 
-    //straight to assigning the first message
-    //fragment, then calls notifiyAll() to say to read() that it can resume; 
-    //by then empty is set to false and read proceeds after its loop
+    // *suppose that read() runs first, it is guaranteed to loop; it 
+    // allows write() in by calling wait();
+    // write() swaps the flag (it has joint access to empty), then goes 
+    // straight to assigning the first message
+    // fragment, then calls notifiyAll() to say to read() that it can resume; 
+    // by then empty is set to false and read proceeds after its loop
     
-    //*if write runs first then it skips the loop (empty was initially true)
+    // *if write runs first then it skips the loop (empty was initially true)
     // and writes a String fragment
 
     public synchronized String read() {
@@ -50,14 +50,13 @@ export class JavaproducerconsumerpageComponent implements OnInit {
         try {
           wait();
         } catch(InterruptedException e) {
-          
+          System.out.println(e);
         }
       }
+
       empty = true;
       notifyAll();
-      //notifyAll() wakes up all threads and is more general in use than notify()
-      //NotifyAll() is a performance hit if not all threads need to be informed; 
-      //in that case use notify())
+
       return message;
     }
     
@@ -66,7 +65,7 @@ export class JavaproducerconsumerpageComponent implements OnInit {
         try {
           wait();
         } catch(InterruptedException e) {
-          
+          System.out.println(e);
         }
       }
       empty = false;
@@ -75,8 +74,8 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     }
   }
   
-  //Writer writes Strings to a object (not console), with randomly 
-  //chosen time intervals (<= 2 sec) in between Strings
+  // Writer writes Strings to a object (not console), with randomly 
+  // chosen time intervals (<= 2 sec) in between Strings
 
   class Writer implements Runnable{
     private Message message;
@@ -105,7 +104,7 @@ export class JavaproducerconsumerpageComponent implements OnInit {
         }
       }
       
-      //this last command triggers Reader to also terminate 
+      // this last command triggers Reader to also terminate 
       message.write("Finished");
     }
   }
@@ -135,14 +134,14 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     public static final String EOF = "EOF";
   
     public static void main(String[] args) {
-      //consumer - reader
-      //producer - writer to a buffer
+      // consumer - reader
+      // producer - writer to a buffer
       List<String> buffer = new ArrayList<>();
       
-      //three threads accessing the same object, buffer
-      MyProducer producer = new MyProducer(buffer, ThreadColour.ANSI_YELLOW);
-      MyConsumer consumer1 = new MyConsumer(buffer, ThreadColour.ANSI_PURPLE);
-      MyConsumer consumer2 = new MyConsumer(buffer, ThreadColour.ANSI_CYAN);
+      // three threads accessing the same object, buffer
+      MyProducer producer = new MyProducer(buffer);
+      MyConsumer consumer1 = new MyConsumer(buffer);
+      MyConsumer consumer2 = new MyConsumer(buffer);
       
       new Thread(producer).start();
       new Thread(consumer1).start();
@@ -151,15 +150,13 @@ export class JavaproducerconsumerpageComponent implements OnInit {
   
   }
   
-  //writes to a list
+  // writes to a list
   class MyProducer implements Runnable{
     
     private List<String> buffer;
-    private String colour;
     
-    public MyProducer(List<String> buffer, String colour) {
+    public MyProducer(List<String> buffer) {
       this.buffer = buffer;
-      this.colour = colour;
     }
     
     public void run() {
@@ -169,10 +166,12 @@ export class JavaproducerconsumerpageComponent implements OnInit {
       for(String num: nums) {
         try {
           System.out.println(colour + "Adding..." + num);
-          //this prevents two or more threads from changing the ArrayList
+
+          // this prevents two or more threads from changing the ArrayList
           synchronized (buffer) {
             buffer.add(num);
           }
+
           Thread.sleep(random.nextInt(1000));
         } catch(InterruptedException e) {
           System.out.println("Producer was interrupted");
@@ -186,15 +185,13 @@ export class JavaproducerconsumerpageComponent implements OnInit {
     }
   }
   
-  //prints then removes from a list (opens possibility for thread interference)
+  // prints then removes from a list (opens possibility for thread interference)
   class MyConsumer implements Runnable{
     
     private List<String> buffer;
-    private String colour;
     
-    public MyConsumer(List<String> buffer, String colour) {
+    public MyConsumer(List<String> buffer) {
       this.buffer = buffer;
-      this.colour = colour;
     }
     
     public void run() {
@@ -202,14 +199,14 @@ export class JavaproducerconsumerpageComponent implements OnInit {
         synchronized (buffer) {
           if(buffer.isEmpty()) {
             continue;
-            //keeps looping until something is present
+            // keeps looping until something is present
           }
           if(buffer.get(0).equals(Main.EOF)) {
-            System.out.println(colour + "Exiting");
+            System.out.println("Exiting");
             break;
           } else {
-            //print out and remove a String from the list
-            System.out.println(colour + "Removed " + buffer.remove(0));
+            // print out and remove a String from the list
+            System.out.println("Removed " + buffer.remove(0));
           }
         }
       }
@@ -224,22 +221,22 @@ export class JavaproducerconsumerpageComponent implements OnInit {
 
       List<String> buffer = new ArrayList<>();
 
-      //bufferlock handles locks of objects and monitors 
-      //the number of locks and therefore unlock required
-      //when locks >> unlocks, or unlocks >> locks, then an exception is thrown
+      // bufferlock handles locks of objects and monitors 
+      // the number of locks and therefore unlock required
+      // when locks >> unlocks, or unlocks >> locks, then an exception is thrown
       ReentrantLock bufferlock = new ReentrantLock();
       
-      //create a Thread Pool with three threads (this is 
-      //not strictly necessary in this application with few
-      //threads but valuable for projects with large numbers 
-      //of threads which can be managed by the JVM). This
-      //needs shutting down at the end of the program
+      // create a Thread Pool with three threads (this is 
+      // not strictly necessary in this application with few
+      // threads but valuable for projects with large numbers 
+      // of threads which can be managed by the JVM). This
+      // needs shutting down at the end of the program
       ExecutorService executorService = Executors.newFixedThreadPool(3);
       
-      //three threads accessing the same object, buffer
-      MyProducer producer = new MyProducer(buffer, ThreadColour.ANSI_YELLOW, bufferlock);
-      MyConsumer consumer1 = new MyConsumer(buffer, ThreadColour.ANSI_PURPLE, bufferlock);
-      MyConsumer consumer2 = new MyConsumer(buffer, ThreadColour.ANSI_CYAN, bufferlock);
+      // three threads accessing the same object, buffer
+      MyProducer producer = new MyProducer(buffer, bufferlock);
+      MyConsumer consumer1 = new MyConsumer(buffer, bufferlock);
+      MyConsumer consumer2 = new MyConsumer(buffer, bufferlock);
       
       executorService.execute(producer);
       executorService.execute(consumer1);
@@ -255,13 +252,11 @@ export class JavaproducerconsumerpageComponent implements OnInit {
   class MyProducer implements Runnable{
     
     private List<String> buffer;
-    private String colour;
     private ReentrantLock bufferlock;
     
     public MyProducer(List<String> buffer,
-       String colour, ReentrantLock bufferlock) {
+      ReentrantLock bufferlock) {
       this.buffer = buffer;
-      this.colour = colour;
       this.bufferlock = bufferlock;
     }
     
@@ -271,10 +266,12 @@ export class JavaproducerconsumerpageComponent implements OnInit {
       
       for(String num: nums) {
         try {
-          System.out.println(colour + "Adding..." + num);
-          //alternative to synchronisation (make sure you unlock!!)
-          //the code waits here until the lock is released elsewhere
+          System.out.println("Adding..." + num);
+
+          // alternative to synchronisation (make sure you unlock!!)
+          // the code waits here until the lock is released elsewhere
           bufferlock.lock();
+
           try {
             buffer.add(num);
           } finally {
@@ -287,8 +284,9 @@ export class JavaproducerconsumerpageComponent implements OnInit {
         }
       }
       
-      System.out.println(colour + "Adding EOF and exiting...");
+      System.out.println("Adding EOF and exiting...");
       bufferlock.lock();
+
       try {
         buffer.add(Main.EOF);
       } finally {
@@ -300,28 +298,27 @@ export class JavaproducerconsumerpageComponent implements OnInit {
   class MyConsumer implements Runnable{
     
     private List<String> buffer;
-    private String colour;
     private ReentrantLock bufferlock;
     
     public MyConsumer(List<String> buffer,
-       String colour, ReentrantLock bufferlock) {
+      ReentrantLock bufferlock) {
       this.buffer = buffer;
-      this.colour = colour;
       this.bufferlock = bufferlock;
     }
     
     public void run() {
       while(true) {
         bufferlock.lock();
+
         try {
           if(buffer.isEmpty()) {
             continue;
           }
           if(buffer.get(0).equals(Main.EOF)) {
-            System.out.println(colour + "Exiting");
+            System.out.println("Exiting");
             break;
           } else {
-            System.out.println(colour + "Removed " + buffer.remove(0));
+            System.out.println("Removed " + buffer.remove(0));
           }
         } finally {
           bufferlock.unlock();

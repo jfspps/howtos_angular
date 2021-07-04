@@ -4,14 +4,34 @@
     Instance variables are stored on the heap. If only one instance is created and shared between threads, each thread of the same type is effectively in control of the same instance and its variables. This project shows how both threads change one instance's data. This is referred to as 'race conditions' or 'thread interference'.
 </p>
 
+<pre>
+    <code [highlight]="interference" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
 <p>
     The GitHub repo with thread interference is <a href="https://github.com/jfspps/JavaThreadsShareDemo" target="_blank">here</a>.
 </p>
 
+<h5>Synchronisation blocks</h5>
+
 <p>
-    To avoid this behaviour, one can build a synchronization block (it is also possible to declare an entire function as 'synchronized'). This should be done minimally to prevent blocking threads unnecessarily. This block ensures that the current thread is not interrupted under normal conditions.
+    To avoid thread interference, one can build a synchronisation block. It is also possible to declare an entire function with the <span class="commands">synchronized</span> keyword. This should be done minimally to prevent blocking threads unnecessarily. This block ensures that the current thread is not interrupted under normal conditions.
 </p>
 
 <p>
-    The GitHub repo to synchronisation is <a href="https://github.com/jfspps/JavaThreadsSyncDemo" target="_blank">here</a>.
+    The methods which control the state of a thread on a given object are <span class="commands">wait()</span>, <span class="commands">notify()</span> and <span class="commands">notifyAll()</span>.
+</p>
+
+<ul>
+    <li><span class="commands">wait(timeout)</span>: forces the current thread to wait until some other thread invokes notify() or notifyAll() on the same object</li>
+    <li><span class="commands">notify()</span>: wakes up a single random thread operating on the same object; since the next thread choice is arbitrary, this tends to be used if there are only two threads in tandem</li>
+    <li><span class="commands">notifyAll()</span>: wakes all threads that are waiting to operate on the same object; more general but more 'wasteful' compared to notify()</li>
+</ul>
+
+<pre>
+    <code [highlight]="synchronisation" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The GitHub repo to synchronisation is <a href="https://github.com/jfspps/JavaThreadsSyncDemo" target="_blank">here</a>. More about synchronisation is outlined in the <a routerLink="/java/javaThreadSafe">next section</a>.
 </p>
