@@ -39,7 +39,7 @@ byte[] getFile(String urlPath) throws IOException {
         outputStream.write(chunk, 0, bytesRead);
       }
   }
-  return stream.toByteArray();
+  return outputStream.toByteArray();
 }`
 
   onHighlight(e) {
