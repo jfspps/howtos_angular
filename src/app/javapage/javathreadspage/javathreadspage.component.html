@@ -1,11 +1,31 @@
 <h5>Threads in Java</h5>
 
 <p>
-    This project highlights the implementation of separate threads in Java, by either extending a required class from the Thread class or implementing the Runnable interface.
+    This project highlights the implementation of separate threads in Java, by either implementing the Runnable interface (generally more convenient)...
 </p>
 
+<pre>
+    <code [highlight]="runnable" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
 <p>
-    Also included are <span class="commands">threadX.interrupt()</span> to interrupt the given threadX and <span class="commands">threadY.join()</span>, which enables a one to run right after (and on) the same thread, threadY, after threadY has finished its execution. The <span class="commands">join()</span> method is useful when threadY needs to finish something (e.g. completing database transactions). The code which runs after the <span class="commands">join()</span> method is executed when threadY has finished.
+    .. or by extending a required class from the Thread class.
+</p>
+
+<pre>
+    <code [highlight]="thread" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    The main() method then starts its own thread and manages all others.
+</p>
+
+<pre>
+    <code [highlight]="main" (highlighted)="onHighlight($event)" [languages]="lang"></code>
+</pre>
+
+<p>
+    Two methods of note are <span class="commands">threadX.interrupt()</span> to interrupt the given threadX and <span class="commands">threadY.join()</span>, which enables a one to run right after (and on) the same thread, threadY, after threadY has finished its execution. The <span class="commands">join()</span> method is useful when threadY needs to finish something (e.g. completing database transactions). The code which runs after the <span class="commands">join()</span> method is executed when threadY has finished.
 </p>
 
 <p>
@@ -13,5 +33,5 @@
 </p>
 
 <p>
-    The GitHub repo is <a href="https://github.com/jfspps/JavaThreadsDemo" target="_blank">here</a>.
+    The GitHub repo for the above example is <a href="https://github.com/jfspps/JavaThreadsDemo" target="_blank">here</a>.
 </p>

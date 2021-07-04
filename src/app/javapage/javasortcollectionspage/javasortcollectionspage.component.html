@@ -9,7 +9,7 @@
 </p>
 
 <p>
-    The Vector class can be viewed as a synchronised (prevents other threads from changing the state of the List when it resides in the heap) implementation of ArrayList and has many of the same methods, including <span class="commands">add()</span>, <span class="commands">foreach()</span>, <span class="commands">get()</span> and <span class="commands">remove()</span>. It was introduced in Java 1.2 and is seldom used in modern applications. Some authors demonstrate how the Vector instance is not completely thread-safe despite being synchronised. Whenever thread safety is not a concern, use ArrayList instead.
+    The Vector class can be viewed as a synchronised (prevents other threads from changing the state of the List when it resides in the heap) implementation of ArrayList and has many of the same methods, including <span class="commands">addElement()</span>, <span class="commands">indexOf()</span>, <span class="commands">firstElement()</span> and <span class="commands">removeElement()</span>. It was introduced in Java 1.2 and is seldom used in modern applications. Some authors demonstrate how the Vector instance is not completely thread-safe despite being synchronised. Whenever thread safety is not a concern, use ArrayList instead.
 </p>
 
 <h5>Foreach, Iterator and ListIterator</h5>
@@ -21,7 +21,6 @@
 <pre>
     <code [highlight]="iterators" (highlighted)="onHighlight($event)" [languages]="lang"></code>
 </pre>
-
 
 <h5>Comparable and Comparator interfaces</h5>
 
